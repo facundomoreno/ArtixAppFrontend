@@ -79,7 +79,8 @@ export default class LogScreen extends React.Component {
                     justifyContent: "center",
                     alignItems: "center"
                   }}
-                  onPress={() => this.Loguearse()}
+                  //onPress={() => this.Loguearse()}
+                  onPress={() => this.props.navigation.navigate("Home")}
                 >
                   <ContinueText>Iniciar sesión</ContinueText>
                 </TouchableOpacity>

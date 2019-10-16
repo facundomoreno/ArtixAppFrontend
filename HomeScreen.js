@@ -9,9 +9,17 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Permissions
+} from "react-native-maps";
 import styled from "styled-components";
 import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
+//import AppNavigator from "./nav/appnav";
+import CardShops from "./components/CardShops";
+import { Countdown } from "react-native-countdown-text";
 
 export default class HomeScreen extends React.Component {
   render() {
@@ -32,16 +40,98 @@ export default class HomeScreen extends React.Component {
           />
         </SearchCont>
         <MenuView>
-          <MapView>
+          <MapaView>
+            <MapView
+              style={styles.container}
+              region={{
+                latitude: -34.578616,
+                longitude: -58.4314743,
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.02
+              }}
+              showsCompass={false}
+              rotateEnabled={false}
+              pitchEnabled={false}
+              provider={PROVIDER_GOOGLE}
+            >
+              <MapView.Marker
+                coordinate={{
+                  latitude: -34.5738218,
+                  longitude: -58.4419544
+                }}
+                title={"Lulyna Showroom"}
+                description={"Casa de ropa de mujer"}
+              />
+              <MapView.Marker
+                coordinate={{
+                  latitude: -34.5847971,
+                  longitude: -58.4167837
+                }}
+                title={"Eugenia Eventos"}
+                description={"Organizacion de Eventos"}
+              />
+            </MapView>
             <MapTitle>
               <MapText>Mapa de comercios</MapText>
             </MapTitle>
-          </MapView>
+          </MapaView>
+          <HourView>
+            <TimerText>¡Aprovecha! Nuevo ciclo de precios en:</TimerText>
+            {/*<Timer>12:20:45</Timer>}*/}
+            <Countdown
+              finishTime={25}
+              format="{h}:{m}:{s}"
+              textStyle={{
+                color: "#ff4d4d",
+                fontSize: 24,
+                fontWeight: "600"
+              }}
+            />
+          </HourView>
+          <ShopsView>
+            <ShopsTitle>
+              <ShopsText>Lo último en donde estuviste</ShopsText>
+            </ShopsTitle>
+            <ScrollView
+              style={{ marginEnd: 1 }}
+              showsVerticalScrollIndicator={true}
+            >
+              <CardShops
+                shopName="Lulyna Showroom"
+                shopLocation="Ciudad de la Paz 353"
+                shopDistance="250 metros"
+                shopScore={require("./assets/score4.png")}
+                shopImage={require("./assets/shops/lulyna.jpg")}
+              />
+              <CardShops
+                shopName="Eugenia Eventos"
+                shopLocation="Av. Santa Fe 3770"
+                shopDistance="2 km"
+                shopScore={require("./assets/score4.png")}
+                shopImage={require("./assets/shops/eugeniaeventos.jpg")}
+              />
+              <CardShops
+                shopName="Lulyna Showroom"
+                shopLocation="Ciudad de la Paz 353"
+                shopDistance="250 metros"
+                shopScore={require("./assets/score4.png")}
+                shopImage={require("./assets/shops/lulyna.jpg")}
+              />
+            </ScrollView>
+          </ShopsView>
         </MenuView>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    flex: 1
+  }
+});
 
 const Search = styled.TextInput`
   height: 50px;
@@ -70,9 +160,32 @@ const SearchCont = styled.View`
   top: 5%;
 `;
 
-const MapView = styled.View`
+const MapaView = styled.View`
   width: 90%;
-  height: 70%;
+  height: 40%;
+  background-color: white;
+  align-items: center;
+  border-bottom-left-radius: 5;
+  border-bottom-right-radius: 5;
+  border: 1px solid #e5eced;
+`;
+
+const HourView = styled.View`
+  top: 2%;
+  width: 90%;
+  height: 10%;
+  background-color: white;
+  border-radius: 5;
+  border: 1px solid #e5eced;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ShopsView = styled.View`
+  top: 4%;
+  flex: 1;
+  width: 90%;
+  height: 27%;
   background-color: white;
   border-radius: 5;
   border: 1px solid #e5eced;
@@ -86,18 +199,49 @@ const MenuView = styled.View`
 `;
 
 const MapTitle = styled.View`
-  height: 10%;
+  height: 50px;
   background: white;
   width: 100%;
   justify-content: center;
   align-items: center;
-  border-top-left-radius: 5;
-  border-top-right-radius: 5;
+  border-bottom-left-radius: 5;
+  border-bottom-right-radius: 5;
 `;
 
 const MapText = styled.Text`
   text-align: center;
   color: #ff4d4d;
   font-weight: bold;
+  font-size: 20px;
+`;
+
+const TimerText = styled.Text`
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  font-size: 15px;
+`;
+
+const Timer = styled.Text`
+  text-align: center;
+  color: #ff4d4d;
+  font-weight: bold;
   font-size: 24px;
+`;
+
+const ShopsText = styled.Text`
+  text-align: center;
+  color: #ff4d4d;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const ShopsTitle = styled.View`
+  height: 50px;
+  background: white;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 5;
+  border-top-right-radius: 5;
 `;

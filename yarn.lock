@@ -4398,6 +4398,11 @@ react-native-branch@~3.0.1:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
   integrity sha512-vbcYxPZlpF5f39GAEUF8kuGQqCNeD3E6zEdvtOq8oCGZunHXlWlKgAS6dgBKCvsHvXgHuMtpvs39VgOp8DaKig==
 
+react-native-countdown-text@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-countdown-text/-/react-native-countdown-text-1.0.3.tgz#b8c4f8b05061aea93d27db1efc4851eef69261e6"
+  integrity sha512-sNSVPkNdFpIZfwdy3WKbBPxNDNs8G4/sXmxnCTCh93IlxPTRB8AtRAjFgXUPa9gnuPSCWJXeli2Xz86CL68DWw==
+
 react-native-elements@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.5.tgz#f806af1d6c8df56f84ef4e2c8db4c84207ede25a"

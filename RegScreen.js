@@ -95,7 +95,8 @@ export default class RegScreen extends React.Component {
                     justifyContent: "center",
                     alignItems: "center"
                   }}
-                  onPress={() => this.Registrarse()}
+                  //onPress={() => this.Registrarse()}
+                  onPress={() => this.props.navigation.navigate("Home")}
                 >
                   <ContinueText>Continuar</ContinueText>
                 </TouchableOpacity>
