@@ -1,1 +1,2 @@
-Proyect = Quaternium.Artix
+# **Project Artix**
+ProjectCode = "*Quaternium*.***Artix***"
