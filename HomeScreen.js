@@ -12,7 +12,8 @@ import {
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
-  Permissions
+  Permissions,
+  Location
 } from "react-native-maps";
 import styled from "styled-components";
 import { SearchBar } from "react-native-elements";
@@ -20,8 +21,34 @@ import Icon from "react-native-vector-icons/Ionicons";
 //import AppNavigator from "./nav/appnav";
 import CardShops from "./components/CardShops";
 import { Countdown } from "react-native-countdown-text";
+import { getDistance, convertDistance } from 'geolib';
 
 export default class HomeScreen extends React.Component {
+
+constructor(props){
+  super(props);
+  this.state = {
+    latitude: 0,
+    longitude: 0,
+    error: null
+  }
+}
+
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        error: null
+      }); 
+    },
+    error => this.setState({ error: error.message }),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
+    )
+  }
+
   render() {
     return (
       <Container>
@@ -44,11 +71,12 @@ export default class HomeScreen extends React.Component {
             <MapView
               style={styles.container}
               region={{
-                latitude: -34.578616,
-                longitude: -58.4314743,
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
                 latitudeDelta: 0.02,
                 longitudeDelta: 0.02
               }}
+              showsUserLocation={true}
               showsCompass={false}
               rotateEnabled={false}
               pitchEnabled={false}
@@ -99,21 +127,30 @@ export default class HomeScreen extends React.Component {
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance="250 metros"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: -34.5738218, longitude: -58.4419544 }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
               <CardShops
                 shopName="Eugenia Eventos"
                 shopLocation="Av. Santa Fe 3770"
-                shopDistance="2 km"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: -34.5847971, longitude: -58.4167837 }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/eugeniaeventos.jpg")}
               />
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance="250 metros"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: -34.5738218, longitude: -58.4419544 }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
