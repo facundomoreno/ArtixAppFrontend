@@ -21,49 +21,45 @@ import Icon from "react-native-vector-icons/Ionicons";
 //import AppNavigator from "./nav/appnav";
 import CardShops from "./components/CardShops";
 import SearchBox from "./components/Search";
-import CountDown from 'react-native-countdown-component';
-import { getDistance, convertDistance } from 'geolib';
+import CountDown from "react-native-countdown-component";
+import { getDistance, convertDistance } from "geolib";
 
 export default class HomeScreen extends React.Component {
-
-constructor(props){
-  super(props);
-  this.state = {
-    latitude: 0,
-    longitude: 0,
-    error: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+      error: null
+    };
+    lulyna = {
+      latitude: -34.5738218,
+      longitude: -58.4419544
+    };
+    eugenia = {
+      latitude: -34.5847971,
+      longitude: -58.4167837
+    };
   }
-  lulyna = {
-    latitude: -34.5738218,
-    longitude: -58.4419544
-  }
-  eugenia = {
-    latitude: -34.5847971,
-    longitude: -58.4167837
-  }
-}
-
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
-      this.setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        error: null
-      }); 
-    },
-    error => this.setState({ error: error.message }),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
-    )
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+      },
+      error => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
+    );
   }
 
   render() {
     return (
       <Container>
-        <SearchBox 
-        searchPlaceholder="Buscar en Solo por Hoy"
-        />
+        <SearchBox searchPlaceholder="Buscar en Solo por Hoy" />
         <MenuView>
           <MapaView>
             <MapView
@@ -97,10 +93,12 @@ constructor(props){
                 description={"Organizacion de Eventos"}
               />
             </MapView>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Maps")}>
-            <MapTitle>
-              <MapText>Mapa de comercios</MapText>
-            </MapTitle>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Maps")}
+            >
+              <MapTitle>
+                <MapText>Mapa de comercios</MapText>
+              </MapTitle>
             </TouchableOpacity>
           </MapaView>
           <HourView>
@@ -109,15 +107,15 @@ constructor(props){
             <CountDown
               size={20}
               until={1000}
-              onFinish={() => alert('Finished')}
-              digitStyle={{backgroundColor: 'transpaent'}}
-              digitTxtStyle={{color: '#ff4d4d'}}
-              timeLabelStyle={{color: 'red', fontWeight: 600}}
-              separatorStyle={{color: '#ff4d4d'}}
-              timeToShow={['H', 'M', 'S']}
-              timeLabels={{m: null, s: null}}
+              onFinish={() => alert("Finished")}
+              digitStyle={{ backgroundColor: "transpaent" }}
+              digitTxtStyle={{ color: "#ff4d4d" }}
+              timeLabelStyle={{ color: "red", fontWeight: 600 }}
+              separatorStyle={{ color: "#ff4d4d" }}
+              timeToShow={["H", "M", "S"]}
+              timeLabels={{ m: null, s: null }}
               showSeparator={true}
-              style={{position: "absolute", top: 10}}
+              style={{ position: "absolute", top: 10 }}
             />
           </HourView>
           <ShopsView>
@@ -131,30 +129,75 @@ constructor(props){
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance={Math.round(convertDistance(getDistance(
-                  { latitude: this.state.latitude, longitude: this.state.longitude },
-                  { latitude: lulyna.latitude, longitude: lulyna.longitude }
-              ), "km")* 10) / 10 + " km"}
+                shopDistance={
+                  Math.round(
+                    convertDistance(
+                      getDistance(
+                        {
+                          latitude: this.state.latitude,
+                          longitude: this.state.longitude
+                        },
+                        {
+                          latitude: lulyna.latitude,
+                          longitude: lulyna.longitude
+                        }
+                      ),
+                      "km"
+                    ) * 10
+                  ) /
+                    10 +
+                  " km"
+                }
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
               <CardShops
                 shopName="Eugenia Eventos"
                 shopLocation="Av. Santa Fe 3770"
-                shopDistance={Math.round(convertDistance(getDistance(
-                  { latitude: this.state.latitude, longitude: this.state.longitude },
-                  { latitude: eugenia.latitude, longitude: eugenia.longitude }
-              ), "km")* 10) / 10 + " km"}
+                shopDistance={
+                  Math.round(
+                    convertDistance(
+                      getDistance(
+                        {
+                          latitude: this.state.latitude,
+                          longitude: this.state.longitude
+                        },
+                        {
+                          latitude: eugenia.latitude,
+                          longitude: eugenia.longitude
+                        }
+                      ),
+                      "km"
+                    ) * 10
+                  ) /
+                    10 +
+                  " km"
+                }
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/eugeniaeventos.jpg")}
               />
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance={Math.round(convertDistance(getDistance(
-                  { latitude: this.state.latitude, longitude: this.state.longitude },
-                  { latitude: lulyna.latitude, longitude: lulyna.longitude }
-              ), "km")* 10) / 10 + " km"}
+                shopDistance={
+                  Math.round(
+                    convertDistance(
+                      getDistance(
+                        {
+                          latitude: this.state.latitude,
+                          longitude: this.state.longitude
+                        },
+                        {
+                          latitude: lulyna.latitude,
+                          longitude: lulyna.longitude
+                        }
+                      ),
+                      "km"
+                    ) * 10
+                  ) /
+                    10 +
+                  " km"
+                }
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
