@@ -14,6 +14,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "../HomeScreen";
 import LogScreen from "../LogScreen";
 import RegScreen from "../RegScreen";
+import MapScreen from "../MapScreen";
 import Start from "../Start";
 
 const AppNavigator = createStackNavigator(
@@ -21,7 +22,8 @@ const AppNavigator = createStackNavigator(
     Start: Start,
     Home: HomeScreen,
     Register: RegScreen,
-    Login: LogScreen
+    Login: LogScreen,
+    Maps: MapScreen
   },
 
   {

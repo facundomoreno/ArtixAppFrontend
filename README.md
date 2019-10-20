@@ -1,1 +1,2 @@
-ArtixAppFrontend
+# **Project Artix**
+ProjectCode = "*Quaternium*.***Artix***"

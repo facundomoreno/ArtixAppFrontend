@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import styled from "styled-components";
 import { createAppContainer } from "react-navigation";
@@ -16,24 +17,52 @@ import { createStackNavigator } from "react-navigation-stack";
 export default class LogScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.login = this.login.bind(this);
     this.state = {
       password: "",
       mail: ""
     };
   }
 
-  async Loguearse() {
-    fetch("http://10.10.32.50:3000/Register", {
-      method: "POST",
+  componentDidMount() {
+    this._loadInitialState().done();
+  }
+
+  _loadInitialState = async () => {
+
+    var value = await AsyncStorage.getItem('user')
+    if (value !== null) {
+      this.props.navigation.navigate('Home');
+    }
+  }
+
+  login = () => {
+
+    fetch('http://192.168.137.1:3000/Login',{
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         password: this.state.password,
         mail: this.state.mail
       })
-    });
+    })
+    
+    .then((response) => response.json())
+    .then ((res) => {
+  
+        if (res.success === true){
+          AsyncStorage.setItem('user', res.mail);
+          this.props.navigation.navigate('Home');
+        }
+  
+        else{
+            alert(res.message);
+        }
+    })
+    .done();
   }
 
   render() {
@@ -79,8 +108,8 @@ export default class LogScreen extends React.Component {
                     justifyContent: "center",
                     alignItems: "center"
                   }}
-                  //onPress={() => this.Loguearse()}
-                  onPress={() => this.props.navigation.navigate("Home")}
+                  onPress={() => this.login()}
+                  //onPress={() => this.props.navigation.navigate("Home")}
                 >
                   <ContinueText>Iniciar sesión</ContinueText>
                 </TouchableOpacity>
@@ -182,3 +211,5 @@ const SignUpView = styled.View`
   flex-direction: row;
   top: 20%;
 `;
+
+

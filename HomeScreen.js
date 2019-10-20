@@ -12,43 +12,69 @@ import {
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
-  Permissions
+  Permissions,
+  Location
 } from "react-native-maps";
 import styled from "styled-components";
 import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
 //import AppNavigator from "./nav/appnav";
 import CardShops from "./components/CardShops";
-import { Countdown } from "react-native-countdown-text";
+import SearchBox from "./components/Search";
+import CountDown from 'react-native-countdown-component';
+import { getDistance, convertDistance } from 'geolib';
 
 export default class HomeScreen extends React.Component {
+
+constructor(props){
+  super(props);
+  this.state = {
+    latitude: 0,
+    longitude: 0,
+    error: null
+  }
+  lulyna = {
+    latitude: -34.5738218,
+    longitude: -58.4419544
+  }
+  eugenia = {
+    latitude: -34.5847971,
+    longitude: -58.4167837
+  }
+}
+
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        error: null
+      }); 
+    },
+    error => this.setState({ error: error.message }),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
+    )
+  }
+
   render() {
     return (
       <Container>
-        <SearchCont>
-          <Search
-            placeholder="Buscar en Solo por Hoy"
-            placeholderTextColor="grey"
-            selectionColor="#ff4d4d"
-            returnKeyType="go"
-            autoCapitalize="none"
-          ></Search>
-          <Icon
-            name="ios-search"
-            size={20}
-            style={{ color: "grey", top: -35, right: 135 }}
-          />
-        </SearchCont>
+        <SearchBox 
+        searchPlaceholder="Buscar en Solo por Hoy"
+        />
         <MenuView>
           <MapaView>
             <MapView
               style={styles.container}
               region={{
-                latitude: -34.578616,
-                longitude: -58.4314743,
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
                 latitudeDelta: 0.02,
                 longitudeDelta: 0.02
               }}
+              showsUserLocation={true}
               showsCompass={false}
               rotateEnabled={false}
               pitchEnabled={false}
@@ -56,36 +82,42 @@ export default class HomeScreen extends React.Component {
             >
               <MapView.Marker
                 coordinate={{
-                  latitude: -34.5738218,
-                  longitude: -58.4419544
+                  latitude: lulyna.latitude,
+                  longitude: lulyna.longitude
                 }}
                 title={"Lulyna Showroom"}
                 description={"Casa de ropa de mujer"}
               />
               <MapView.Marker
                 coordinate={{
-                  latitude: -34.5847971,
-                  longitude: -58.4167837
+                  latitude: eugenia.latitude,
+                  longitude: eugenia.longitude
                 }}
                 title={"Eugenia Eventos"}
                 description={"Organizacion de Eventos"}
               />
             </MapView>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Maps")}>
             <MapTitle>
               <MapText>Mapa de comercios</MapText>
             </MapTitle>
+            </TouchableOpacity>
           </MapaView>
           <HourView>
             <TimerText>¡Aprovecha! Nuevo ciclo de precios en:</TimerText>
             {/*<Timer>12:20:45</Timer>}*/}
-            <Countdown
-              finishTime={25}
-              format="{h}:{m}:{s}"
-              textStyle={{
-                color: "#ff4d4d",
-                fontSize: 24,
-                fontWeight: "600"
-              }}
+            <CountDown
+              size={20}
+              until={1000}
+              onFinish={() => alert('Finished')}
+              digitStyle={{backgroundColor: 'transpaent'}}
+              digitTxtStyle={{color: '#ff4d4d'}}
+              timeLabelStyle={{color: 'red', fontWeight: 600}}
+              separatorStyle={{color: '#ff4d4d'}}
+              timeToShow={['H', 'M', 'S']}
+              timeLabels={{m: null, s: null}}
+              showSeparator={true}
+              style={{position: "absolute", top: 10}}
             />
           </HourView>
           <ShopsView>
@@ -99,21 +131,30 @@ export default class HomeScreen extends React.Component {
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance="250 metros"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: lulyna.latitude, longitude: lulyna.longitude }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
               <CardShops
                 shopName="Eugenia Eventos"
                 shopLocation="Av. Santa Fe 3770"
-                shopDistance="2 km"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: eugenia.latitude, longitude: eugenia.longitude }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/eugeniaeventos.jpg")}
               />
               <CardShops
                 shopName="Lulyna Showroom"
                 shopLocation="Ciudad de la Paz 353"
-                shopDistance="250 metros"
+                shopDistance={Math.round(convertDistance(getDistance(
+                  { latitude: this.state.latitude, longitude: this.state.longitude },
+                  { latitude: lulyna.latitude, longitude: lulyna.longitude }
+              ), "km")* 10) / 10 + " km"}
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
@@ -133,31 +174,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const Search = styled.TextInput`
-  height: 50px;
-  flex-direction: column;
-  background: white;
-  width: 90%;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-  color: #353536;
-  font-size: 16px;
-  padding-left: 50;
-`;
-
 const Container = styled.View`
   flex: 1;
   background-color: #fafafa;
   width: 100%;
   align-items: center;
-`;
-
-const SearchCont = styled.View`
-  width: 100%;
-  height: 50px;
-  align-items: center;
-  top: 5%;
 `;
 
 const MapaView = styled.View`
@@ -220,6 +241,7 @@ const TimerText = styled.Text`
   color: #000000;
   font-weight: bold;
   font-size: 15px;
+  top: -25%;
 `;
 
 const Timer = styled.Text`
