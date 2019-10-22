@@ -24,7 +24,7 @@ export default class RegScreen extends React.Component {
   }
 
   async Registrarse() {
-    fetch("http://10.10.32.51:3000/Register", {
+    fetch("http://192.168.0.83:3000/Register", {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -95,8 +95,8 @@ export default class RegScreen extends React.Component {
                     justifyContent: "center",
                     alignItems: "center"
                   }}
-                  //onPress={() => this.Registrarse()}
-                  onPress={() => this.props.navigation.navigate("Home")}
+                  onPress={() => this.Registrarse()}
+                  //onPress={() => this.props.navigation.navigate("Home")}
                 >
                   <ContinueText>Continuar</ContinueText>
                 </TouchableOpacity>

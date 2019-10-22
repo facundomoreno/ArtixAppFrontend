@@ -38,7 +38,7 @@ export default class LogScreen extends React.Component {
 
   login = () => {
 
-    fetch('http://192.168.137.1:3000/Login',{
+    fetch('http://192.168.0.83:3000/Login',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
