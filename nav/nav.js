@@ -16,9 +16,11 @@ import LogScreen from "../LogScreen";
 import RegScreen from "../RegScreen";
 import MapScreen from "../MapScreen";
 import Start from "../Start";
+import VentaScreen from "../VentaScreen";
 
 const AppNavigator = createStackNavigator(
   {
+    Venta: VentaScreen,
     Start: Start,
     Home: HomeScreen,
     Register: RegScreen,

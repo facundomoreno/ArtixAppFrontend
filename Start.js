@@ -15,7 +15,11 @@ export default class Start extends React.Component {
   render() {
     return (
       <Container>
-        <Logo source={require("./assets/sxhb.png")}></Logo>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("Home")}
+        >
+          <Logo source={require("./assets/sxhb.png")}></Logo>
+        </TouchableOpacity>
         <Buttons>
           <Register>
             <TouchableOpacity

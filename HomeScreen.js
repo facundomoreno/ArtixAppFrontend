@@ -16,7 +16,6 @@ import MapView, {
   Location
 } from "react-native-maps";
 import styled from "styled-components";
-import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
 //import AppNavigator from "./nav/appnav";
 import CardShops from "./components/CardShops";
