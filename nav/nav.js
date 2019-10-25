@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from "react-native";
-import { createAppContainer, TabNavigator } from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "../HomeScreen";
 import LogScreen from "../LogScreen";
@@ -17,6 +17,7 @@ import RegScreen from "../RegScreen";
 import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
+import TabNavigator from "./tab"
 
 const AppNavigator = createStackNavigator(
   {
@@ -36,4 +37,4 @@ const AppNavigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(TabNavigator);
