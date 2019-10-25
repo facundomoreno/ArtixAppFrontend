@@ -17,32 +17,6 @@ import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import CardTienda from "./components/CardTienda";
 
-const data = [
-  {
-    key: 0,
-    image: require("./assets/shops/boca.jpeg"),
-    name: "Camiseta de Boca Año 2000",
-    location: "Brandsen 175",
-    price: "850",
-    count: "1000"
-  },
-  {
-    key: 1,
-    image: require("./assets/shops/sias.jpg"),
-    name: "Vinilo Arctic Monkeys Suck It and See",
-    location: "Av. Cabildo 2040",
-    price: "2.760",
-    count: "9300"
-  },
-  {
-    key: 2,
-    image: require("./assets/shops/web.jpg"),
-    name: "Webcam",
-    location: "Jufré 301",
-    price: "150",
-    count: "540"
-  }
-];
 
 const numColumns = 2;
 
@@ -66,6 +40,58 @@ export default class VentaScreen extends React.Component {
       latitude: -34.5959411,
       longitude: -58.4322264
     };
+    data = [
+      {
+        key: 0,
+        image: require("./assets/shops/boca.jpeg"),
+        name: "Camiseta de Boca Año 2000",
+        location: "Brandsen 175",
+        latit: boca.latitude,
+        longit: boca.longitude,
+        price: "850",
+        count: "1000"
+      },
+      {
+        key: 1,
+        image: require("./assets/shops/web.jpg"),
+        name: "Webcam",
+        location: "Jufré 301",
+        latit: web.latitude,
+        longit: web.longitude,
+        price: "150",
+        count: "540"
+      },
+      {
+        key: 2,
+        image: require("./assets/shops/boca.jpeg"),
+        name: "Camiseta de Boca Año 2000",
+        location: "Brandsen 175",
+        latit: boca.latitude,
+        longit: boca.longitude,
+        price: "850",
+        count: "1000"
+      },
+      {
+        key: 3,
+        image: require("./assets/shops/boca.jpeg"),
+        name: "Camiseta de Boca Año 2000",
+        location: "Brandsen 175",
+        latit: boca.latitude,
+        longit: boca.longitude,
+        price: "850",
+        count: "1000"
+      },
+      {
+        key: 4,
+        image: require("./assets/shops/boca.jpeg"),
+        name: "Camiseta de Boca Año 2000",
+        location: "Brandsen 175",
+        latit: boca.latitude,
+        longit: boca.longitude,
+        price: "850",
+        count: "1000"
+      },
+    ];
   }
 
   componentDidMount() {
@@ -88,14 +114,18 @@ export default class VentaScreen extends React.Component {
     }
     return (
       <View>
-        <CardTienda
+        <TouchableOpacity><CardTienda
           key={index}
           itemImage={item.image}
           itemName={item.name}
           itemLocation={item.location}
+          itemLatitude={item.latit}
+          itemLongitude={item.longit}
+          locLon={this.state.latitude}
+          locLat={this.state.longitude}
           itemPrice={item.price}
           itemCount={item.count}
-        />
+        /></TouchableOpacity>
       </View>
     );
   };
@@ -105,12 +135,14 @@ export default class VentaScreen extends React.Component {
       <Container>
         <SearchBox searchPlaceholder="Buscar en la Tienda"></SearchBox>
         <ItemsContainer>
-          <FlatList
+          <ComprasView><ComprasTitle><ComprasText>Más cerca tuyo</ComprasText></ComprasTitle><FlatList
             data={data}
             style={styles.container}
             renderItem={this.renderItem}
             numColumns={2}
-          />
+            contentContainerStyle={{
+              alignItems: "center"}}
+          /></ComprasView>
         </ItemsContainer>
       </Container>
     );
@@ -119,7 +151,6 @@ export default class VentaScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 90
   }
 });
 
@@ -136,4 +167,33 @@ const ItemsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+`;
+
+const ComprasView = styled.View`
+flex: 1;
+  width: 90%;
+  height: 100%;
+  background-color: white;
+  align-items: center;
+  border-top-left-radius: 5;
+  border-top-right-radius: 5;
+  border: 1px solid #e5eced;
+  top: 13%;
+`;
+
+const ComprasTitle = styled.View`
+  height: 50px;
+  background: white;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 5;
+  border-top-right-radius: 5;
+`;
+
+const ComprasText = styled.Text`
+  text-align: center;
+  color: #ff4d4d;
+  font-weight: bold;
+  font-size: 20px;
 `;

@@ -8,31 +8,30 @@ const CardTienda = props => (
     <ItemImage source={props.itemImage} />
     <ItemName>{props.itemName}</ItemName>
     <ItemLocation>{props.itemLocation}</ItemLocation>
-    <ItemDistance>
-      {/*Math.round(
-        convertDistance(
-          getDistance(
-            {
-              latitude: this.state.latitude,
-              longitude: this.state.longitude
-            },
-            {
-              latitude: props.itemLatitude,
-              longitude: props.itemLongitude
-            }
-          ),
-          "km"
-        ) * 10
-      ) /
-        10 +
-          " km"*/}
+    <ItemDistance>{Math.round(
+            convertDistance(
+              getDistance(
+                {
+                  latitude: props.locLat,
+                  longitude: props.locLon
+                },
+                {
+                  latitude: props.itemLatitude,
+                  longitude: props.itemLongitude
+                }
+              ),
+              "km"
+            ) * 10
+          ) /
+            10 +
+          " km"}
     </ItemDistance>
     <LowerCont>
       <ItemPrice>${props.itemPrice}</ItemPrice>
       <CountDown
         size={10}
         until={props.itemCount}
-        digitStyle={{ backgroundColor: "transpaent" }}
+        digitStyle={{ backgroundColor: "transparent" }}
         digitTxtStyle={{ color: "white" }}
         timeLabelStyle={{ color: "red", fontWeight: 600 }}
         separatorStyle={{ color: "white" }}
@@ -49,8 +48,8 @@ export default CardTienda;
 
 const Container = styled.View`
   position: relative;
-  width: 45%;
-  height: 200px;
+  width: 150px;
+  height: 250px;
   background-color: white;
   border-radius: 8;
   border: 1px solid #e5eced;
@@ -63,7 +62,7 @@ const Container = styled.View`
 
 const ItemImage = styled.Image`
   width: 75%;
-  height: 45%;
+  height: 40%;
   border-radius: 8;
   top: 5%;
 `;

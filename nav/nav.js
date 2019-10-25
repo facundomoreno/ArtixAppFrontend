@@ -20,12 +20,12 @@ import VentaScreen from "../VentaScreen";
 
 const AppNavigator = createStackNavigator(
   {
-    Venta: VentaScreen,
     Start: Start,
     Home: HomeScreen,
     Register: RegScreen,
     Login: LogScreen,
-    Maps: MapScreen
+    Maps: MapScreen,
+    Venta: VentaScreen,
   },
 
   {
