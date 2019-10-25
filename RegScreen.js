@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import styled from "styled-components";
 import { createAppContainer } from "react-navigation";
@@ -16,6 +17,7 @@ import { createStackNavigator } from "react-navigation-stack";
 export default class RegScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.Registrarse = this.Registrarse.bind(this);
     this.state = {
       username: "",
       password: "",
@@ -23,8 +25,22 @@ export default class RegScreen extends React.Component {
     };
   }
 
-  async Registrarse() {
-    fetch("http://10.10.32.51:3000/Register", {
+  
+  componentDidMount() {
+    this._loadInitialState().done();
+  }
+
+  _loadInitialState = async () => {
+
+    var value = await AsyncStorage.getItem('user')
+    if (value !== null) {
+      this.props.navigation.navigate('Login');
+    }
+  }
+
+   Registrarse = () => {
+
+    fetch("http://10.10.32.45:3000/Register", {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -35,7 +51,22 @@ export default class RegScreen extends React.Component {
         password: this.state.password,
         mail: this.state.mail
       })
-    });
+    })
+
+    .then((response) => response.json())
+    .then ((res) => {
+  
+        if (res.success === true){
+          AsyncStorage.setItem('user', res.mail);
+          this.props.navigation.navigate('Home');
+        }
+  
+        else{
+            alert(res.message);
+        }
+    })
+    .done();
+
   }
 
   render() {
@@ -95,8 +126,8 @@ export default class RegScreen extends React.Component {
                     justifyContent: "center",
                     alignItems: "center"
                   }}
-                  //onPress={() => this.Registrarse()}
-                  onPress={() => this.props.navigation.navigate("Home")}
+                  onPress={() => this.Registrarse()}
+                  //onPress={() => this.props.navigation.navigate("Home")}
                 >
                   <ContinueText>Continuar</ContinueText>
                 </TouchableOpacity>
