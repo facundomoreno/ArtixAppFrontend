@@ -25,7 +25,6 @@ export default class RegScreen extends React.Component {
     };
   }
 
-<<<<<<< HEAD
   
   componentDidMount() {
     this._loadInitialState().done();
@@ -42,10 +41,6 @@ export default class RegScreen extends React.Component {
    Registrarse = () => {
 
     fetch("http://10.10.32.45:3000/Register", {
-=======
-  async Registrarse() {
-    fetch("http://192.168.0.83:3000/Register", {
->>>>>>> 323a5efbd5f6bdc50b322c50037d3990d44475ea
       method: "POST",
       headers: {
         "Accept": "application/json",
