@@ -8,13 +8,16 @@ import RegScreen from "../RegScreen";
 import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
+import PubliScreen from "../PubliScreen";
+
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
 
    
   const Tienda = createStackNavigator({
-    Venta: VentaScreen
+    Venta: VentaScreen,
+    Publi: PubliScreen
   });
 
   Tienda.navigationOptions = {
@@ -51,6 +54,7 @@ const inactiveColor = "#b8bece";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
+    Maps: MapScreen,
   });
 
   HomeStack.navigationOptions = {
@@ -109,7 +113,13 @@ const Perfil = createStackNavigator({
     Favs,
     HomeStack,
     Mens,
-    Perfil
-  });
+    Perfil,
+  },
+  {
+    initialRouteName: 'HomeStack',
+    header: null,
+    headerMode: 'none'
+    }
+  );
   
   export default TabNavigator;

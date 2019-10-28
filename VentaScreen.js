@@ -12,10 +12,13 @@ import {
   Dimensions
 } from "react-native";
 import styled from "styled-components";
-import SearchBox from "./components/Search";
+import Search80 from "./components/Search80";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import CardTienda from "./components/CardTienda";
+import Icon from "react-native-vector-icons/Ionicons";
+import { createAppContainer } from "react-navigation";
+
 
 
 const numColumns = 2;
@@ -133,7 +136,16 @@ export default class VentaScreen extends React.Component {
   render() {
     return (
       <Container>
-        <SearchBox searchPlaceholder="Buscar en la Tienda"></SearchBox>
+        <ContTop><Search80 searchPlaceholder="Buscar en la Tienda"></Search80>
+        <TouchableOpacity
+        style={{height: 40, width: 40, top: 18, left: -30}}
+        onPress={() => this.props.navigation.navigate("Publi")}
+        ><Icon
+            name="ios-add"
+            size={40}
+            style={{ color: "#ff4d4d"}}
+          /></TouchableOpacity>
+        </ContTop>
         <ItemsContainer>
           <ComprasView><ComprasTitle><ComprasText>Más cerca tuyo</ComprasText></ComprasTitle><FlatList
             data={data}
@@ -141,7 +153,8 @@ export default class VentaScreen extends React.Component {
             renderItem={this.renderItem}
             numColumns={2}
             contentContainerStyle={{
-              alignItems: "center"}}
+              alignItems: "center",
+              margin: 10}}
           /></ComprasView>
         </ItemsContainer>
       </Container>
@@ -159,6 +172,12 @@ const Container = styled.View`
   background-color: #fafafa;
   width: 100%;
   align-items: center;
+`;
+
+const ContTop = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ItemsContainer = styled.View`
