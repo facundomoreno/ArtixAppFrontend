@@ -8,24 +8,7 @@ const CardTienda = props => (
     <ItemImage source={props.itemImage} />
     <ItemName>{props.itemName}</ItemName>
     <ItemLocation>{props.itemLocation}</ItemLocation>
-    <ItemDistance>{Math.round(
-            convertDistance(
-              getDistance(
-                {
-                  latitude: props.locLat,
-                  longitude: props.locLon
-                },
-                {
-                  latitude: props.itemLatitude,
-                  longitude: props.itemLongitude
-                }
-              ),
-              "km"
-            ) * 10
-          ) /
-            10 +
-          " km"}
-    </ItemDistance>
+    <ItemDistance>{props.itemDistance}</ItemDistance>
     <LowerCont>
       <ItemPrice>${props.itemPrice}</ItemPrice>
       <CountDown

@@ -19,11 +19,14 @@ import CardTienda from "./components/CardTienda";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
 
-
-
 const numColumns = 2;
 
 export default class VentaScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+    showIcon: true
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -93,7 +96,7 @@ export default class VentaScreen extends React.Component {
         longit: boca.longitude,
         price: "850",
         count: "1000"
-      },
+      }
     ];
   }
 
@@ -117,18 +120,37 @@ export default class VentaScreen extends React.Component {
     }
     return (
       <View>
-        <TouchableOpacity><CardTienda
-          key={index}
-          itemImage={item.image}
-          itemName={item.name}
-          itemLocation={item.location}
-          itemLatitude={item.latit}
-          itemLongitude={item.longit}
-          locLon={this.state.latitude}
-          locLat={this.state.longitude}
-          itemPrice={item.price}
-          itemCount={item.count}
-        /></TouchableOpacity>
+        <TouchableOpacity>
+          <CardTienda
+            key={index}
+            itemImage={item.image}
+            itemName={item.name}
+            itemLocation={item.location}
+            itemDistance={
+              Math.round(
+                convertDistance(
+                  getDistance(
+                    {
+                      latitude: this.state.latitude,
+                      longitude: this.state.longitude
+                    },
+                    {
+                      latitude: item.latit,
+                      longitude: item.longit
+                    }
+                  ),
+                  "km"
+                ) * 10
+              ) /
+                10 +
+              " km"
+            }
+            locLon={this.state.latitude}
+            locLat={this.state.longitude}
+            itemPrice={item.price}
+            itemCount={item.count}
+          />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -136,26 +158,32 @@ export default class VentaScreen extends React.Component {
   render() {
     return (
       <Container>
-        <ContTop><Search80 searchPlaceholder="Buscar en la Tienda"></Search80>
-        <TouchableOpacity
-        style={{height: 40, width: 40, top: 18, left: -30}}
-        onPress={() => this.props.navigation.navigate("Publi")}
-        ><Icon
-            name="ios-add"
-            size={40}
-            style={{ color: "#ff4d4d"}}
-          /></TouchableOpacity>
+        <ContTop>
+          <Search80 searchPlaceholder="Buscar en la Tienda"></Search80>
+          <TouchableOpacity
+            style={{ height: 40, width: 40, top: 30, left: -30 }}
+            onPress={() => this.props.navigation.navigate("Publi")}
+          >
+            <Icon name="ios-add" size={40} style={{ color: "#ff4d4d" }} />
+          </TouchableOpacity>
         </ContTop>
         <ItemsContainer>
-          <ComprasView><ComprasTitle><ComprasText>Más cerca tuyo</ComprasText></ComprasTitle><FlatList
-            data={data}
-            style={styles.container}
-            renderItem={this.renderItem}
-            numColumns={2}
-            contentContainerStyle={{
-              alignItems: "center",
-              margin: 10}}
-          /></ComprasView>
+          <ComprasView>
+            <ComprasTitle>
+              <ComprasText>Más cerca tuyo</ComprasText>
+            </ComprasTitle>
+            <FlatList
+              data={data}
+              style={styles.container}
+              renderItem={this.renderItem}
+              numColumns={2}
+              contentContainerStyle={{
+                alignItems: "center",
+                flexGrow: 1,
+                paddingBottom: 45
+              }}
+            />
+          </ComprasView>
         </ItemsContainer>
       </Container>
     );
@@ -163,8 +191,7 @@ export default class VentaScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-  }
+  container: {}
 });
 
 const Container = styled.View`
@@ -189,7 +216,7 @@ const ItemsContainer = styled.View`
 `;
 
 const ComprasView = styled.View`
-flex: 1;
+  flex: 1;
   width: 90%;
   height: 100%;
   background-color: white;

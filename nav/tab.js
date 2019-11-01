@@ -1,7 +1,7 @@
 import React from "react";
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "../HomeScreen";
 import LogScreen from "../LogScreen";
 import RegScreen from "../RegScreen";
@@ -10,69 +10,46 @@ import Start from "../Start";
 import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
 
-
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
 
-   
-  const Tienda = createStackNavigator({
-    Venta: VentaScreen,
-    Publi: PubliScreen
-  });
+const Tienda = createStackNavigator({
+  Venta: VentaScreen,
+  Publi: PubliScreen
+});
 
-  Tienda.navigationOptions = {
-    tabBarLabel: "Tienda",
-    showLabel: false,
-    tabBarIcon: ({ focused }) => (
-      <Ionicons
-       name="ios-cart"
-       size={26}
-
-       color={focused ? activeColor : inactiveColor} 
-       
-      />
-    )
-}
-
-  const Favs = createStackNavigator({
-    Login: LogScreen
-  });
-
-  Favs.navigationOptions = {
-    tabBarLabel: "Favoritos",
-    showLabel: false,
-    tabBarIcon: ({ focused }) => (
-      <Ionicons
-       name="ios-heart"
-       size={26}
-
-       color={focused ? activeColor : inactiveColor} 
-       
-      />
-    )
-}
+Tienda.navigationOptions = {
+  tabBarLabel: "Tienda",
+  showLabel: false,
+  tabBarIcon: ({ focused }) => (
+    <Ionicons
+      name="ios-cart"
+      size={26}
+      color={focused ? activeColor : inactiveColor}
+    />
+  )
+};
 
 const HomeStack = createStackNavigator({
-    Home: HomeScreen,
-    Maps: MapScreen,
-  });
+  Home: HomeScreen,
+  Maps: MapScreen
+});
 
-  HomeStack.navigationOptions = {
-      tabBarLabel: "Inicio",
-      showLabel: false,
-      tabBarIcon: ({ focused }) => (
-        <Ionicons
-         name="ios-home"
-         size={26} 
+HomeStack.navigationOptions = {
+  tabBarLabel: "Inicio",
+  showLabel: false,
+  tabBarIcon: ({ focused }) => (
+    <Ionicons
+      name="ios-home"
+      size={26}
+      color={focused ? activeColor : inactiveColor}
+    />
+  )
+};
 
-         color={focused ? activeColor : inactiveColor} 
-         
-        />
-      )
-  }
-
-  const Mens = createStackNavigator({
-    Register: RegScreen
+{
+  /*} const Mens = createStackNavigator({
+    
   });
 
   Mens.navigationOptions = {
@@ -87,10 +64,12 @@ const HomeStack = createStackNavigator({
        
       />
     )
+}*/
 }
 
-const Perfil = createStackNavigator({
-    Start: Start
+{
+  /*const Perfil = createStackNavigator({
+    
   });
 
   Perfil.navigationOptions = {
@@ -105,21 +84,25 @@ const Perfil = createStackNavigator({
        
       />
     )
+}*/
 }
 
-
-  const TabNavigator = createBottomTabNavigator({
+const TabNavigator = createBottomTabNavigator(
+  {
     Tienda,
-    Favs,
-    HomeStack,
-    Mens,
-    Perfil,
+    HomeStack
   },
   {
-    initialRouteName: 'HomeStack',
+    initialRouteName: "HomeStack",
     header: null,
-    headerMode: 'none'
+    headerMode: "none"
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: "tomato",
+      inactiveTintColor: "gray"
     }
-  );
-  
-  export default TabNavigator;
+  }
+);
+
+export default TabNavigator;

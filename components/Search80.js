@@ -12,23 +12,22 @@ import {
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/Ionicons";
 
-
 const Search80 = props => (
-<SearchCont>
-          <Search
-            placeholder={props.searchPlaceholder}
-            placeholderTextColor="grey"
-            selectionColor="#ff4d4d"
-            returnKeyType="go"
-            autoCapitalize="none"
-          ></Search>
-          <Icon
-            name="ios-search"
-            size={20}
-            style={{ color: "grey", top: -35, left: 20 }}
-          />
-        </SearchCont>
-)
+  <SearchCont>
+    <Search
+      placeholder={props.searchPlaceholder}
+      placeholderTextColor="grey"
+      selectionColor="#ff4d4d"
+      returnKeyType="go"
+      autoCapitalize="none"
+    ></Search>
+    <Icon
+      name="ios-search"
+      size={20}
+      style={{ color: "grey", top: -35, left: 19.5 }}
+    />
+  </SearchCont>
+);
 export default Search80;
 
 const Search = styled.TextInput`
@@ -47,6 +46,6 @@ const Search = styled.TextInput`
 const SearchCont = styled.View`
   width: 100%;
   height: 50px;
-  top: 5%;
-  left: 100%;
+  top: 8.2%;
+  left: 96%;
 `;

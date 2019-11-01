@@ -18,7 +18,7 @@ import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
-import TabNavigator from "./tab"
+import TabNavigator from "./tab";
 
 const AppNavigator = createStackNavigator(
   {

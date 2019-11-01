@@ -24,6 +24,11 @@ import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+    showIcon: true
+  };
+
   constructor(props) {
     super(props);
     this.state = {
