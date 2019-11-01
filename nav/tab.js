@@ -9,6 +9,7 @@ import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
+import MensScreen from "../MensajesScreen";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
@@ -47,9 +48,8 @@ HomeStack.navigationOptions = {
   )
 };
 
-{
-  /*} const Mens = createStackNavigator({
-    
+const Mens = createStackNavigator({
+    Mens: MensScreen
   });
 
   Mens.navigationOptions = {
@@ -64,7 +64,6 @@ HomeStack.navigationOptions = {
        
       />
     )
-}*/
 }
 
 {
@@ -90,7 +89,8 @@ HomeStack.navigationOptions = {
 const TabNavigator = createBottomTabNavigator(
   {
     Tienda,
-    HomeStack
+    HomeStack,
+    Mens
   },
   {
     initialRouteName: "HomeStack",

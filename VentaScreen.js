@@ -32,7 +32,59 @@ export default class VentaScreen extends React.Component {
     this.state = {
       latitude: 0,
       longitude: 0,
-      error: null
+      error: null,
+      data: [
+        {
+          key: 0,
+          image: require("./assets/shops/boca.jpeg"),
+          name: "Camiseta de Boca Año 2000",
+          location: "Brandsen 175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          price: "850",
+          count: "1000"
+        },
+        {
+          key: 1,
+          image: require("./assets/shops/web.jpg"),
+          name: "Webcam",
+          location: "Jufré 301",
+          latit: -34.5959411,
+          longit: -58.4322264,
+          price: "150",
+          count: "540"
+        },
+        {
+          key: 2,
+          image: require("./assets/shops/boca.jpeg"),
+          name: "Camiseta de Boca Año 2000",
+          location: "Brandsen 175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          price: "850",
+          count: "1000"
+        },
+        {
+          key: 3,
+          image: require("./assets/shops/boca.jpeg"),
+          name: "Camiseta de Boca Año 2000",
+          location: "Brandsen 175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          price: "850",
+          count: "1000"
+        },
+        {
+          key: 4,
+          image: require("./assets/shops/boca.jpeg"),
+          name: "Camiseta de Boca Año 2000",
+          location: "Brandsen 175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          price: "850",
+          count: "1000"
+        }
+      ]
     };
     boca = {
       latitude: -34.6331619,
@@ -46,58 +98,7 @@ export default class VentaScreen extends React.Component {
       latitude: -34.5959411,
       longitude: -58.4322264
     };
-    data = [
-      {
-        key: 0,
-        image: require("./assets/shops/boca.jpeg"),
-        name: "Camiseta de Boca Año 2000",
-        location: "Brandsen 175",
-        latit: boca.latitude,
-        longit: boca.longitude,
-        price: "850",
-        count: "1000"
-      },
-      {
-        key: 1,
-        image: require("./assets/shops/web.jpg"),
-        name: "Webcam",
-        location: "Jufré 301",
-        latit: web.latitude,
-        longit: web.longitude,
-        price: "150",
-        count: "540"
-      },
-      {
-        key: 2,
-        image: require("./assets/shops/boca.jpeg"),
-        name: "Camiseta de Boca Año 2000",
-        location: "Brandsen 175",
-        latit: boca.latitude,
-        longit: boca.longitude,
-        price: "850",
-        count: "1000"
-      },
-      {
-        key: 3,
-        image: require("./assets/shops/boca.jpeg"),
-        name: "Camiseta de Boca Año 2000",
-        location: "Brandsen 175",
-        latit: boca.latitude,
-        longit: boca.longitude,
-        price: "850",
-        count: "1000"
-      },
-      {
-        key: 4,
-        image: require("./assets/shops/boca.jpeg"),
-        name: "Camiseta de Boca Año 2000",
-        location: "Brandsen 175",
-        latit: boca.latitude,
-        longit: boca.longitude,
-        price: "850",
-        count: "1000"
-      }
-    ];
+    
   }
 
   componentDidMount() {
@@ -173,7 +174,7 @@ export default class VentaScreen extends React.Component {
               <ComprasText>Más cerca tuyo</ComprasText>
             </ComprasTitle>
             <FlatList
-              data={data}
+              data={this.state.data}
               style={styles.container}
               renderItem={this.renderItem}
               numColumns={2}
@@ -213,6 +214,7 @@ const ItemsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+  top: -1%;
 `;
 
 const ComprasView = styled.View`
