@@ -33,8 +33,8 @@ export default class VentaScreen extends React.Component {
       latitude: 0,
       longitude: 0,
       error: null,
-      data: [
-        {
+      data:[]
+        /*{
           key: 0,
           image: require("./assets/shops/boca.jpeg"),
           name: "Camiseta de Boca Año 2000",
@@ -83,8 +83,8 @@ export default class VentaScreen extends React.Component {
           longit: -58.3563399,
           price: "850",
           count: "1000"
-        }
-      ]
+        }*/
+      //]
     };
     boca = {
       latitude: -34.6331619,
@@ -101,6 +101,15 @@ export default class VentaScreen extends React.Component {
     
   }
 
+  fetchData = async() =>{
+    console.log("Está funcionando data");
+    const response = await fetch('http://10.10.32.39:3000/Productos');
+    const productos = await response.json();
+    this.setState({data:productos});
+    console.log(JSON.stringify(this.state.data));
+    console.log(productos);
+  }
+
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -113,6 +122,7 @@ export default class VentaScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
+    this.fetchData();
   }
 
   renderItem = ({ item, index }) => {
@@ -123,10 +133,10 @@ export default class VentaScreen extends React.Component {
       <View>
         <TouchableOpacity>
           <CardTienda
-            key={index}
-            itemImage={item.image}
-            itemName={item.name}
-            itemLocation={item.location}
+            key={item.id_producto}
+            itemImage={require("./assets/shops/boca.jpeg")}
+            itemName={item.nombreprod}
+            itemLocation={item.calle + " " + item.numero}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -136,8 +146,8 @@ export default class VentaScreen extends React.Component {
                       longitude: this.state.longitude
                     },
                     {
-                      latitude: item.latit,
-                      longitude: item.longit
+                      latitude: -34.5959411,
+                      longitude: -58.4322264
                     }
                   ),
                   "km"
@@ -148,8 +158,8 @@ export default class VentaScreen extends React.Component {
             }
             locLon={this.state.latitude}
             locLat={this.state.longitude}
-            itemPrice={item.price}
-            itemCount={item.count}
+            itemPrice={item.precio}
+            itemCount={1000}
           />
         </TouchableOpacity>
       </View>
