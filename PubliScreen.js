@@ -25,10 +25,69 @@ import Icon from "react-native-vector-icons/Ionicons";
 var radio_props = [{ label: "Nuevo", value: 0 }, { label: "Usado", value: 1 }];
 
 export default class VentaScreen extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.Publicar = this.Publicar.bind(this);
+    this.state = {
+      nombreProducto: "",
+      precio:"",
+      estado:"",
+      descProducto:"",
+      categoria:"",
+      numero:"",
+      piso:"",
+      provincia:"",
+      ciudad:"",
+      barrio:"",
+      imagen:""
+    };
+  }
+  
   static navigationOptions = {
     header: null,
     showIcon: true
   };
+
+  Publicar = () => {
+
+    fetch("http://192.168.0.83:3000/Publicar", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nombreProducto: this.state.nombreProducto,
+        precio: this.state.precio,
+        estado: this.state.estado,
+        descProducto: this.state.descProducto,
+        categoria: this.state.categoria,
+        numero: this.state.numero,
+        piso: this.state.piso,
+        provincia: this.state.provincia,
+        ciudad: this.state.ciudad,
+        barrio: this.state.barrio,
+        imagen: this.state.imagen
+      })
+    })
+
+    .then((response) => response.json())
+    .then ((res) => {
+  
+        if (res.success === true){
+          //AsyncStorage.setItem('user', res.mail);
+          alert(res.message);
+          this.props.navigation.navigate('Venta');
+        }
+  
+        else{
+            alert(res.message);
+        }
+    })
+    .done();
+
+  }
 
   render() {
     return (
@@ -62,6 +121,7 @@ export default class VentaScreen extends React.Component {
               this.thiTxtInp.focus();
             }}
             blurOnSubmit={false}
+            onChangeText={nombreProducto => this.setState({ nombreProducto })}
           ></TextIn>
           <InfoIn>Categoría de tu producto</InfoIn>
           <PickIn>
