@@ -36,7 +36,11 @@ export default class RegScreen extends React.Component {
     }
   };
 
+<<<<<<< HEAD
   Registrarse = () => {
+=======
+ Registrarse = () =>{
+>>>>>>> b1657427ab2318a033dec9054660d0867eaec645
     fetch("http://35.237.172.249:3000/Register", {
       method: "POST",
       headers: {

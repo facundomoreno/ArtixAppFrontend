@@ -36,15 +36,15 @@ export default class VentaScreen extends React.Component {
       error: null,
       data: [
         {
-          id_producto: 0,
-          image: require("./assets/shops/boca.jpeg"),
-          nombreprod: "Camiseta de Boca Año 2000",
-          calle: "Brandsen",
-          numero: "175",
-          latit: -34.6331619,
-          longit: -58.3563399,
-          precio: 850,
-          count: 86400
+          //id_producto: 0,
+          //image: require("./assets/shops/boca.jpeg"),
+          //nombreprod: "Camiseta de Boca Año 2000",
+          //calle: "Brandsen",
+          //numero: "175",
+          //latit: -34.6331619,
+          //longit: -58.3563399,
+          //precio: 850,
+          //count: 86400
         }
       ]
     };
@@ -98,7 +98,7 @@ export default class VentaScreen extends React.Component {
             key={item.id_producto}
             itemImage={(source = { uri: item.imagen })}
             itemName={item.nombreprod}
-            itemLocation={item.calle + " " + item.numero}
+            //itemLocation={item.calle + " " + item.numero}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -121,7 +121,12 @@ export default class VentaScreen extends React.Component {
             locLon={this.state.latitude}
             locLat={this.state.longitude}
             itemPrice={item.precio}
+<<<<<<< HEAD
             itemCount={1000}
+=======
+            itemStock={item.stock}
+            itemCount={item.count}
+>>>>>>> b1657427ab2318a033dec9054660d0867eaec645
           />
         </TouchableOpacity>
       </View>
