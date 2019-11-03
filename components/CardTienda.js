@@ -1,4 +1,15 @@
 import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import styled from "styled-components";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
@@ -9,6 +20,7 @@ const CardTienda = props => (
     <ItemName>{props.itemName}</ItemName>
     <ItemLocation>{props.itemLocation}</ItemLocation>
     <ItemDistance>{props.itemDistance}</ItemDistance>
+    <Text>{props.itemStock}</Text>
     <LowerCont>
       <ItemPrice>${props.itemPrice}</ItemPrice>
       <CountDown
@@ -90,3 +102,4 @@ const ItemPrice = styled.Text`
   color: white;
   left: 6%;
 `;
+

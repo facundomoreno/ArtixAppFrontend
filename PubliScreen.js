@@ -40,7 +40,7 @@ export default class VentaScreen extends React.Component {
     this.state = {
       categoria: "",
       nombreProducto: "",
-      //precio: "",
+      precio: "",
       estado: "",
       descProducto: "",
       categoria: "",
@@ -49,7 +49,9 @@ export default class VentaScreen extends React.Component {
       //  provincia: "",
       //ciudad: "",
       //barrio: "",
-      imagen: ""
+      imagen: "",
+      stock:"",
+      count: 86400
       // value: ""
     };
   }
@@ -68,7 +70,7 @@ export default class VentaScreen extends React.Component {
       },
       body: JSON.stringify({
         nombreProducto: this.state.nombreProducto,
-        //precio: this.state.precio,
+        precio: this.state.precio,
         estado: this.state.estado,
         descProducto: this.state.descProducto,
         categoria: this.state.categoria,
@@ -77,7 +79,9 @@ export default class VentaScreen extends React.Component {
         // provincia: this.state.provincia,
         //ciudad: this.state.ciudad,
         //barrio: this.state.barrio,
-        imagen: this.state.imagen
+        imagen: this.state.imagen,
+        stock: this.state.stock,
+        count: this.state.count
       })
     })
       .then(response => response.json())
@@ -266,7 +270,7 @@ export default class VentaScreen extends React.Component {
               style={{ textAlignVertical: "top" }}
             ></TextInDesc>
 
-            <InfoIn style={{ top: "14%" }}>Precio mínimo de tu Producto</InfoIn>
+            <InfoIn style={{ top: "14%" }}>Precio de tu Producto</InfoIn>
             <TextInTMCont style={{ top: "22%" }}>
               <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
               <TextInTM
@@ -279,11 +283,11 @@ export default class VentaScreen extends React.Component {
                 }}
                 blurOnSubmit={false}
                 returnKeyType="next"
+                onChangeText={precio => this.setState({ precio })}
               ></TextInTM>
             </TextInTMCont>
-            <InfoIn style={{ top: "16%" }}>Precio máximo de tu Producto</InfoIn>
+            <InfoIn style={{ top: "16%" }}>Stock de tu producto</InfoIn>
             <TextInTMCont style={{ top: "24%" }}>
-              <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
               <TextInTM
                 keyboardType="numeric"
                 ref={input => {
@@ -294,6 +298,7 @@ export default class VentaScreen extends React.Component {
                 }}
                 blurOnSubmit={false}
                 returnKeyType="next"
+                onChangeText={stock => this.setState({ stock })}
               ></TextInTM>
             </TextInTMCont>
             <TouchableOpacity
