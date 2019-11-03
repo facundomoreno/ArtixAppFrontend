@@ -36,7 +36,7 @@ export default class VentaScreen extends React.Component {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
-      value:"Elegir Categoría",
+      categoria: "",
       nombreProducto: "",
       precio: "",
       estado: "",
@@ -47,8 +47,7 @@ export default class VentaScreen extends React.Component {
       provincia: "",
       ciudad: "",
       barrio: "",
-      imagen: "",
-      value: ""
+      imagen: ""
     };
   }
 
@@ -58,11 +57,11 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch('http://192.168.0.83:3000/Publicar', {
-      method: 'POST',
+    fetch("http://192.168.0.83:3000/Publicar", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         nombreProducto: this.state.nombreProducto,
@@ -89,7 +88,7 @@ export default class VentaScreen extends React.Component {
         }
       })
       .done();
-  }
+  };
 
   state = {
     image: null
@@ -133,7 +132,7 @@ export default class VentaScreen extends React.Component {
             contentContainerStyle={{
               alignItems: "center",
               flexGrow: 1,
-              paddingBottom:200
+              paddingBottom: 200
             }}
           >
             <InfoIn>Título de tu producto</InfoIn>
@@ -155,18 +154,13 @@ export default class VentaScreen extends React.Component {
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
-<<<<<<< HEAD
               <PickIn
-                onValueChange={value => {
-                  this.setState({ value: value });
+                onValueChange={categoria => {
+                  this.setState({ categoria });
                 }}
-                selectedValue={this.state.value}
+                selectedValue={this.state.categoria}
               >
                 <Picker.Item value="" label="Elegir Categoría" />
-=======
-              <PickIn onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
-                <Picker.Item value="" label="Elegir Categoría"/>
->>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
                 <PickIn.Item
                   label="Accesorios para Vehículos"
                   value="acc-veh"
@@ -232,16 +226,11 @@ export default class VentaScreen extends React.Component {
               selectedButtonColor={"#ff4d4d"}
               labelColor={"#353536"}
               animation={true}
-<<<<<<< HEAD
-              onPress={radval => {
-                this.setState({ radval: radval });
-=======
               onPress={estado => {
                 this.setState({ estado });
->>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
               }}
               initial={-1}
-              style={{ top: "17%", position: "relative" }}
+              style={{ top: "14%", position: "relative" }}
             />
             <InfoIn style={{ top: "10%" }}>Imagen de tu Producto</InfoIn>
             <ButtonUp>
@@ -264,7 +253,7 @@ export default class VentaScreen extends React.Component {
               />
             ) : null}
 
-            <InfoIn style={{ top: "12%" }}>Descripcion de tu Producto</InfoIn>
+            <InfoIn style={{ top: "12%" }}>Descripción de tu Producto</InfoIn>
             <TextInDesc
               placeholder="Máximo 200 caracteres"
               placeholderTextColor="grey"
@@ -273,8 +262,12 @@ export default class VentaScreen extends React.Component {
               autoCapitalize="none"
               maxLength={200}
               onChangeText={descProducto => this.setState({ descProducto })}
+              multiline={true}
+              style={{ textAlignVertical: "top" }}
             ></TextInDesc>
-            <TextInputTiempo>Tiempo de tu producto en horas</TextInputTiempo>
+
+            <InfoIn style={{ top: "12%" }}>Precio de tu Producto</InfoIn>
+
             <TouchableOpacity
               style={{
                 height: 40,
@@ -291,7 +284,7 @@ export default class VentaScreen extends React.Component {
               ></Icon>
             </TouchableOpacity>
             <ButtonUp>
-            <TouchableOpacity
+              <TouchableOpacity
                 onPress={() => this.Publicar()}
                 style={{
                   width: "100%",
@@ -359,8 +352,8 @@ const InfoIn = styled.Text`
 
 const TextIn = styled.TextInput`
   top: 4%;
-  margin-top: 15px;
   height: 50px;
+  margin-top: 15px;
   flex-direction: column;
   background: white;
   width: 80%;
@@ -374,7 +367,8 @@ const TextIn = styled.TextInput`
 
 const TextInDesc = styled.TextInput`
   position: relative;
-  top: 14%;
+  top: 13%;
+  padding-top: 10;
   height: 80px;
   flex-direction: column;
   background: white;
@@ -387,13 +381,18 @@ const TextInDesc = styled.TextInput`
   padding-left: 10;
 `;
 
-const TextInputTiempo = styled.TextInput`
-  position: relative;
-  bottom: 5%;
+const TextInTMCont = styled.View`
+  width: 80%;
+  flex-direction: row;
+`;
+
+const TextInTM = styled.TextIn`
+  width: 24%;
+  top: 4%;
   height: 50px;
+  margin-top: 15px;
   flex-direction: column;
   background: white;
-  width: 80%;
   border: 1px solid #e5eced;
   box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
