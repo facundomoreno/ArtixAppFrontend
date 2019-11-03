@@ -31,6 +31,16 @@ var radio_props = [
   { label: "Usado", radval: 1 }
 ];
 
+
+
+
+
+var radio_props = [
+  {label: 'Nuevo', value: 0 },
+  {label: 'Usado', value: 1 }
+];
+
+
 export default class VentaScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -38,17 +48,17 @@ export default class VentaScreen extends React.Component {
     this.state = {
       value:"Elegir Categoría",
       nombreProducto: "",
-      precio: "",
+      //precio: "",
       estado: "",
       descProducto: "",
       categoria: "",
-      numero: "",
-      piso: "",
-      provincia: "",
-      ciudad: "",
-      barrio: "",
-      imagen: "",
-      value: ""
+      //numero: "",
+     // piso: "",
+    //  provincia: "",
+      //ciudad: "",
+      //barrio: "",
+      imagen: ""
+     // value: ""
     };
   }
 
@@ -58,7 +68,7 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch('http://192.168.0.83:3000/Publicar', {
+    fetch('http://35.237.172.249:3000/Publicar', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -69,13 +79,13 @@ export default class VentaScreen extends React.Component {
         //precio: this.state.precio,
         estado: this.state.estado,
         descProducto: this.state.descProducto,
-        categoria: this.state.categoria
+        categoria: this.state.categoria,
         //numero: this.state.numero,
         // piso: this.state.piso,
         // provincia: this.state.provincia,
         //ciudad: this.state.ciudad,
-        // barrio: this.state.barrio,
-        //imagen: this.state.imagen
+        //barrio: this.state.barrio,
+        imagen: this.state.imagen
       })
     })
       .then(response => response.json())
@@ -91,9 +101,7 @@ export default class VentaScreen extends React.Component {
       .done();
   }
 
-  state = {
-    image: null
-  };
+  
 
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -102,15 +110,16 @@ export default class VentaScreen extends React.Component {
       aspect: [4, 3]
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.setState({ imagen: result.uri });
+      console.log(imagen);
     }
   };
 
   render() {
-    let { image } = this.state;
+    let { imagen } = this.state;
     return (
       <Container>
         <AllCont>
@@ -242,9 +251,9 @@ export default class VentaScreen extends React.Component {
                 <ButtonText>Subir Imagen</ButtonText>
               </TouchableOpacity>
             </ButtonUp>
-            {image ? (
+            {imagen ? (
               <Image
-                source={{ uri: image }}
+                source={{ uri: imagen }}
                 style={{ width: 100, height: 100, top: "12%" }}
               />
             ) : null}
