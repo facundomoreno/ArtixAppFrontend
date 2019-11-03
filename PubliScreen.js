@@ -27,13 +27,16 @@ import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 
 var radio_props = [
-  { label: "Nuevo  ", radval: 0 },
+  { label: "Nuevo    ", radval: 0 },
   { label: "Usado", radval: 1 }
 ];
+
+var radio_props = [{ label: "Nuevo", value: 0 }, { label: "Usado", value: 1 }];
 
 export default class VentaScreen extends React.Component {
   constructor(props) {
     super(props);
+
     this.Publicar = this.Publicar.bind(this);
     this.state = {
       categoria: "",
@@ -57,7 +60,7 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch("http://192.168.0.83:3000/Publicar", {
+    fetch("http://192.168.0.238:3000/Publicar", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -68,13 +71,13 @@ export default class VentaScreen extends React.Component {
         //precio: this.state.precio,
         estado: this.state.estado,
         descProducto: this.state.descProducto,
-        categoria: this.state.categoria
+        categoria: this.state.categoria,
         //numero: this.state.numero,
         // piso: this.state.piso,
         // provincia: this.state.provincia,
         //ciudad: this.state.ciudad,
-        // barrio: this.state.barrio,
-        //imagen: this.state.imagen
+        //barrio: this.state.barrio,
+        imagen: this.state.imagen
       })
     })
       .then(response => response.json())
@@ -90,10 +93,6 @@ export default class VentaScreen extends React.Component {
       .done();
   };
 
-  state = {
-    image: null
-  };
-
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -101,15 +100,16 @@ export default class VentaScreen extends React.Component {
       aspect: [4, 3]
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.setState({ imagen: result.uri });
+      console.log(imagen);
     }
   };
 
   render() {
-    let { image } = this.state;
+    let { imagen } = this.state;
     return (
       <Container>
         <AllCont>
@@ -230,7 +230,7 @@ export default class VentaScreen extends React.Component {
                 this.setState({ estado });
               }}
               initial={-1}
-              style={{ top: "14%", position: "relative" }}
+              style={{ top: "17%", position: "relative" }}
             />
             <InfoIn style={{ top: "10%" }}>Imagen de tu Producto</InfoIn>
             <ButtonUp>
@@ -246,9 +246,9 @@ export default class VentaScreen extends React.Component {
                 <ButtonText>Subir Imagen</ButtonText>
               </TouchableOpacity>
             </ButtonUp>
-            {image ? (
+            {imagen ? (
               <Image
-                source={{ uri: image }}
+                source={{ uri: imagen }}
                 style={{ width: 100, height: 100, top: "12%" }}
               />
             ) : null}
@@ -266,8 +266,36 @@ export default class VentaScreen extends React.Component {
               style={{ textAlignVertical: "top" }}
             ></TextInDesc>
 
-            <InfoIn style={{ top: "12%" }}>Precio de tu Producto</InfoIn>
-
+            <InfoIn style={{ top: "14%" }}>Precio mínimo de tu Producto</InfoIn>
+            <TextInTMCont style={{ top: "22%" }}>
+              <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
+              <TextInTM
+                keyboardType="numeric"
+                ref={input => {
+                  this.secTxtInp = input;
+                }}
+                onSubmitEditing={() => {
+                  this.thiTxtInp.focus();
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
+              ></TextInTM>
+            </TextInTMCont>
+            <InfoIn style={{ top: "16%" }}>Precio máximo de tu Producto</InfoIn>
+            <TextInTMCont style={{ top: "24%" }}>
+              <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
+              <TextInTM
+                keyboardType="numeric"
+                ref={input => {
+                  this.thiTxtInp = input;
+                }}
+                onSubmitEditing={() => {
+                  this.fouTxtInp.focus();
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
+              ></TextInTM>
+            </TextInTMCont>
             <TouchableOpacity
               style={{
                 height: 40,
@@ -283,7 +311,7 @@ export default class VentaScreen extends React.Component {
                 style={{ color: "#ff4d4d" }}
               ></Icon>
             </TouchableOpacity>
-            <ButtonUp>
+            <ButtonUp style={{ top: "20%" }}>
               <TouchableOpacity
                 onPress={() => this.Publicar()}
                 style={{
@@ -383,12 +411,14 @@ const TextInDesc = styled.TextInput`
 
 const TextInTMCont = styled.View`
   width: 80%;
+  height: 50px;
   flex-direction: row;
+  top: 26%;
+  position: relative;
 `;
 
-const TextInTM = styled.TextIn`
-  width: 24%;
-  top: 4%;
+const TextInTM = styled.TextInput`
+  width: 50%;
   height: 50px;
   margin-top: 15px;
   flex-direction: column;
@@ -397,8 +427,25 @@ const TextInTM = styled.TextIn`
   box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
   color: #353536;
-  font-size: 14px;
+  font-size: 18px;
   padding-left: 10;
+  left: 5%;
+  position: relative;
+`;
+
+const TextInTime = styled.TextInput`
+  width: 40%;
+  height: 50px;
+  margin-top: 15px;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 18px;
+  padding-left: 10;
+  position: relative;
 `;
 
 const PickIn = styled.Picker`
@@ -418,28 +465,6 @@ const ContPicker = styled.View`
   top: 7%;
   width: 80%;
   background: white;
-  height: 50px;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-`;
-
-const ContMaximo = styled.TextInput`
-  position: relative;
-  width: 22%;
-  height: 50px;
-  left: 29%;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-  top: 5%;
-`;
-
-const ContMinimo = styled.TextInput`
-  position: relative;
-  bottom: 8%;
-  right: 18%;
-  width: 22%;
   height: 50px;
   border: 1px solid #e5eced;
   box-shadow: 0px 3px 10px #e5eced;

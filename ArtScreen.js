@@ -39,10 +39,10 @@ export default class ArtScreen extends React.Component {
           pubname: "José Dolina",
           calle: "Brandsen",
           numero: "175",
-          latit: -34.5959411,
-          longit: -58.4322264,
+          latit: -34.6331619,
+          longit: -58.3563399,
           precio: 850,
-          count: 1000,
+          count: 86400,
           desc:
             "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
         }

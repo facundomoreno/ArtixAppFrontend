@@ -76,7 +76,7 @@ const CardItem = props => (
       timeToShow={["H", "M", "S"]}
       timeLabels={{ m: null, s: null }}
       showSeparator={true}
-      style={{ top: 22 }}
+      style={{ top: 23 }}
     />
     <ItBuy>
       <TouchableOpacity
@@ -230,7 +230,7 @@ const ItTimeLeft = styled.Text`
   color: #353536;
   text-align: center;
   width: 200px;
-  top: 7%;
+  top: 6%;
 `;
 
 const ItDesc = styled.Text`

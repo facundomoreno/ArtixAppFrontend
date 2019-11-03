@@ -29,35 +29,41 @@ export default class LogScreen extends React.Component {
   }
 
   _loadInitialState = async () => {
-    var value = await AsyncStorage.getItem("user");
+
+    var value = await AsyncStorage.getItem('user')
     if (value !== null) {
-      this.props.navigation.navigate("AppTab");
+      this.props.navigation.navigate('Home');
     }
-  };
+  }
 
   login = () => {
-    fetch("http://192.168.0.83:3000/Login", {
-      method: "POST",
+
+    fetch('http://192.168.0.238:3000/Login',{
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         password: this.state.password,
         mail: this.state.mail
       })
     })
-      .then(response => response.json())
-      .then(res => {
-        if (res.success === true) {
-          AsyncStorage.setItem("user", res.mail);
-          this.props.navigation.navigate("AppTab");
-        } else {
-          alert(res.message);
+    
+    .then((response) => response.json())
+    .then ((res) => {
+  
+        if (res.success === true){
+          AsyncStorage.setItem('user', res.mail);
+          this.props.navigation.navigate('AppTab');
         }
-      })
-      .done();
-  };
+  
+        else{
+            alert(res.message);
+        }
+    })
+    .done();
+  }
 
   render() {
     return (
@@ -205,3 +211,5 @@ const SignUpView = styled.View`
   flex-direction: row;
   top: 20%;
 `;
+
+
