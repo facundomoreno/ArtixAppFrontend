@@ -27,8 +27,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 
 var radio_props = [
-  { label: "Nuevo  ", value: 0 },
-  { label: "Usado", value: 1 }
+  { label: "Nuevo  ", radval: 0 },
+  { label: "Usado", radval: 1 }
 ];
 
 
@@ -58,7 +58,8 @@ export default class VentaScreen extends React.Component {
       provincia: "",
       ciudad: "",
       barrio: "",
-      imagen: ""
+      imagen: "",
+      value: ""
     };
   }
 
@@ -81,8 +82,8 @@ export default class VentaScreen extends React.Component {
         descProducto: this.state.descProducto,
         categoria: this.state.categoria,
         //numero: this.state.numero,
-       // piso: this.state.piso,
-       // provincia: this.state.provincia,
+        // piso: this.state.piso,
+        // provincia: this.state.provincia,
         //ciudad: this.state.ciudad,
         //barrio: this.state.barrio,
         imagen: this.state.imagen
@@ -164,8 +165,9 @@ export default class VentaScreen extends React.Component {
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
-              <PickIn onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
-                <Picker.Item value="" label="Elegir Categoría"/>
+              <PickIn
+              onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
+                <Picker.Item value="" label="Elegir Categoría" />
                 <PickIn.Item
                   label="Accesorios para Vehículos"
                   value="acc-veh"

@@ -18,6 +18,8 @@ import { getDistance, convertDistance } from "geolib";
 import CardTienda from "./components/CardTienda";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
+
 
 const numColumns = 2;
 
@@ -34,7 +36,7 @@ export default class VentaScreen extends React.Component {
       longitude: 0,
       error: null,
       data: [
-        /*{
+        {
           id_producto: 0,
           image: require("./assets/shops/boca.jpeg"),
           nombreprod: "Camiseta de Boca Año 2000",
@@ -42,9 +44,9 @@ export default class VentaScreen extends React.Component {
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: "850",
-          count: "1000"
-        }*/
+          precio: 850,
+          count: 1000
+        }
       ]
     };
     boca = {
@@ -91,6 +93,9 @@ export default class VentaScreen extends React.Component {
     }
     return (
       <View>
+        <NavigationEvents
+                onDidFocus={() => this.fetchData()}
+                />
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
           <CardTienda
             key={item.id_producto}
@@ -118,8 +123,8 @@ export default class VentaScreen extends React.Component {
             }
             locLon={this.state.latitude}
             locLat={this.state.longitude}
-            itemPrice={item.precio}
-            itemCount={1000}
+            itemPrice={item.precio.toString()}
+            itemCount={item.count}
           />
         </TouchableOpacity>
       </View>
