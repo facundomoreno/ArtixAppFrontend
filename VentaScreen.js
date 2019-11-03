@@ -42,8 +42,8 @@ export default class VentaScreen extends React.Component {
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: "850",
-          count: "1000"
+          precio: 850,
+          count: 1000
         }
       ]
     };
@@ -118,8 +118,8 @@ export default class VentaScreen extends React.Component {
             }
             locLon={this.state.latitude}
             locLat={this.state.longitude}
-            itemPrice={item.precio}
-            itemCount={1000}
+            itemPrice={item.precio.toString()}
+            itemCount={item.count}
           />
         </TouchableOpacity>
       </View>

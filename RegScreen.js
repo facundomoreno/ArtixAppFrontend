@@ -25,25 +25,22 @@ export default class RegScreen extends React.Component {
     };
   }
 
-  
   componentDidMount() {
     this._loadInitialState().done();
   }
 
   _loadInitialState = async () => {
-
-    var value = await AsyncStorage.getItem('user')
+    var value = await AsyncStorage.getItem("user");
     if (value !== null) {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate("AppTab");
     }
-  }
+  };
 
-   Registrarse = () => {
-
+  Registrarse = () => {
     fetch("http://192.168.0.83:3000/Register", {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -52,22 +49,17 @@ export default class RegScreen extends React.Component {
         mail: this.state.mail
       })
     })
-
-    .then((response) => response.json())
-    .then ((res) => {
-  
-        if (res.success === true){
-          AsyncStorage.setItem('user', res.mail);
-          this.props.navigation.navigate('Home');
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          AsyncStorage.setItem("user", res.mail);
+          this.props.navigation.navigate("AppTab");
+        } else {
+          alert(res.message);
         }
-  
-        else{
-            alert(res.message);
-        }
-    })
-    .done();
-
-  }
+      })
+      .done();
+  };
 
   render() {
     return (

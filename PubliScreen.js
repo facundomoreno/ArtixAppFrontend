@@ -26,8 +26,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 
 var radio_props = [
-  { label: "Nuevo  ", value: 0 },
-  { label: "Usado", value: 1 }
+  { label: "Nuevo  ", radval: 0 },
+  { label: "Usado", radval: 1 }
 ];
 
 export default class VentaScreen extends React.Component {
@@ -45,7 +45,8 @@ export default class VentaScreen extends React.Component {
       provincia: "",
       ciudad: "",
       barrio: "",
-      imagen: ""
+      imagen: "",
+      value: ""
     };
   }
 
@@ -63,22 +64,22 @@ export default class VentaScreen extends React.Component {
       },
       body: JSON.stringify({
         nombreProducto: this.state.nombreProducto,
-        precio: this.state.precio,
+        //precio: this.state.precio,
         estado: this.state.estado,
         descProducto: this.state.descProducto,
-        categoria: this.state.categoria,
-        numero: this.state.numero,
-        piso: this.state.piso,
-        provincia: this.state.provincia,
-        ciudad: this.state.ciudad,
-        barrio: this.state.barrio,
-        imagen: this.state.imagen
+        categoria: this.state.categoria
+        //numero: this.state.numero,
+        // piso: this.state.piso,
+        // provincia: this.state.provincia,
+        //ciudad: this.state.ciudad,
+        // barrio: this.state.barrio,
+        //imagen: this.state.imagen
       })
     })
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
-          //AsyncStorage.setItem('user', res.mail);
+          //AsyncStorage.setItem('user', res.nombreProducto);
           alert(res.message);
           this.props.navigation.navigate("Venta");
         } else {
@@ -150,7 +151,12 @@ export default class VentaScreen extends React.Component {
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
-              <PickIn>
+              <PickIn
+                onValueChange={value => {
+                  this.setState({ value: value });
+                }}
+                selectedValue={this.state.value}
+              >
                 <Picker.Item value="" label="Elegir Categoría" />
                 <PickIn.Item
                   label="Accesorios para Vehículos"
@@ -217,8 +223,8 @@ export default class VentaScreen extends React.Component {
               selectedButtonColor={"#ff4d4d"}
               labelColor={"#353536"}
               animation={true}
-              onPress={value => {
-                this.setState({ value: value });
+              onPress={radval => {
+                this.setState({ radval: radval });
               }}
               initial={-1}
               style={{ top: "17%", position: "relative" }}
