@@ -11,6 +11,7 @@ import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
 import MensScreen from "../MensajesScreen";
 import ArtScreen from "../ArtScreen";
+import UbScreen from "../UbScreen";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
@@ -51,6 +52,7 @@ HomeStack.navigationOptions = {
 };
 
 const Mens = createStackNavigator({
+  Ub: UbScreen,
   Mens: MensScreen
 });
 
@@ -76,14 +78,13 @@ Mens.navigationOptions = {
     showLabel: false,
     tabBarIcon: ({ focused }) => (
       <Ionicons
-       name="ios-person"
-       size={26} account-multiple
-
-       color={focused ? activeColor : inactiveColor} 
-       
+        name="ios-person"
+        size={26}
+        account-multiple
+        color={focused ? activeColor : inactiveColor}
       />
     )
-}*/
+  };*/
 }
 
 const TabNavigator = createBottomTabNavigator(

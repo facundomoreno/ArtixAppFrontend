@@ -381,7 +381,6 @@ const InfoIn = styled.Text`
 const TextIn = styled.TextInput`
   top: 4%;
   height: 50px;
-  margin-top: 15px;
   flex-direction: column;
   background: white;
   width: 80%;
