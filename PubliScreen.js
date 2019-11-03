@@ -12,7 +12,8 @@ import {
   Image,
   FlatList,
   Dimensions,
-  Picker
+  Picker,
+  AsyncStorage
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -35,6 +36,7 @@ export default class VentaScreen extends React.Component {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
+      value:"Elegir Categoría",
       nombreProducto: "",
       precio: "",
       estado: "",
@@ -56,11 +58,11 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch("http://192.168.0.83:3000/Publicar", {
-      method: "POST",
+    fetch('http://192.168.0.83:3000/Publicar', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         nombreProducto: this.state.nombreProducto,
@@ -87,7 +89,7 @@ export default class VentaScreen extends React.Component {
         }
       })
       .done();
-  };
+  }
 
   state = {
     image: null
@@ -130,7 +132,8 @@ export default class VentaScreen extends React.Component {
             style={{ flex: 1, width: "100%" }}
             contentContainerStyle={{
               alignItems: "center",
-              flexGrow: 1
+              flexGrow: 1,
+              paddingBottom:200
             }}
           >
             <InfoIn>Título de tu producto</InfoIn>
@@ -148,9 +151,11 @@ export default class VentaScreen extends React.Component {
                 this.thiTxtInp.focus();
               }}
               blurOnSubmit={false}
+              onChangeText={nombreProducto => this.setState({ nombreProducto })}
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
+<<<<<<< HEAD
               <PickIn
                 onValueChange={value => {
                   this.setState({ value: value });
@@ -158,6 +163,10 @@ export default class VentaScreen extends React.Component {
                 selectedValue={this.state.value}
               >
                 <Picker.Item value="" label="Elegir Categoría" />
+=======
+              <PickIn onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
+                <Picker.Item value="" label="Elegir Categoría"/>
+>>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
                 <PickIn.Item
                   label="Accesorios para Vehículos"
                   value="acc-veh"
@@ -223,8 +232,13 @@ export default class VentaScreen extends React.Component {
               selectedButtonColor={"#ff4d4d"}
               labelColor={"#353536"}
               animation={true}
+<<<<<<< HEAD
               onPress={radval => {
                 this.setState({ radval: radval });
+=======
+              onPress={estado => {
+                this.setState({ estado });
+>>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
               }}
               initial={-1}
               style={{ top: "17%", position: "relative" }}
@@ -258,6 +272,7 @@ export default class VentaScreen extends React.Component {
               keyboardType="default"
               autoCapitalize="none"
               maxLength={200}
+              onChangeText={descProducto => this.setState({ descProducto })}
             ></TextInDesc>
             <TextInputTiempo>Tiempo de tu producto en horas</TextInputTiempo>
             <TouchableOpacity
@@ -275,6 +290,19 @@ export default class VentaScreen extends React.Component {
                 style={{ color: "#ff4d4d" }}
               ></Icon>
             </TouchableOpacity>
+            <ButtonUp>
+            <TouchableOpacity
+                onPress={() => this.Publicar()}
+                style={{
+                  width: "100%",
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <ButtonText>Publicar</ButtonText>
+              </TouchableOpacity>
+            </ButtonUp>
           </ScrollView>
         </AllCont>
       </Container>
