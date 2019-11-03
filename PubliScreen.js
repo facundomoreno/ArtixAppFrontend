@@ -155,18 +155,8 @@ export default class VentaScreen extends React.Component {
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
-<<<<<<< HEAD
-              <PickIn
-                onValueChange={value => {
-                  this.setState({ value: value });
-                }}
-                selectedValue={this.state.value}
-              >
-                <Picker.Item value="" label="Elegir Categoría" />
-=======
               <PickIn onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
-                <Picker.Item value="" label="Elegir Categoría"/>
->>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
+                <Picker.Item value="" label="Elegir Categoría" />
                 <PickIn.Item
                   label="Accesorios para Vehículos"
                   value="acc-veh"
@@ -232,13 +222,8 @@ export default class VentaScreen extends React.Component {
               selectedButtonColor={"#ff4d4d"}
               labelColor={"#353536"}
               animation={true}
-<<<<<<< HEAD
-              onPress={radval => {
-                this.setState({ radval: radval });
-=======
               onPress={estado => {
                 this.setState({ estado });
->>>>>>> 2068b813b970cefc025b3783347ab28aa788482a
               }}
               initial={-1}
               style={{ top: "17%", position: "relative" }}
