@@ -16,7 +16,7 @@ export default class Start extends React.Component {
     return (
       <Container>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("Home")}
+          onPress={() => this.props.navigation.navigate("AppTab")}
         >
           <Logo source={require("./assets/sxhb.png")}></Logo>
         </TouchableOpacity>

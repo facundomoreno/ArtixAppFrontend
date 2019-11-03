@@ -33,58 +33,19 @@ export default class VentaScreen extends React.Component {
       latitude: 0,
       longitude: 0,
       error: null,
-      data:[]
-        /*{
-          key: 0,
+      data: [
+        {
+          id_producto: 0,
           image: require("./assets/shops/boca.jpeg"),
-          name: "Camiseta de Boca Año 2000",
-          location: "Brandsen 175",
+          nombreprod: "Camiseta de Boca Año 2000",
+          calle: "Brandsen",
+          numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          price: "850",
+          precio: "850",
           count: "1000"
-        },
-        {
-          key: 1,
-          image: require("./assets/shops/web.jpg"),
-          name: "Webcam",
-          location: "Jufré 301",
-          latit: -34.5959411,
-          longit: -58.4322264,
-          price: "150",
-          count: "540"
-        },
-        {
-          key: 2,
-          image: require("./assets/shops/boca.jpeg"),
-          name: "Camiseta de Boca Año 2000",
-          location: "Brandsen 175",
-          latit: -34.6331619,
-          longit: -58.3563399,
-          price: "850",
-          count: "1000"
-        },
-        {
-          key: 3,
-          image: require("./assets/shops/boca.jpeg"),
-          name: "Camiseta de Boca Año 2000",
-          location: "Brandsen 175",
-          latit: -34.6331619,
-          longit: -58.3563399,
-          price: "850",
-          count: "1000"
-        },
-        {
-          key: 4,
-          image: require("./assets/shops/boca.jpeg"),
-          name: "Camiseta de Boca Año 2000",
-          location: "Brandsen 175",
-          latit: -34.6331619,
-          longit: -58.3563399,
-          price: "850",
-          count: "1000"
-        }*/
-      //]
+        }
+      ]
     };
     boca = {
       latitude: -34.6331619,
@@ -98,17 +59,16 @@ export default class VentaScreen extends React.Component {
       latitude: -34.5959411,
       longitude: -58.4322264
     };
-    
   }
 
-  fetchData = async() =>{
+  fetchData = async () => {
     console.log("Está funcionando data");
-    const response = await fetch('http://192.168.0.83:3000/Productos');
+    const response = await fetch("http://192.168.0.83:3000/Productos");
     const productos = await response.json();
-    this.setState({data:productos});
+    this.setState({ data: productos });
     console.log(JSON.stringify(this.state.data));
     console.log(productos);
-  }
+  };
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
@@ -131,7 +91,7 @@ export default class VentaScreen extends React.Component {
     }
     return (
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
           <CardTienda
             key={item.id_producto}
             itemImage={require("./assets/shops/boca.jpeg")}

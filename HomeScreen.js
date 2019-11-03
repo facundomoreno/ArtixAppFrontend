@@ -24,6 +24,14 @@ import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 
 export default class HomeScreen extends React.Component {
+  goToCategoryView = () => {
+    //Replace here push with resetTo
+    this.props.navigator.resetTo({
+      title: "Home",
+      component: HomeScreen
+    });
+  };
+
   static navigationOptions = {
     header: null,
     showIcon: true
@@ -112,7 +120,7 @@ export default class HomeScreen extends React.Component {
               size={20}
               until={1000}
               onFinish={() => alert("Finished")}
-              digitStyle={{ backgroundColor: "transpaent" }}
+              digitStyle={{ backgroundColor: "transparent" }}
               digitTxtStyle={{ color: "#ff4d4d" }}
               timeLabelStyle={{ color: "red", fontWeight: 600 }}
               separatorStyle={{ color: "#ff4d4d" }}

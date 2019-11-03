@@ -8,6 +8,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Button,
+  Image,
   FlatList,
   Dimensions,
   Picker
@@ -21,40 +23,42 @@ import styled from "styled-components";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import Icon from "react-native-vector-icons/Ionicons";
+import * as ImagePicker from "expo-image-picker";
 
-var radio_props = [{ label: "Nuevo", value: 0 }, { label: "Usado", value: 1 }];
+var radio_props = [
+  { label: "Nuevo  ", value: 0 },
+  { label: "Usado", value: 1 }
+];
 
 export default class VentaScreen extends React.Component {
-  
   constructor(props) {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
       nombreProducto: "",
-      precio:"",
-      estado:"",
-      descProducto:"",
-      categoria:"",
-      numero:"",
-      piso:"",
-      provincia:"",
-      ciudad:"",
-      barrio:"",
-      imagen:""
+      precio: "",
+      estado: "",
+      descProducto: "",
+      categoria: "",
+      numero: "",
+      piso: "",
+      provincia: "",
+      ciudad: "",
+      barrio: "",
+      imagen: ""
     };
   }
-  
+
   static navigationOptions = {
     header: null,
     showIcon: true
   };
 
   Publicar = () => {
-
     fetch("http://192.168.0.83:3000/Publicar", {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -71,25 +75,39 @@ export default class VentaScreen extends React.Component {
         imagen: this.state.imagen
       })
     })
-
-    .then((response) => response.json())
-    .then ((res) => {
-  
-        if (res.success === true){
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
           //AsyncStorage.setItem('user', res.mail);
           alert(res.message);
-          this.props.navigation.navigate('Venta');
+          this.props.navigation.navigate("Venta");
+        } else {
+          alert(res.message);
         }
-  
-        else{
-            alert(res.message);
-        }
-    })
-    .done();
+      })
+      .done();
+  };
 
-  }
+  state = {
+    image: null
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
 
   render() {
+    let { image } = this.state;
     return (
       <Container>
         <AllCont>
@@ -106,91 +124,152 @@ export default class VentaScreen extends React.Component {
             </TouchableOpacity>
             <Intro>Publica un producto</Intro>
           </TitleCont>
-          <InfoIn>Título de tu producto</InfoIn>
-          <TextIn
-            ref={input => {
-              this.secTxtInp = input;
+
+          <ScrollView
+            style={{ flex: 1, width: "100%" }}
+            contentContainerStyle={{
+              alignItems: "center",
+              flexGrow: 1
             }}
-            placeholder="Ej. Celular Samsung Galaxy S9 64 GB"
-            placeholderTextColor="grey"
-            returnKeyType="next"
-            selectionColor="#ff4d4d"
-            keyboardType="default"
-            autoCapitalize="none"
-            onSubmitEditing={() => {
-              this.thiTxtInp.focus();
-            }}
-            blurOnSubmit={false}
-            onChangeText={nombreProducto => this.setState({ nombreProducto })}
-          ></TextIn>
-          <InfoIn>Categoría de tu producto</InfoIn>
-          <PickIn>
-            <Picker.Item value="" label="Elegir Categoría" />
-            <PickIn.Item label="Accesorios para Vehículos" value="acc-veh" />
-            <PickIn.Item label="Antigüedades y Colecciones" value="ant-col" />
-            <PickIn.Item
-              label="Arte, Librería y Mercería"
-              value="art-lib-mer"
-            />
-            <PickIn.Item label="Bebés" value="bebes" />
-            <PickIn.Item label="Belleza y Cuidado Personal" value="bel" />
-            <PickIn.Item label="Cámaras y Accesorios" value="cam-acc" />
-            <PickIn.Item label="Celulares y Teléfonos" value="cel-tel" />
-            <PickIn.Item label="Computación" value="comp" />
-            <PickIn.Item label="Consolas y Videojuegos" value="con-vid" />
-            <PickIn.Item
-              label="Electrodomésticos y Aires Ac."
-              value="elec-aires"
-            />
-            <PickIn.Item label="Electrónica, Audio y Video" value="elec" />
-            <PickIn.Item label="Entradas para Eventos" value="event" />
-            <PickIn.Item label="Herramientas y Construcción" value="const" />
-            <PickIn.Item
-              label="Hogar, Muebles y Jardín"
-              value="hog-mueb-jard"
-            />
-            <PickIn.Item label="Idustrias y Oficinas" value="ind-ofi" />
-            <PickIn.Item label="Instrumentos Musicales" value="inst-mus" />
-            <PickIn.Item label="Joyas y Relojes" value="joy-rel" />
-            <PickIn.Item
-              label="Libros, Revistas y Comics"
-              value="lib-rev-com"
-            />
-            <PickIn.Item
-              label="Música, Películas y Series"
-              value="mus-pel-ser"
-            />
-            <PickIn.Item label="Ropa y Accesorios" value="rop-acc" />
-            <PickIn.Item
-              label="Salud y Equipamiento Médico"
-              value="sal-eq-med"
-            />
-            <PickIn.Item
-              label="Souvenirs, Cotillón y Fiestas"
-              value="sou-cot-fie"
-            />
-            <PickIn.Item label="Otros" value="otros" />
-          </PickIn>
-          <InfoIn>Condición de tu producto</InfoIn>
-          <RadioForm formHorizontal={true} animation={true}>
-            {/* To create radio buttons, loop through your array of options */}
-            {radio_props.map((obj, i) => (
-              <RadioButton labelHorizontal={true} key={i}>
-                {/*  You can set RadioButtonLabel before RadioButtonInput */}
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  borderWidth={1}
-                  buttonInnerColor={"#ff4d4d"}
-                  buttonOuterColor={"#ff4d4d"}
-                  buttonSize={40}
-                  buttonOuterSize={80}
-                  buttonStyle={{}}
-                  buttonWrapStyle={{ marginLeft: 10 }}
+          >
+            <InfoIn>Título de tu producto</InfoIn>
+            <TextIn
+              ref={input => {
+                this.secTxtInp = input;
+              }}
+              placeholder="Ej. Celular Samsung Galaxy S9 64 GB"
+              placeholderTextColor="grey"
+              returnKeyType="next"
+              selectionColor="#ff4d4d"
+              keyboardType="default"
+              autoCapitalize="none"
+              onSubmitEditing={() => {
+                this.thiTxtInp.focus();
+              }}
+              blurOnSubmit={false}
+            ></TextIn>
+            <InfoIn>Categoría de tu producto</InfoIn>
+            <ContPicker>
+              <PickIn>
+                <Picker.Item value="" label="Elegir Categoría" />
+                <PickIn.Item
+                  label="Accesorios para Vehículos"
+                  value="acc-veh"
                 />
-              </RadioButton>
-            ))}
-          </RadioForm>
+                <PickIn.Item
+                  label="Antigüedades y Colecciones"
+                  value="ant-col"
+                />
+                <PickIn.Item
+                  label="Arte, Librería y Mercería"
+                  value="art-lib-mer"
+                />
+                <PickIn.Item label="Bebés" value="bebes" />
+                <PickIn.Item label="Belleza y Cuidado Personal" value="bel" />
+                <PickIn.Item label="Cámaras y Accesorios" value="cam-acc" />
+                <PickIn.Item label="Celulares y Teléfonos" value="cel-tel" />
+                <PickIn.Item label="Computación" value="comp" />
+                <PickIn.Item label="Consolas y Videojuegos" value="con-vid" />
+                <PickIn.Item
+                  label="Electrodomésticos y Aires Ac."
+                  value="elec-aires"
+                />
+                <PickIn.Item label="Electrónica, Audio y Video" value="elec" />
+                <PickIn.Item label="Entradas para Eventos" value="event" />
+                <PickIn.Item
+                  label="Herramientas y Construcción"
+                  value="const"
+                />
+                <PickIn.Item
+                  label="Hogar, Muebles y Jardín"
+                  value="hog-mueb-jard"
+                />
+                <PickIn.Item label="Idustrias y Oficinas" value="ind-ofi" />
+                <PickIn.Item label="Instrumentos Musicales" value="inst-mus" />
+                <PickIn.Item label="Joyas y Relojes" value="joy-rel" />
+                <PickIn.Item
+                  label="Libros, Revistas y Comics"
+                  value="lib-rev-com"
+                />
+                <PickIn.Item
+                  label="Música, Películas y Series"
+                  value="mus-pel-ser"
+                />
+                <PickIn.Item label="Ropa y Accesorios" value="rop-acc" />
+                <PickIn.Item
+                  label="Salud y Equipamiento Médico"
+                  value="sal-eq-med"
+                />
+                <PickIn.Item
+                  label="Souvenirs, Cotillón y Fiestas"
+                  value="sou-cot-fie"
+                />
+                <PickIn.Item label="Otros" value="otros" />
+              </PickIn>
+            </ContPicker>
+
+            <InfoIn style={{ top: "9%" }}>Condición de tu producto</InfoIn>
+            <RadioForm
+              radio_props={radio_props}
+              formHorizontal={true}
+              labelHorizontal={true}
+              buttonColor={"#ff4d4d"}
+              selectedButtonColor={"#ff4d4d"}
+              labelColor={"#353536"}
+              animation={true}
+              onPress={value => {
+                this.setState({ value: value });
+              }}
+              initial={-1}
+              style={{ top: "17%", position: "relative" }}
+            />
+            <InfoIn style={{ top: "10%" }}>Imagen de tu Producto</InfoIn>
+            <ButtonUp>
+              <TouchableOpacity
+                onPress={this.pickImage}
+                style={{
+                  width: "100%",
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <ButtonText>Subir Imagen</ButtonText>
+              </TouchableOpacity>
+            </ButtonUp>
+            {image ? (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 100, height: 100, top: "12%" }}
+              />
+            ) : null}
+
+            <InfoIn style={{ top: "12%" }}>Descripcion de tu Producto</InfoIn>
+            <TextInDesc
+              placeholder="Máximo 200 caracteres"
+              placeholderTextColor="grey"
+              selectionColor="#ff4d4d"
+              keyboardType="default"
+              autoCapitalize="none"
+              maxLength={200}
+            ></TextInDesc>
+            <TextInputTiempo>Tiempo de tu producto en horas</TextInputTiempo>
+            <TouchableOpacity
+              style={{
+                height: 40,
+                width: 40,
+                left: 345,
+                top: 630,
+                position: "absolute"
+              }}
+            >
+              <Icon
+                name="ios-arrow-dropright-circle"
+                size={40}
+                style={{ color: "#ff4d4d" }}
+              ></Icon>
+            </TouchableOpacity>
+          </ScrollView>
         </AllCont>
       </Container>
     );
@@ -208,8 +287,8 @@ const AllCont = styled.View`
   border-radius: 5;
   background-color: white;
   width: 90%;
+  top: 6.5%;
   flex: 1;
-  top: 5%;
   align-items: center;
 `;
 
@@ -241,11 +320,11 @@ const InfoIn = styled.Text`
   font-size: 14px;
   color: #353536;
   font-weight: 400;
-  top: 5%;
+  top: 6%;
 `;
 
 const TextIn = styled.TextInput`
-  top: 3%;
+  top: 4%;
   margin-top: 15px;
   height: 50px;
   flex-direction: column;
@@ -255,14 +334,42 @@ const TextIn = styled.TextInput`
   box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
   color: #353536;
-  font-size: 16px;
+  font-size: 14px;
+  padding-left: 10;
+`;
+
+const TextInDesc = styled.TextInput`
+  position: relative;
+  top: 14%;
+  height: 80px;
+  flex-direction: column;
+  background: white;
+  width: 80%;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 14px;
+  padding-left: 10;
+`;
+
+const TextInputTiempo = styled.TextInput`
+  position: relative;
+  bottom: 5%;
+  height: 50px;
+  flex-direction: column;
+  background: white;
+  width: 80%;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 14px;
   padding-left: 10;
 `;
 
 const PickIn = styled.Picker`
-  top: 3%;
-  margin-top: 15px;
-  height: 50px;
+  height: 40px;
   flex-direction: column;
   background: white;
   width: 80%;
@@ -270,6 +377,54 @@ const PickIn = styled.Picker`
   box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
   color: #353536;
-  font-size: 16px;
+  font-size: 14px;
   padding-left: 10;
+`;
+
+const ContPicker = styled.View`
+  top: 7%;
+  width: 80%;
+  background: white;
+  height: 50px;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+`;
+
+const ContMaximo = styled.TextInput`
+  position: relative;
+  width: 22%;
+  height: 50px;
+  left: 29%;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+  top: 5%;
+`;
+
+const ContMinimo = styled.TextInput`
+  position: relative;
+  bottom: 8%;
+  right: 18%;
+  width: 22%;
+  height: 50px;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
+`;
+
+const ButtonUp = styled.View`
+  top: 11%;
+  align-items: center;
+  justify-content: center;
+  background: #ff4d4d;
+  width: 80%;
+  height: 50px;
+  border-radius: 100;
+`;
+
+const ButtonText = styled.Text`
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
 `;

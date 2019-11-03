@@ -10,13 +10,15 @@ import Start from "../Start";
 import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
 import MensScreen from "../MensajesScreen";
+import ArtScreen from "../ArtScreen";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
 
 const Tienda = createStackNavigator({
   Venta: VentaScreen,
-  Publi: PubliScreen
+  Publi: PubliScreen,
+  Art: ArtScreen
 });
 
 Tienda.navigationOptions = {
@@ -49,22 +51,20 @@ HomeStack.navigationOptions = {
 };
 
 const Mens = createStackNavigator({
-    Mens: MensScreen
-  });
+  Mens: MensScreen
+});
 
-  Mens.navigationOptions = {
-    tabBarLabel: "Mensajes",
-    showLabel: false,
-    tabBarIcon: ({ focused }) => (
-      <Ionicons
-       name="ios-mail"
-       size={26} 
-
-       color={focused ? activeColor : inactiveColor} 
-       
-      />
-    )
-}
+Mens.navigationOptions = {
+  tabBarLabel: "Mensajes",
+  showLabel: false,
+  tabBarIcon: ({ focused }) => (
+    <Ionicons
+      name="ios-mail"
+      size={26}
+      color={focused ? activeColor : inactiveColor}
+    />
+  )
+};
 
 {
   /*const Perfil = createStackNavigator({
