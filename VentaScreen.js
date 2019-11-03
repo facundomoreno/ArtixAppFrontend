@@ -63,7 +63,7 @@ export default class VentaScreen extends React.Component {
 
   fetchData = async () => {
     console.log("Está funcionando data");
-    const response = await fetch("http://192.168.0.83:3000/Productos");
+    const response = await fetch('http://192.168.0.238:3000/Productos');
     const productos = await response.json();
     this.setState({ data: productos });
     console.log(JSON.stringify(this.state.data));
@@ -94,7 +94,7 @@ export default class VentaScreen extends React.Component {
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
           <CardTienda
             key={item.id_producto}
-            itemImage={require("./assets/shops/boca.jpeg")}
+            itemImage={source = {uri: item.imagen}}
             itemName={item.nombreprod}
             itemLocation={item.calle + " " + item.numero}
             itemDistance={
