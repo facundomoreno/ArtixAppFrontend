@@ -34,7 +34,7 @@ export default class VentaScreen extends React.Component {
       longitude: 0,
       error: null,
       data: [
-        {
+        /*{
           id_producto: 0,
           image: require("./assets/shops/boca.jpeg"),
           nombreprod: "Camiseta de Boca Año 2000",
@@ -44,7 +44,7 @@ export default class VentaScreen extends React.Component {
           longit: -58.3563399,
           precio: "850",
           count: "1000"
-        }
+        }*/
       ]
     };
     boca = {

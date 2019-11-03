@@ -34,7 +34,7 @@ export default class RegScreen extends React.Component {
 
     var value = await AsyncStorage.getItem('user')
     if (value !== null) {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Home');
     }
   }
 
@@ -58,7 +58,7 @@ export default class RegScreen extends React.Component {
   
         if (res.success === true){
           AsyncStorage.setItem('user', res.mail);
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('AppTab');
         }
   
         else{

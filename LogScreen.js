@@ -55,7 +55,7 @@ export default class LogScreen extends React.Component {
   
         if (res.success === true){
           AsyncStorage.setItem('user', res.mail);
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('AppTab');
         }
   
         else{

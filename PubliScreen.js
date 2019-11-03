@@ -12,7 +12,8 @@ import {
   Image,
   FlatList,
   Dimensions,
-  Picker
+  Picker,
+  AsyncStorage
 } from "react-native";
 import RadioForm, {
   RadioButton,
@@ -35,6 +36,7 @@ export default class VentaScreen extends React.Component {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
+      value:"Elegir Categoría",
       nombreProducto: "",
       precio: "",
       estado: "",
@@ -55,30 +57,30 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch("http://192.168.0.83:3000/Publicar", {
-      method: "POST",
+    fetch('http://192.168.0.83:3000/Publicar', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         nombreProducto: this.state.nombreProducto,
-        precio: this.state.precio,
+        //precio: this.state.precio,
         estado: this.state.estado,
         descProducto: this.state.descProducto,
-        categoria: this.state.categoria,
-        numero: this.state.numero,
-        piso: this.state.piso,
-        provincia: this.state.provincia,
-        ciudad: this.state.ciudad,
-        barrio: this.state.barrio,
-        imagen: this.state.imagen
+        categoria: this.state.categoria
+        //numero: this.state.numero,
+       // piso: this.state.piso,
+       // provincia: this.state.provincia,
+        //ciudad: this.state.ciudad,
+       // barrio: this.state.barrio,
+        //imagen: this.state.imagen
       })
     })
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
-          //AsyncStorage.setItem('user', res.mail);
+          //AsyncStorage.setItem('user', res.nombreProducto);
           alert(res.message);
           this.props.navigation.navigate("Venta");
         } else {
@@ -86,7 +88,7 @@ export default class VentaScreen extends React.Component {
         }
       })
       .done();
-  };
+  }
 
   state = {
     image: null
@@ -129,7 +131,8 @@ export default class VentaScreen extends React.Component {
             style={{ flex: 1, width: "100%" }}
             contentContainerStyle={{
               alignItems: "center",
-              flexGrow: 1
+              flexGrow: 1,
+              paddingBottom:200
             }}
           >
             <InfoIn>Título de tu producto</InfoIn>
@@ -147,11 +150,12 @@ export default class VentaScreen extends React.Component {
                 this.thiTxtInp.focus();
               }}
               blurOnSubmit={false}
+              onChangeText={nombreProducto => this.setState({ nombreProducto })}
             ></TextIn>
             <InfoIn>Categoría de tu producto</InfoIn>
             <ContPicker>
-              <PickIn>
-                <Picker.Item value="" label="Elegir Categoría" />
+              <PickIn onValueChange={(categoria) => {this.setState({categoria});}} selectedValue={this.state.categoria}>
+                <Picker.Item value="" label="Elegir Categoría"/>
                 <PickIn.Item
                   label="Accesorios para Vehículos"
                   value="acc-veh"
@@ -217,8 +221,8 @@ export default class VentaScreen extends React.Component {
               selectedButtonColor={"#ff4d4d"}
               labelColor={"#353536"}
               animation={true}
-              onPress={value => {
-                this.setState({ value: value });
+              onPress={estado => {
+                this.setState({ estado });
               }}
               initial={-1}
               style={{ top: "17%", position: "relative" }}
@@ -252,6 +256,7 @@ export default class VentaScreen extends React.Component {
               keyboardType="default"
               autoCapitalize="none"
               maxLength={200}
+              onChangeText={descProducto => this.setState({ descProducto })}
             ></TextInDesc>
             <TextInputTiempo>Tiempo de tu producto en horas</TextInputTiempo>
             <TouchableOpacity
@@ -269,6 +274,19 @@ export default class VentaScreen extends React.Component {
                 style={{ color: "#ff4d4d" }}
               ></Icon>
             </TouchableOpacity>
+            <ButtonUp>
+            <TouchableOpacity
+                onPress={() => this.Publicar()}
+                style={{
+                  width: "100%",
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <ButtonText>Publicar</ButtonText>
+              </TouchableOpacity>
+            </ButtonUp>
           </ScrollView>
         </AllCont>
       </Container>
