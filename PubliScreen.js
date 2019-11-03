@@ -36,21 +36,21 @@ var radio_props = [{ label: "Nuevo", value: 0 }, { label: "Usado", value: 1 }];
 export default class VentaScreen extends React.Component {
   constructor(props) {
     super(props);
-
     this.Publicar = this.Publicar.bind(this);
     this.state = {
       categoria: "",
       nombreProducto: "",
-      precio: "",
+      //precio: "",
       estado: "",
       descProducto: "",
       categoria: "",
-      numero: "",
-      piso: "",
-      provincia: "",
-      ciudad: "",
-      barrio: "",
+      //numero: "",
+      // piso: "",
+      //  provincia: "",
+      //ciudad: "",
+      //barrio: "",
       imagen: ""
+      // value: ""
     };
   }
 
@@ -60,7 +60,7 @@ export default class VentaScreen extends React.Component {
   };
 
   Publicar = () => {
-    fetch("http://192.168.0.238:3000/Publicar", {
+    fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
       headers: {
         Accept: "application/json",
