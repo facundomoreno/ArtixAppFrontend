@@ -18,6 +18,8 @@ import { getDistance, convertDistance } from "geolib";
 import CardTienda from "./components/CardTienda";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
+
 
 const numColumns = 2;
 
@@ -91,6 +93,9 @@ export default class VentaScreen extends React.Component {
     }
     return (
       <View>
+        <NavigationEvents
+                onDidFocus={() => this.fetchData()}
+                />
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
           <CardTienda
             key={item.id_producto}
