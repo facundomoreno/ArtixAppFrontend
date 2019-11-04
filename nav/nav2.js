@@ -17,10 +17,7 @@ import RegScreen from "../RegScreen";
 import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
-<<<<<<< HEAD
-=======
 import PabloScreen from "../PabloScreen";
->>>>>>> 8be2af7d2fdb11be902256d4cb8405d73ae4da85
 import TabNavigator from "./tab";
 import UbScreen from "../UbScreen";
 
