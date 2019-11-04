@@ -15,12 +15,13 @@ import {
   Picker,
   AsyncStorage
 } from "react-native";
-import { RadioButtons } from 'react-native-radio-buttons';
 import styled from "styled-components";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
+import { RadioButton } from 'react-native-paper';
+
 export default class PabloScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -103,30 +104,7 @@ pickImage = async () => {
 
 
 render() {
-    const options = [
-        "Option 1",
-        "Option 2"
-      ];
-    function setSelectedOption(selectedOption){
-        this.setState({
-          selectedOption
-        });
-      }
-     
-      function renderOption(option, selected, onSelect, index){
-        const style = selected ? { fontWeight: 'bold'} : {};
-     
-        return (
-          <TouchableOpacity onPress={onSelect} key={index}>
-            <Text style={style}>{option}</Text>
-          </TouchableOpacity>
-        );
-      }
-     
-      function renderContainer(optionNodes){
-        return <View>{optionNodes}</View>;
-      }
-    
+   
   let { imagen } = this.state;
     return (
       <Container>
@@ -235,13 +213,7 @@ render() {
               </PickIn>
             </ContPicker>
             <InfoIn>Condición de tu producto</InfoIn>
-            <RadioButtons
-        options={ options }
-        onSelection={ setSelectedOption.bind(this) }
-        selectedOption={this.state.selectedOption }
-        renderOption={ renderOption }
-        renderContainer={ renderContainer }
-      />
+            
             {/*<RadioForm
               radio_props={[{ label: "Nuevo  ", value: 0 }, { label: "Usado", value: 1 }]
             }
