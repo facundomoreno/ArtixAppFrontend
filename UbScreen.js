@@ -49,8 +49,14 @@ export default class UbScreen extends React.Component {
           </TitleCont>
           <InfoIn>Calle</InfoIn>
           <TextIn></TextIn>
-          <InfoIn>Número</InfoIn>
-          <TextInNum></TextInNum>
+          <NumDeptText>
+            <InfoIn style={{ width: "25%" }}>Número</InfoIn>
+            <InfoIn style={{ width: "50%" }}>Piso/Depto</InfoIn>
+          </NumDeptText>
+          <NumDept>
+            <TextInNum></TextInNum>
+            <TextInNum style={{ width: "50%" }}></TextInNum>
+          </NumDept>
         </AllCont>
       </Container>
     );
@@ -100,7 +106,7 @@ const InfoIn = styled.Text`
 `;
 
 const TextIn = styled.TextInput`
-  top: 1%;
+  top: 2%;
   height: 50px;
   background: white;
   width: 80%;
@@ -112,7 +118,6 @@ const TextIn = styled.TextInput`
 `;
 
 const TextInNum = styled.TextInput`
-  top: 1%;
   height: 50px;
   background: white;
   width: 32%;
@@ -121,4 +126,19 @@ const TextInNum = styled.TextInput`
   color: #353536;
   font-size: 16px;
   padding-left: 10;
+`;
+
+const NumDept = styled.View`
+  top: 1%;
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
+  flex-direction: row;
+`;
+
+const NumDeptText = styled.View`
+  top: 1%;
+  justify-content: space-between;
+  width: 80%;
+  flex-direction: row;
 `;
