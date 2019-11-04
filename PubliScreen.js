@@ -301,6 +301,18 @@ export default class VentaScreen extends React.Component {
                 onChangeText={stock => this.setState({ stock })}
               ></TextInTM>
             </TextInTMCont>
+            <InfoInUb>Calle</InfoInUb>
+            <TextInUb></TextInUb>
+            <NumDeptTextUb>
+              <InfoInNumDeptUb style={{ width: "25%" }}>Número</InfoInNumDeptUb>
+              <InfoInNumDeptUb style={{ width: "50%" }}>
+                Piso/Depto
+              </InfoInNumDeptUb>
+            </NumDeptTextUb>
+            <NumDeptUb>
+              <TextInNumUb></TextInNumUb>
+              <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
+            </NumDeptUb>
             <TouchableOpacity
               style={{
                 height: 40,
@@ -381,6 +393,7 @@ const InfoIn = styled.Text`
   color: #353536;
   font-weight: 400;
   top: 6%;
+  font-weight: bold;
 `;
 
 const TextIn = styled.TextInput`
@@ -489,4 +502,59 @@ const ButtonText = styled.Text`
   color: white;
   font-weight: 600;
   font-size: 16px;
+`;
+
+const InfoInUb = styled.Text`
+  top: 15%;
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  color: #353536;
+  font-weight: bold;
+`;
+
+const TextInUb = styled.TextInput`
+  top: 16%;
+  height: 50px;
+  background: white;
+  width: 80%;
+  border: 1px solid #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 16px;
+  padding-left: 10;
+`;
+
+const TextInNumUb = styled.TextInput`
+  height: 50px;
+  background: white;
+  width: 32%;
+  border: 1px solid #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 16px;
+  padding-left: 10;
+`;
+
+const NumDeptUb = styled.View`
+  top: 33%;
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
+  flex-direction: row;
+`;
+
+const NumDeptTextUb = styled.View`
+  top: 32%;
+  justify-content: space-between;
+  width: 80%;
+  flex-direction: row;
+`;
+
+const InfoInNumDeptUb = styled.Text`
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  color: #353536;
+  font-weight: bold;
 `;

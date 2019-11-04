@@ -47,16 +47,6 @@ export default class UbScreen extends React.Component {
             </TouchableOpacity>
             <Intro>Inserta tu ubicación</Intro>
           </TitleCont>
-          <InfoIn>Calle</InfoIn>
-          <TextIn></TextIn>
-          <NumDeptText>
-            <InfoIn style={{ width: "25%" }}>Número</InfoIn>
-            <InfoIn style={{ width: "50%" }}>Piso/Depto</InfoIn>
-          </NumDeptText>
-          <NumDept>
-            <TextInNum></TextInNum>
-            <TextInNum style={{ width: "50%" }}></TextInNum>
-          </NumDept>
         </AllCont>
       </Container>
     );
@@ -96,7 +86,7 @@ const Intro = styled.Text`
   color: #353536;
 `;
 
-const InfoIn = styled.Text`
+const InfoInUb = styled.Text`
   top: 1%;
   width: 80%;
   text-align: left;
@@ -105,7 +95,7 @@ const InfoIn = styled.Text`
   font-weight: bold;
 `;
 
-const TextIn = styled.TextInput`
+const TextInUb = styled.TextInput`
   top: 2%;
   height: 50px;
   background: white;
@@ -117,7 +107,7 @@ const TextIn = styled.TextInput`
   padding-left: 10;
 `;
 
-const TextInNum = styled.TextInput`
+const TextInNumUb = styled.TextInput`
   height: 50px;
   background: white;
   width: 32%;
@@ -128,7 +118,7 @@ const TextInNum = styled.TextInput`
   padding-left: 10;
 `;
 
-const NumDept = styled.View`
+const NumDeptUb = styled.View`
   top: 1%;
   justify-content: space-between;
   width: 80%;
@@ -136,8 +126,8 @@ const NumDept = styled.View`
   flex-direction: row;
 `;
 
-const NumDeptText = styled.View`
-  top: 1%;
+const NumDeptTextUb = styled.View`
+  top: 2%;
   justify-content: space-between;
   width: 80%;
   flex-direction: row;

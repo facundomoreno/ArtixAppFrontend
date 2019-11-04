@@ -12,6 +12,7 @@ import PubliScreen from "../PubliScreen";
 import MensScreen from "../MensajesScreen";
 import ArtScreen from "../ArtScreen";
 import UbScreen from "../UbScreen";
+import PerfilScreen from "../PerfilScreen";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
@@ -68,30 +69,29 @@ Mens.navigationOptions = {
   )
 };
 
-{
-  /*const Perfil = createStackNavigator({
-    
-  });
+const Perfil = createStackNavigator({
+  Perf: PerfilScreen
+});
 
-  Perfil.navigationOptions = {
-    tabBarLabel: "Perfil",
-    showLabel: false,
-    tabBarIcon: ({ focused }) => (
-      <Ionicons
-        name="ios-person"
-        size={26}
-        account-multiple
-        color={focused ? activeColor : inactiveColor}
-      />
-    )
-  };*/
-}
+Perfil.navigationOptions = {
+  tabBarLabel: "Perfil",
+  showLabel: false,
+  tabBarIcon: ({ focused }) => (
+    <Ionicons
+      name="ios-person"
+      size={26}
+      account-multiple
+      color={focused ? activeColor : inactiveColor}
+    />
+  )
+};
 
 const TabNavigator = createBottomTabNavigator(
   {
     Tienda,
     HomeStack,
-    Mens
+    Mens,
+    Perfil
   },
   {
     initialRouteName: "HomeStack",
