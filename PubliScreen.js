@@ -50,7 +50,7 @@ export default class VentaScreen extends React.Component {
       //ciudad: "",
       //barrio: "",
       imagen: "",
-      stock:"",
+      stock: "",
       count: 86400
       // value: ""
     };
@@ -274,7 +274,7 @@ export default class VentaScreen extends React.Component {
             <TextInTMCont style={{ top: "22%" }}>
               <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
               <TextInTM
-                keyboardType="numeric"
+                keyboardType="decimal-pad"
                 ref={input => {
                   this.secTxtInp = input;
                 }}
@@ -289,7 +289,7 @@ export default class VentaScreen extends React.Component {
             <InfoIn style={{ top: "16%" }}>Stock de tu producto</InfoIn>
             <TextInTMCont style={{ top: "24%" }}>
               <TextInTM
-                keyboardType="numeric"
+                keyboardType="decimal-pad"
                 ref={input => {
                   this.thiTxtInp = input;
                 }}

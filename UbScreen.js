@@ -49,6 +49,8 @@ export default class UbScreen extends React.Component {
           </TitleCont>
           <InfoIn>Calle</InfoIn>
           <TextIn></TextIn>
+          <InfoIn>Número</InfoIn>
+          <TextInNum></TextInNum>
         </AllCont>
       </Container>
     );
@@ -102,6 +104,18 @@ const TextIn = styled.TextInput`
   height: 50px;
   background: white;
   width: 80%;
+  border: 1px solid #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 16px;
+  padding-left: 10;
+`;
+
+const TextInNum = styled.TextInput`
+  top: 1%;
+  height: 50px;
+  background: white;
+  width: 32%;
   border: 1px solid #e5eced;
   border-radius: 5;
   color: #353536;

@@ -121,12 +121,8 @@ export default class VentaScreen extends React.Component {
             locLon={this.state.latitude}
             locLat={this.state.longitude}
             itemPrice={item.precio}
-<<<<<<< HEAD
-            itemCount={1000}
-=======
             itemStock={item.stock}
             itemCount={item.count}
->>>>>>> b1657427ab2318a033dec9054660d0867eaec645
           />
         </TouchableOpacity>
       </View>
