@@ -17,7 +17,6 @@ import RegScreen from "../RegScreen";
 import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
-import PubliScreen from "../PubliScreen";
 import AppTab from "../AppTab";
 
 const AppNavigator = createStackNavigator(
@@ -28,7 +27,7 @@ const AppNavigator = createStackNavigator(
     Login: LogScreen,
     Maps: MapScreen,
     Venta: VentaScreen,
-    Publi: PubliScreen,
+    Publi: PabloScreen,
     AppTab: AppTab
   },
 

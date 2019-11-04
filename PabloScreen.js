@@ -293,6 +293,94 @@ render() {
               >
               </TextInTM>
               </TextInTMCont>
+              <NumDeptTextUb>
+              <InfoInNumDeptUb style={{ width: "25%" }}>Número</InfoInNumDeptUb>
+              <InfoInNumDeptUb style={{ width: "50%" }}>
+                Piso/Depto
+              </InfoInNumDeptUb>
+            </NumDeptTextUb>
+            <NumDeptUb>
+              <TextInNumUb></TextInNumUb>
+              <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
+            </NumDeptUb>
+            <InfoInUb style={{top: "16%"}}>Provincia</InfoInUb>
+            <ContPicker>
+              <PickIn
+                onValueChange={provincia => {
+                  this.setState({ provincia });
+                }}
+                selectedValue={this.state.provincia}
+              >
+                <Picker.Item value="" label="Elegir Provincia" />
+                <PickIn.Item
+                  label="Buenos Aires"
+                  value="bsas"
+                />
+                <PickIn.Item
+                  label="Catamarca"
+                  value="catamarca"
+                />
+                <PickIn.Item
+                  label="Ciudad Autónoma de Buenos Aires"
+                  value="caba"
+                />
+                <PickIn.Item label="Chaco" value="chaco" />
+                <PickIn.Item label="Chubut" value="chubut" />
+                <PickIn.Item label="Córdoba" value="cordoba" />
+                <PickIn.Item label="Corrientes" value="corrientes" />
+                <PickIn.Item label="Entre Ríos" value="entrerios" />
+                <PickIn.Item label="Formosa" value="formosa" />
+                <PickIn.Item
+                  label="Jujuy"
+                  value="jujuy"
+                />
+                <PickIn.Item label="La Pampa" value="lapampa" />
+                <PickIn.Item label="La Rioja" value="larioja" />
+                <PickIn.Item
+                  label="Mendoza"
+                  value="mendoza"
+                />
+                <PickIn.Item
+                  label="Misiones"
+                  value="misiones"
+                />
+                <PickIn.Item label="Neuquén" value="neuquen" />
+                <PickIn.Item label="Río Negro" value="rionegro" />
+                <PickIn.Item label="Salta" value="salta" />
+                <PickIn.Item
+                  label="San Juan"
+                  value="sanjuan"
+                />
+                <PickIn.Item
+                  label="San Luis"
+                  value="sanluis"
+                />
+                <PickIn.Item label="Santa Cruz" value="santacruz" />
+                <PickIn.Item
+                  label="Santa Fe"
+                  value="santafe"
+                />
+                <PickIn.Item
+                  label="Santiago del Estero"
+                  value="santiagodelestero"
+                />
+                <PickIn.Item label="Tierra del Fuego, Antártida e Isla del Atlántico Sur" value="tierradelfuego" />
+                <PickIn.Item label="Tucumán" value="tucuman" />
+              </PickIn>
+              <InfoInUb>Ciudad</InfoInUb>
+            <TextInUb></TextInUb>
+            <InfoInUb>Barrio</InfoInUb>
+            <TextInUb></TextInUb>
+            </ContPicker>
+            <TouchableOpacity
+              style={{
+                height: 40,
+                width: 40,
+                left: 345,
+                top: 630,
+                position: "absolute"
+              }}
+            ></TouchableOpacity>
               <ButtonUp style={{ top: "10%" }}>
               <TouchableOpacity
                 onPress={() => this.Publicar()}
@@ -459,4 +547,55 @@ const TextInTM = styled.TextInput`
 const VoidContSep =styled.View`
   width: 80%;
   height: 7%;
+`;
+
+const InfoInUb = styled.Text`
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  color: #353536;
+  font-weight: bold;
+`;
+
+const TextInUb = styled.TextInput`
+  height: 50px;
+  background: white;
+  width: 80%;
+  border: 1px solid #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 16px;
+  padding-left: 10;
+`;
+
+const TextInNumUb = styled.TextInput`
+  height: 50px;
+  background: white;
+  width: 32%;
+  border: 1px solid #e5eced;
+  border-radius: 5;
+  color: #353536;
+  font-size: 16px;
+  padding-left: 10;
+`;
+
+const NumDeptUb = styled.View`
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
+  flex-direction: row;
+`;
+
+const NumDeptTextUb = styled.View`
+  justify-content: space-between;
+  width: 80%;
+  flex-direction: row;
+`;
+
+const InfoInNumDeptUb = styled.Text`
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  color: #353536;
+  font-weight: bold;
 `;
