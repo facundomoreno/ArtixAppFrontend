@@ -15,11 +15,7 @@ import {
   Picker,
   AsyncStorage
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+import { RadioButtons } from 'react-native-radio-buttons';
 import styled from "styled-components";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
@@ -104,7 +100,33 @@ pickImage = async () => {
   }
 };
 
+
+
 render() {
+    const options = [
+        "Option 1",
+        "Option 2"
+      ];
+    function setSelectedOption(selectedOption){
+        this.setState({
+          selectedOption
+        });
+      }
+     
+      function renderOption(option, selected, onSelect, index){
+        const style = selected ? { fontWeight: 'bold'} : {};
+     
+        return (
+          <TouchableOpacity onPress={onSelect} key={index}>
+            <Text style={style}>{option}</Text>
+          </TouchableOpacity>
+        );
+      }
+     
+      function renderContainer(optionNodes){
+        return <View>{optionNodes}</View>;
+      }
+    
   let { imagen } = this.state;
     return (
       <Container>
@@ -213,7 +235,14 @@ render() {
               </PickIn>
             </ContPicker>
             <InfoIn>Condición de tu producto</InfoIn>
-            <RadioForm
+            <RadioButtons
+        options={ options }
+        onSelection={ setSelectedOption.bind(this) }
+        selectedOption={this.state.selectedOption }
+        renderOption={ renderOption }
+        renderContainer={ renderContainer }
+      />
+            {/*<RadioForm
               radio_props={[{ label: "Nuevo  ", value: 0 }, { label: "Usado", value: 1 }]
             }
               formHorizontal={true}
@@ -226,8 +255,8 @@ render() {
                 this.setState({ estado });
               }}
               initial={-1}
-              style={{top: "1%", position: "relative", marginBottom: "8%" }}
-            />
+              style={{top: "1%", position: "relative", marginBottom: "8%", width: 200, alignItems: "center" }}
+            />*/}
             <InfoIn>Imagen de tu Producto</InfoIn>
             <ButtonUp>
               <TouchableOpacity
@@ -293,6 +322,8 @@ render() {
               >
               </TextInTM>
               </TextInTMCont>
+              <InfoInUb>Calle</InfoInUb>
+            <TextInUb></TextInUb>
               <NumDeptTextUb>
               <InfoInNumDeptUb style={{ width: "25%" }}>Número</InfoInNumDeptUb>
               <InfoInNumDeptUb style={{ width: "50%" }}>
@@ -303,7 +334,7 @@ render() {
               <TextInNumUb></TextInNumUb>
               <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
             </NumDeptUb>
-            <InfoInUb style={{top: "16%"}}>Provincia</InfoInUb>
+            <InfoInUb>Provincia</InfoInUb>
             <ContPicker>
               <PickIn
                 onValueChange={provincia => {

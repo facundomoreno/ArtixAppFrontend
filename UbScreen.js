@@ -15,11 +15,7 @@ import {
   Picker,
   AsyncStorage
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+
 import styled from "styled-components";
 import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
