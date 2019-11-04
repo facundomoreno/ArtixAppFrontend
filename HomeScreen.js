@@ -118,7 +118,7 @@ export default class HomeScreen extends React.Component {
             {/*<Timer>12:20:45</Timer>}*/}
             <CountDown
               size={20}
-              until={1000}
+              until={86400}
               onFinish={() => alert("Finished")}
               digitStyle={{ backgroundColor: "transparent" }}
               digitTxtStyle={{ color: "#ff4d4d" }}

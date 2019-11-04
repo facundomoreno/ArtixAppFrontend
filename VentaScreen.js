@@ -35,17 +35,17 @@ export default class VentaScreen extends React.Component {
       longitude: 0,
       error: null,
       data: [
-        {
-          //id_producto: 0,
-          //image: require("./assets/shops/boca.jpeg"),
-          //nombreprod: "Camiseta de Boca Año 2000",
-          //calle: "Brandsen",
-          //numero: "175",
-          //latit: -34.6331619,
-          //longit: -58.3563399,
-          //precio: 850,
-          //count: 86400
-        }
+        /*{
+          id_producto: 0,
+          image: require("./assets/shops/boca.jpeg"),
+          nombreprod: "Camiseta de Boca Año 2000",
+          calle: "Brandsen",
+          numero: "175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: 850,
+          count: 86400
+        }*/
       ]
     };
     boca = {
