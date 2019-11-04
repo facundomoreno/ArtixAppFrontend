@@ -47,10 +47,6 @@ export default class UbScreen extends React.Component {
             </TouchableOpacity>
             <Intro>Inserta tu ubicación</Intro>
           </TitleCont>
-          <InfoIn>Calle</InfoIn>
-          <TextIn></TextIn>
-          <InfoIn>Número</InfoIn>
-          <TextInNum></TextInNum>
         </AllCont>
       </Container>
     );
@@ -90,7 +86,7 @@ const Intro = styled.Text`
   color: #353536;
 `;
 
-const InfoIn = styled.Text`
+const InfoInUb = styled.Text`
   top: 1%;
   width: 80%;
   text-align: left;
@@ -99,8 +95,8 @@ const InfoIn = styled.Text`
   font-weight: bold;
 `;
 
-const TextIn = styled.TextInput`
-  top: 1%;
+const TextInUb = styled.TextInput`
+  top: 2%;
   height: 50px;
   background: white;
   width: 80%;
@@ -111,8 +107,7 @@ const TextIn = styled.TextInput`
   padding-left: 10;
 `;
 
-const TextInNum = styled.TextInput`
-  top: 1%;
+const TextInNumUb = styled.TextInput`
   height: 50px;
   background: white;
   width: 32%;
@@ -121,4 +116,19 @@ const TextInNum = styled.TextInput`
   color: #353536;
   font-size: 16px;
   padding-left: 10;
+`;
+
+const NumDeptUb = styled.View`
+  top: 1%;
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
+  flex-direction: row;
+`;
+
+const NumDeptTextUb = styled.View`
+  top: 2%;
+  justify-content: space-between;
+  width: 80%;
+  flex-direction: row;
 `;

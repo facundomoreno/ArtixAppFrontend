@@ -23,6 +23,7 @@ import CountDown from "react-native-countdown-component";
 const CardItem = props => (
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <Cond>{props.itemCond}</Cond>
+    <Cond>{props.itemStock} disponibles</Cond>
     <ZoomImage
       source={props.itemImage}
       Button

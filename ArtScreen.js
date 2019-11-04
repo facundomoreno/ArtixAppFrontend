@@ -32,6 +32,7 @@ export default class ArtScreen extends React.Component {
       dataart: [
         {
           id_producto: 0,
+          stock: "2",
           cond: "Usado",
           image: require("./assets/shops/boca.jpeg"),
           nombreprod: "Camiseta de Boca Año 2000",
@@ -105,6 +106,7 @@ export default class ArtScreen extends React.Component {
           }
           itemCount={item.count}
           itemDesc={item.desc}
+          itemStock={item.stock}
         ></CardItem>
       </View>
     );
