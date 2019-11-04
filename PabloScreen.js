@@ -25,15 +25,7 @@ import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
-
-var radio_props = [
-  { label: "Nuevo    ", radval: 0 },
-  { label: "Usado", radval: 1 }
-];
-
-var radio_props = [{ label: "Nuevo", value: 0 }, { label: "Usado", value: 1 }];
-
-export default class VentaScreen extends React.Component {
+export default class PabloScreen extends React.Component {
   constructor(props) {
     super(props);
     this.Publicar = this.Publicar.bind(this);
@@ -46,7 +38,7 @@ export default class VentaScreen extends React.Component {
       categoria: "",
       //numero: "",
       // piso: "",
-      //  provincia: "",
+      provincia: "",
       //ciudad: "",
       //barrio: "",
       imagen: "",
@@ -60,7 +52,6 @@ export default class VentaScreen extends React.Component {
     header: null,
     showIcon: true
   };
-
 
   Publicar = () => {
     fetch("http://35.237.172.249:3000/Publicar", {
@@ -85,37 +76,36 @@ export default class VentaScreen extends React.Component {
         count: this.state.count
       })
     })
-      .then(response => response.json())
-      .then(res => {
-        if (res.success === true) {
-          //AsyncStorage.setItem('user', res.nombreProducto);
-          alert(res.message);
-          this.props.navigation.navigate("Venta");
-        } else {
-          alert(res.message);
-        }
-      })
-      .done();
-  };
+    .then(response => response.json())
+    .then(res => {
+      if (res.success === true) {
+        //AsyncStorage.setItem('user', res.nombreProducto);
+        alert(res.message);
+        this.props.navigation.navigate("Venta");
+      } else {
+        alert(res.message);
+      }
+    })
+    .done();
+};
 
-  pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      //base64:true
-    });
+pickImage = async () => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    aspect: [4, 3]
+  });
 
-    //console.log(result);
+  //console.log(result);
 
-    if (!result.cancelled) {
-      this.setState({ imagen: result.uri });
-      console.log(this.state.imagen);
-    }
-  };
+  if (!result.cancelled) {
+    this.setState({ imagen: result.uri });
+    console.log(imagen);
+  }
+};
 
-  render() {
-    let { imagen } = this.state;
+render() {
+  let { imagen } = this.state;
     return (
       <Container>
         <AllCont>
@@ -141,8 +131,8 @@ export default class VentaScreen extends React.Component {
               paddingBottom: 200
             }}
           >
-            <InfoIn>Título de tu producto</InfoIn>
-            <TextIn
+              <InfoIn style={{top: "5%"}}>Título de tu producto</InfoIn>
+              <TextIn
               ref={input => {
                 this.secTxtInp = input;
               }}
@@ -156,10 +146,10 @@ export default class VentaScreen extends React.Component {
                 this.thiTxtInp.focus();
               }}
               blurOnSubmit={false}
-              onChangeText={nombreProducto => this.setState({ nombreProducto })}
-            ></TextIn>
-            <InfoIn>Categoría de tu producto</InfoIn>
-            <ContPicker>
+              onChangeText={nombreProducto => this.setState({ nombreProducto })}>
+              </TextIn>
+              <InfoIn>Categoría de tu producto</InfoIn>
+              <ContPicker>
               <PickIn
                 onValueChange={categoria => {
                   this.setState({ categoria });
@@ -199,7 +189,7 @@ export default class VentaScreen extends React.Component {
                   label="Hogar, Muebles y Jardín"
                   value="hog-mueb-jard"
                 />
-                <PickIn.Item label="Idustrias y Oficinas" value="ind-ofi" />
+                <PickIn.Item label="Industrias y Oficinas" value="ind-ofi" />
                 <PickIn.Item label="Instrumentos Musicales" value="inst-mus" />
                 <PickIn.Item label="Joyas y Relojes" value="joy-rel" />
                 <PickIn.Item
@@ -222,10 +212,10 @@ export default class VentaScreen extends React.Component {
                 <PickIn.Item label="Otros" value="otros" />
               </PickIn>
             </ContPicker>
-
-            <InfoIn style={{ top: "9%" }}>Condición de tu producto</InfoIn>
+            <InfoIn>Condición de tu producto</InfoIn>
             <RadioForm
-              radio_props={radio_props}
+              radio_props={[{ label: "Nuevo  ", value: 0 }, { label: "Usado", value: 1 }]
+            }
               formHorizontal={true}
               labelHorizontal={true}
               buttonColor={"#ff4d4d"}
@@ -236,9 +226,9 @@ export default class VentaScreen extends React.Component {
                 this.setState({ estado });
               }}
               initial={-1}
-              style={{ top: "17%", position: "relative" }}
+              style={{top: "1%", position: "relative", marginBottom: "8%" }}
             />
-            <InfoIn style={{ top: "10%" }}>Imagen de tu Producto</InfoIn>
+            <InfoIn>Imagen de tu Producto</InfoIn>
             <ButtonUp>
               <TouchableOpacity
                 onPress={this.pickImage}
@@ -255,11 +245,11 @@ export default class VentaScreen extends React.Component {
             {imagen ? (
               <Image
                 source={{ uri: imagen }}
-                style={{ width: 100, height: 100, top: "12%" }}
+                style={{ width: 100, height: 100, top: "2%"}}
               />
             ) : null}
-
-            <InfoIn style={{ top: "12%" }}>Descripción de tu Producto</InfoIn>
+            <VoidContSep></VoidContSep>
+            <InfoIn>Descripción de tu Producto</InfoIn>
             <TextInDesc
               placeholder="Máximo 200 caracteres"
               placeholderTextColor="grey"
@@ -269,13 +259,14 @@ export default class VentaScreen extends React.Component {
               maxLength={200}
               onChangeText={descProducto => this.setState({ descProducto })}
               multiline={true}
-              style={{ textAlignVertical: "top" }}
+              style={{ textAlignVertical: "top"}}
             ></TextInDesc>
-
-            <InfoIn style={{ top: "14%" }}>Precio de tu Producto</InfoIn>
-            <TextInTMCont style={{ top: "22%" }}>
-              <Text style={{ fontSize: 24, top: "9%" }}>$</Text>
-              <TextInTM
+            <InfoIn>Precio de tu producto</InfoIn>
+              <TextInTMCont>
+                  <DolTM>$</DolTM>
+                  <TextInTM
+                selectionColor="#ff4d4d"
+                placeholderTextColor="grey"
                 keyboardType="decimal-pad"
                 ref={input => {
                   this.secTxtInp = input;
@@ -286,51 +277,23 @@ export default class VentaScreen extends React.Component {
                 blurOnSubmit={false}
                 returnKeyType="next"
                 onChangeText={precio => this.setState({ precio })}
-              ></TextInTM>
-            </TextInTMCont>
-            <InfoIn style={{ top: "16%" }}>Stock de tu producto</InfoIn>
-            <TextInTMCont style={{ top: "24%" }}>
+              >
+              </TextInTM>
+              </TextInTMCont>
+              <InfoIn style={{top: "5%"}}>Stock de tu producto</InfoIn>
+            <TextInTMCont style={{top: "9%"}}>
               <TextInTM
                 keyboardType="decimal-pad"
                 ref={input => {
                   this.thiTxtInp = input;
                 }}
-                onSubmitEditing={() => {
-                  this.fouTxtInp.focus();
-                }}
                 blurOnSubmit={false}
                 returnKeyType="next"
                 onChangeText={stock => this.setState({ stock })}
-              ></TextInTM>
-            </TextInTMCont>
-            <InfoInUb>Calle</InfoInUb>
-            <TextInUb></TextInUb>
-            <NumDeptTextUb>
-              <InfoInNumDeptUb style={{ width: "25%" }}>Número</InfoInNumDeptUb>
-              <InfoInNumDeptUb style={{ width: "50%" }}>
-                Piso/Depto
-              </InfoInNumDeptUb>
-            </NumDeptTextUb>
-            <NumDeptUb>
-              <TextInNumUb></TextInNumUb>
-              <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
-            </NumDeptUb>
-            <TouchableOpacity
-              style={{
-                height: 40,
-                width: 40,
-                left: 345,
-                top: 630,
-                position: "absolute"
-              }}
-            >
-              <Icon
-                name="ios-arrow-dropright-circle"
-                size={40}
-                style={{ color: "#ff4d4d" }}
-              ></Icon>
-            </TouchableOpacity>
-            <ButtonUp style={{ top: "20%" }}>
+              >
+              </TextInTM>
+              </TextInTMCont>
+              <ButtonUp style={{ top: "10%" }}>
               <TouchableOpacity
                 onPress={() => this.Publicar()}
                 style={{
@@ -342,15 +305,15 @@ export default class VentaScreen extends React.Component {
               >
                 <ButtonText>Publicar</ButtonText>
               </TouchableOpacity>
-            </ButtonUp>
+              </ButtonUp>
           </ScrollView>
-        </AllCont>
-      </Container>
+          </AllCont>
+          </Container>
     );
-  }
-}
+        }
+    }
 
-const Container = styled.View`
+    const Container = styled.View`
   flex: 1;
   background-color: #fafafa;
   width: 100%;
@@ -375,12 +338,6 @@ const TitleCont = styled.View`
   height: 50px;
   flex-direction: row;
 `;
-
-const Scroll = styled.View`
-  flex: 1;
-  width: 100%;
-`;
-
 const Intro = styled.Text`
   text-align: center;
   font-weight: 600;
@@ -394,12 +351,11 @@ const InfoIn = styled.Text`
   font-size: 14px;
   color: #353536;
   font-weight: 400;
-  top: 6%;
   font-weight: bold;
 `;
 
 const TextIn = styled.TextInput`
-  top: 4%;
+    top: 1%;
   height: 50px;
   flex-direction: column;
   background: white;
@@ -410,61 +366,7 @@ const TextIn = styled.TextInput`
   color: #353536;
   font-size: 14px;
   padding-left: 10;
-`;
-
-const TextInDesc = styled.TextInput`
-  position: relative;
-  top: 13%;
-  padding-top: 10;
-  height: 80px;
-  flex-direction: column;
-  background: white;
-  width: 80%;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-  color: #353536;
-  font-size: 14px;
-  padding-left: 10;
-`;
-
-const TextInTMCont = styled.View`
-  width: 80%;
-  height: 50px;
-  flex-direction: row;
-  top: 26%;
-  position: relative;
-`;
-
-const TextInTM = styled.TextInput`
-  width: 50%;
-  height: 50px;
-  margin-top: 15px;
-  flex-direction: column;
-  background: white;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-  color: #353536;
-  font-size: 18px;
-  padding-left: 10;
-  left: 5%;
-  position: relative;
-`;
-
-const TextInTime = styled.TextInput`
-  width: 40%;
-  height: 50px;
-  margin-top: 15px;
-  flex-direction: column;
-  background: white;
-  border: 1px solid #e5eced;
-  box-shadow: 0px 3px 10px #e5eced;
-  border-radius: 5;
-  color: #353536;
-  font-size: 18px;
-  padding-left: 10;
-  position: relative;
+  margin-bottom: 10%;
 `;
 
 const PickIn = styled.Picker`
@@ -481,17 +383,18 @@ const PickIn = styled.Picker`
 `;
 
 const ContPicker = styled.View`
-  top: 7%;
+    top: 1%;
   width: 80%;
   background: white;
   height: 50px;
   border: 1px solid #e5eced;
   box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
+  margin-bottom: 10%;
 `;
 
 const ButtonUp = styled.View`
-  top: 11%;
+  top: 1%;
   align-items: center;
   justify-content: center;
   background: #ff4d4d;
@@ -506,57 +409,54 @@ const ButtonText = styled.Text`
   font-size: 16px;
 `;
 
-const InfoInUb = styled.Text`
-  top: 15%;
-  width: 80%;
-  text-align: left;
-  font-size: 14px;
-  color: #353536;
-  font-weight: bold;
-`;
-
-const TextInUb = styled.TextInput`
-  top: 16%;
-  height: 50px;
+const TextInDesc = styled.TextInput`
+  top: 1%;
+  position: relative;
+  padding-top: 10;
+  height: 100px;
+  flex-direction: column;
   background: white;
   width: 80%;
   border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
   border-radius: 5;
   color: #353536;
-  font-size: 16px;
-  padding-left: 10;
-`;
-
-const TextInNumUb = styled.TextInput`
-  height: 50px;
-  background: white;
-  width: 32%;
-  border: 1px solid #e5eced;
-  border-radius: 5;
-  color: #353536;
-  font-size: 16px;
-  padding-left: 10;
-`;
-
-const NumDeptUb = styled.View`
-  top: 33%;
-  justify-content: space-between;
-  width: 80%;
-  height: 50px;
-  flex-direction: row;
-`;
-
-const NumDeptTextUb = styled.View`
-  top: 32%;
-  justify-content: space-between;
-  width: 80%;
-  flex-direction: row;
-`;
-
-const InfoInNumDeptUb = styled.Text`
-  width: 80%;
-  text-align: left;
   font-size: 14px;
+  padding-left: 10;
+  margin-bottom: 10%;
+`;
+
+const TextInTMCont = styled.View`
+    width: 80%;
+    height: 50px;
+    align-items: center;
+    flex-direction: row;
+`;
+
+const DolTM = styled.Text`
+    font-size: 24px;
+    text-align: center;
+    justify-content: center;
+    top: 2%;
+    color: #353536;
+`;
+
+const TextInTM = styled.TextInput`
+  width: 50%;
+  height: 50px;
+  margin-top: 15px;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #e5eced;
+  box-shadow: 0px 3px 10px #e5eced;
+  border-radius: 5;
   color: #353536;
-  font-weight: bold;
+  font-size: 18px;
+  padding-left: 10;
+  left: 1%;
+`;
+
+const VoidContSep =styled.View`
+  width: 80%;
+  height: 7%;
 `;
