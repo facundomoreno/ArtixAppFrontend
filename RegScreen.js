@@ -53,7 +53,7 @@ export default class RegScreen extends React.Component {
       .then(res => {
         if (res.success === true) {
           AsyncStorage.setItem("user", res.mail);
-          this.props.navigation.navigate("Login");
+          this.props.navigation.navigate("AppTab");
         } else {
           alert(res.message);
         }

@@ -61,6 +61,7 @@ export default class VentaScreen extends React.Component {
     showIcon: true
   };
 
+
   Publicar = () => {
     fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
@@ -101,14 +102,15 @@ export default class VentaScreen extends React.Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3]
+      aspect: [4, 3],
+      //base64:true
     });
 
     //console.log(result);
 
     if (!result.cancelled) {
       this.setState({ imagen: result.uri });
-      console.log(imagen);
+      console.log(this.state.imagen);
     }
   };
 
