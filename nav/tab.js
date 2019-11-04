@@ -9,6 +9,7 @@ import MapScreen from "../MapScreen";
 import Start from "../Start";
 import VentaScreen from "../VentaScreen";
 import PubliScreen from "../PubliScreen";
+import PabloScreen from "../PabloScreen";
 import MensScreen from "../MensajesScreen";
 import ArtScreen from "../ArtScreen";
 import UbScreen from "../UbScreen";
@@ -19,7 +20,7 @@ const inactiveColor = "#b8bece";
 
 const Tienda = createStackNavigator({
   Venta: VentaScreen,
-  Publi: PubliScreen,
+  Publi: PabloScreen,
   Art: ArtScreen
 });
 
