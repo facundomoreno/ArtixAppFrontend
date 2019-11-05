@@ -46,7 +46,8 @@ export default class VentaScreen extends React.Component {
           precio: 850,
           count: 86400
         }*/
-      ]
+      ],
+      selectedItem: null
     };
     boca = {
       latitude: -34.6331619,
@@ -86,14 +87,20 @@ export default class VentaScreen extends React.Component {
     this.fetchData();
   }
 
+  functionCombined() {
+
+      };
+
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
+    const isSelected = (this.state.selectedItem === item.id_producto);
     return (
+      
       <View>
         <NavigationEvents onDidFocus={() => this.fetchData()} />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Art", {itemx: item})}>
           <CardTienda
             key={item.id_producto}
             itemImage={(source = { uri: item.imagen })}
@@ -125,11 +132,17 @@ export default class VentaScreen extends React.Component {
             itemCount={item.count}
           />
         </TouchableOpacity>
+        
       </View>
+      
     );
   };
 
-  render() {
+  _choosen(selectedItem) {
+    this.setState({ selectedItem });
+  }  
+
+  render() {   
     return (
       <Container>
         <ContTop>

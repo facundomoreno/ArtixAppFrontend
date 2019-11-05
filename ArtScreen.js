@@ -30,7 +30,7 @@ export default class ArtScreen extends React.Component {
       longitude: 0,
       error: null,
       dataart: [
-        {
+        /*{
           id_producto: 0,
           stock: "2",
           cond: "Usado",
@@ -42,13 +42,32 @@ export default class ArtScreen extends React.Component {
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: 850,
+          precio: "850",
           count: 86400,
           desc:
             "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
-        }
-      ]
+        },
+        {
+          id_producto: 1,
+          stock: "45",
+          cond: "Nuevo",
+          image: require("./assets/shops/web.jpg"),
+          nombreprod: "Webcam Entrepeneur",
+          pubavatar: require("./assets/avatar/roca.jpg"),
+          pubname: "Zongalo Maiswan",
+          calle: "Echeverría",
+          numero: "1964",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "360",
+          count: 86400,
+          desc:
+            "Una webcam para emprendedores tecnológicos ambiciosos."
+        }*/
+      ],
+      artdata: [this.props.navigation.getParam('itemx')]
     };
+    
   }
 
   static navigationOptions = {
@@ -68,23 +87,28 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
+    this.state.artdata
   }
+  
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
+      
     }
+    
     return (
+      
       <View style={{ width: "100%" }}>
         <CardItem
           key={item.id_producto}
           itemCond={item.cond}
           itemImage={item.image}
-          itemTitle={item.nombreprod}
-          itemPrice={item.precio.toString()}
+          itemTitle={this.state.artdata}
+          itemPrice={item.precio}
           itemPubAv={item.pubavatar}
           itemPubName={item.pubname}
-          itemLocation={item.calle + " " + item.numero}
+          //itemLocation={item.calle + " " + item.numero}
           itemDistance={
             Math.round(
               convertDistance(
@@ -94,8 +118,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: item.latit,
-                    longitude: item.longit
+                    latitude: -34.6331619,
+                    longitude: -58.3563399
                   }
                 ),
                 "km"
@@ -109,10 +133,13 @@ export default class ArtScreen extends React.Component {
           itemStock={item.stock}
         ></CardItem>
       </View>
+      
     );
+    
   };
 
   render() {
+    console.log(this.state.artdata);
     return (
       <Container>
         <AllCont>
@@ -136,7 +163,8 @@ export default class ArtScreen extends React.Component {
               flexGrow: 1,
               paddingBottom: 95
             }}
-            data={this.state.dataart}
+            
+            data={this.state.artdata}
             renderItem={this.renderItem}
           ></FlatList>
         </AllCont>
