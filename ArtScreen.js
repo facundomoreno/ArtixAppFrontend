@@ -30,7 +30,7 @@ export default class ArtScreen extends React.Component {
       longitude: 0,
       error: null,
       dataart: [
-        {
+        /*{
           id_producto: 0,
           stock: "2",
           cond: "Usado",
@@ -46,8 +46,25 @@ export default class ArtScreen extends React.Component {
           count: 86400,
           desc:
             "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
-        }
-      ]
+        },
+        {
+          id_producto: 1,
+          stock: "30",
+          cond: "Nuevo",
+          image: require("./assets/shops/web.jpg"),
+          nombreprod: "Webcam",
+          pubavatar: require("./assets/avatar/jajas.jpg"),
+          pubname: "Máximo Sánchez",
+          calle: "Av. Cabildo",
+          numero: "2040",
+          latit: -34.5627294,
+          longit: -58.4563794,
+          precio: 2460,
+          count: 86400,
+          desc: "Webcam"
+        }*/
+      ],
+      ArticData: 1
     };
   }
 
@@ -77,11 +94,11 @@ export default class ArtScreen extends React.Component {
     return (
       <View style={{ width: "100%" }}>
         <CardItem
-          key={item.id_producto}
+          key={1}
           itemCond={item.cond}
           itemImage={item.image}
           itemTitle={item.nombreprod}
-          itemPrice={item.precio.toString()}
+          itemPrice={item.precio}
           itemPubAv={item.pubavatar}
           itemPubName={item.pubname}
           itemLocation={item.calle + " " + item.numero}
@@ -94,8 +111,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: item.latit,
-                    longitude: item.longit
+                    latitude: -34.6331619,
+                    longitude: -58.3563399
                   }
                 ),
                 "km"
@@ -136,7 +153,7 @@ export default class ArtScreen extends React.Component {
               flexGrow: 1,
               paddingBottom: 95
             }}
-            data={this.state.dataart}
+            data={this.state.dataart.slice(0, 1)}
             renderItem={this.renderItem}
           ></FlatList>
         </AllCont>

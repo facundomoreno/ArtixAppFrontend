@@ -17,7 +17,7 @@ import { getDistance, convertDistance } from "geolib";
 const CardTienda = props => (
   <Container>
     <ItemImage source={props.itemImage} />
-    <ItemName>{props.itemName}</ItemName>
+    <ItemName numberOfLines={2}>{props.itemName}</ItemName>
     <ItemLocation>{props.itemLocation}</ItemLocation>
     <ItemDistance>{props.itemDistance}</ItemDistance>
     <Text>{props.itemStock}</Text>
@@ -102,4 +102,3 @@ const ItemPrice = styled.Text`
   color: white;
   left: 6%;
 `;
-

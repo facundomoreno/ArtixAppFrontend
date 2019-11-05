@@ -205,6 +205,7 @@ const ItLocTextCont = styled.View`
 const ItLocText = styled.Text`
   font-size: 14px;
   color: #9d9d9d;
+  text-align: center;
 `;
 
 const ItBuy = styled.View`

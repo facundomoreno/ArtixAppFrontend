@@ -35,17 +35,39 @@ export default class VentaScreen extends React.Component {
       longitude: 0,
       error: null,
       data: [
-        /*{
+        {
           id_producto: 0,
+          stock: "2",
+          cond: "Usado",
           image: require("./assets/shops/boca.jpeg"),
           nombreprod: "Camiseta de Boca Año 2000",
+          pubavatar: require("./assets/avatar/jotto.jpg"),
+          pubname: "José Dolina",
           calle: "Brandsen",
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
           precio: 850,
-          count: 86400
-        }*/
+          count: 86400,
+          desc:
+            "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
+        },
+        {
+          id_producto: 1,
+          stock: "30",
+          cond: "Nuevo",
+          image: require("./assets/shops/web.jpg"),
+          nombreprod: "Webcam",
+          pubavatar: require("./assets/avatar/jajas.jpg"),
+          pubname: "Máximo Sánchez",
+          calle: "Av. Cabildo",
+          numero: "2040",
+          latit: -34.5627294,
+          longit: -58.4563794,
+          precio: 2460,
+          count: 86400,
+          desc: "Webcam"
+        }
       ]
     };
     boca = {
@@ -93,7 +115,7 @@ export default class VentaScreen extends React.Component {
     return (
       <View>
         <NavigationEvents onDidFocus={() => this.fetchData()} />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Art")}>
+        <TouchableOpacity>
           <CardTienda
             key={item.id_producto}
             itemImage={(source = { uri: item.imagen })}
@@ -156,6 +178,11 @@ export default class VentaScreen extends React.Component {
                 flexGrow: 1,
                 paddingBottom: 45
               }}
+              /*onPress={() => {
+                this.props.navigation.navigate("Art", {
+                  ArticleData: item.id_producto
+                });
+              }}*/
             />
           </ComprasView>
         </ItemsContainer>
