@@ -65,9 +65,8 @@ export default class ArtScreen extends React.Component {
             "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
-      artdata: [this.props.navigation.getParam('itemx')]
+      artdata: [this.props.navigation.getParam("itemx")]
     };
-    
   }
 
   static navigationOptions = {
@@ -87,28 +86,30 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-    this.state.artdata
+    this.state.artdata;
   }
-  
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
-      
     }
-    
+
     return (
-      
       <View style={{ width: "100%" }}>
         <CardItem
-          key={item.id_producto}
-          itemCond={item.cond}
-          itemImage={item.image}
-          itemTitle={this.state.artdata}
+          key={1}
+          //itemCond={item.cond}
+          itemImage={(source = { uri: item.imagen })}
+          itemTitle={item.nombreprod}
           itemPrice={item.precio}
           itemPubAv={item.pubavatar}
           itemPubName={item.pubname}
           //itemLocation={item.calle + " " + item.numero}
+          itemLocation="Av. Las Heras 2905"
+          itemDepto="2 36"
+          itemBarrio="Palermo"
+          itemCity="CABA"
+          itemProvince="Ciudad Autónoma de Buenos Aires"
           itemDistance={
             Math.round(
               convertDistance(
@@ -129,13 +130,11 @@ export default class ArtScreen extends React.Component {
             " km"
           }
           itemCount={item.count}
-          itemDesc={item.desc}
+          itemDesc={item.ds_producto}
           itemStock={item.stock}
         ></CardItem>
       </View>
-      
     );
-    
   };
 
   render() {
@@ -161,10 +160,9 @@ export default class ArtScreen extends React.Component {
               alignItems: "center",
               justifyContent: "center",
               flexGrow: 1,
-              paddingBottom: 95
+              paddingBottom: 300
             }}
-            
-            data={this.state.artdata}
+            data={Object.values(this.state.artdata)}
             renderItem={this.renderItem}
           ></FlatList>
         </AllCont>

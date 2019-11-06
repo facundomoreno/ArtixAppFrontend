@@ -38,14 +38,36 @@ export default class VentaScreen extends React.Component {
       data: [
         /*{
           id_producto: 0,
+          stock: "2",
+          cond: "Usado",
           image: require("./assets/shops/boca.jpeg"),
           nombreprod: "Camiseta de Boca Año 2000",
+          pubavatar: require("./assets/avatar/jotto.jpg"),
+          pubname: "José Dolina",
           calle: "Brandsen",
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: 850,
-          count: 86400
+          precio: "850",
+          count: 86400,
+          desc:
+            "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
+        },
+        {
+          id_producto: 1,
+          stock: "45",
+          cond: "Nuevo",
+          image: require("./assets/shops/web.jpg"),
+          nombreprod: "Webcam Entrepeneur",
+          pubavatar: require("./assets/avatar/roca.jpg"),
+          pubname: "Zongalo Maiswan",
+          calle: "Echeverría",
+          numero: "1964",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "360",
+          count: 86400,
+          desc: "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
       selectedItem: null
@@ -88,20 +110,19 @@ export default class VentaScreen extends React.Component {
     this.fetchData();
   }
 
-  functionCombined() {
-
-      };
+  functionCombined() {}
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
-    const isSelected = (this.state.selectedItem === item.id_producto);
+    const isSelected = this.state.selectedItem === item.id_producto;
     return (
-      
       <View>
         <NavigationEvents onDidFocus={() => this.fetchData()} />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Art", {itemx: item})}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
+        >
           <CardTienda
             key={item.id_producto}
             itemImage={(source = { uri: Buffer.from(item.imagen , 'binary').toString() })}
@@ -133,17 +154,15 @@ export default class VentaScreen extends React.Component {
             itemCount={item.count}
           />
         </TouchableOpacity>
-        
       </View>
-      
     );
   };
 
   _choosen(selectedItem) {
     this.setState({ selectedItem });
-  }  
+  }
 
-  render() {   
+  render() {
     return (
       <Container>
         <ContTop>
@@ -170,6 +189,11 @@ export default class VentaScreen extends React.Component {
                 flexGrow: 1,
                 paddingBottom: 45
               }}
+              /*onPress={() => {
+                this.props.navigation.navigate("Art", {
+                  ArticleData: item.id_producto
+                });
+              }}*/
             />
           </ComprasView>
         </ItemsContainer>
