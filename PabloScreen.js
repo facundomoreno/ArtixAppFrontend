@@ -30,7 +30,7 @@ export default class PabloScreen extends React.Component {
       categoria: "",
       nombreProducto: "",
       precio: "",
-      estado: "",
+      estado: 0,
       descProducto: "",
       categoria: "",
       //numero: "",
@@ -90,14 +90,15 @@ pickImage = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.All,
     allowsEditing: true,
-    aspect: [4, 3]
+    aspect: [4, 3],
+    base64: true
   });
 
   //console.log(result);
 
   if (!result.cancelled) {
-    this.setState({ imagen: result.uri });
-    console.log(imagen);
+    this.setState({ imagen: "data:image/jpeg;base64," + result.base64 });
+    console.log("Esto es lo que quiero ver" + JSON.stringify(result));
   }
 };
 

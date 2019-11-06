@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
+    "buffer": "^5.4.3",
     "expo": "^35.0.0",
     "expo-image-picker": "^7.0.0",
     "geolib": "^3.0.4",
