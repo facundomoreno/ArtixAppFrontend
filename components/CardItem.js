@@ -23,7 +23,7 @@ import CountDown from "react-native-countdown-component";
 const CardItem = props => (
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <Cond>{props.itemCond}</Cond>
-    <Cond>{props.itemStock} disponibles</Cond>
+    <Cond>{props.itemStock} disponible(s)</Cond>
     <ZoomImage
       source={props.itemImage}
       Button
@@ -37,7 +37,7 @@ const CardItem = props => (
       }}
       style={styles.img}
       duration={200}
-      enableScaling={false}
+      enableScaling={true}
       easingFunc={Easing.ease}
     />
     <ItTitle>{props.itemTitle}</ItTitle>
@@ -45,15 +45,15 @@ const CardItem = props => (
       <ItPrice>${props.itemPrice}</ItPrice>
     </ItPriceCont>
     <ItPubCont>
-      <ItPubAv source={props.itemPubAv}></ItPubAv>
-      <ItPubName>{props.itemPubName}</ItPubName>
+      <ItPubAv source={props.itemImage}></ItPubAv>
+      <ItPubName>Zongalo Maiswan</ItPubName>
     </ItPubCont>
     <ItLocCont>
       <ItLocMap>
         <TouchableOpacity
           style={{
             height: 50,
-            width: 100,
+            width: 140,
             justifyContent: "center",
             alignItems: "center"
           }}
@@ -66,19 +66,27 @@ const CardItem = props => (
         <ItLocText>{props.itemDistance}</ItLocText>
       </ItLocTextCont>
     </ItLocCont>
-    <ItTimeLeft>Tiempo restante:</ItTimeLeft>
-    <CountDown
-      size={20}
-      until={props.itemCount}
-      digitStyle={{ backgroundColor: "transparent" }}
-      digitTxtStyle={{ color: "#353536" }}
-      timeLabelStyle={{ color: "red", fontWeight: 600 }}
-      separatorStyle={{ color: "#353536" }}
-      timeToShow={["H", "M", "S"]}
-      timeLabels={{ m: null, s: null }}
-      showSeparator={true}
-      style={{ top: 23 }}
-    />
+    <View
+      style={{
+        height: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        top: "10%"
+      }}
+    >
+      <ItTimeLeft>Tiempo restante:</ItTimeLeft>
+      <CountDown
+        size={20}
+        until={props.itemCount}
+        digitStyle={{ backgroundColor: "transparent" }}
+        digitTxtStyle={{ color: "#353536" }}
+        timeLabelStyle={{ color: "red", fontWeight: 600 }}
+        separatorStyle={{ color: "#353536" }}
+        timeToShow={["H", "M", "S"]}
+        timeLabels={{ m: null, s: null }}
+        showSeparator={true}
+      />
+    </View>
     <ItBuy>
       <TouchableOpacity
         style={{
@@ -105,9 +113,21 @@ const CardItem = props => (
         leftButtonBackgroundColor="#ff4d4d"
         minValue={1}
         initValue={1}
+        maxValue={props.itemStock}
       />
     </ContNumIn>
-    <ItDesc>{props.itemDesc}</ItDesc>
+    <ItHead style={{ top: "19%" }}>Descripción</ItHead>
+    <ItDesc>{props.ds_producto}</ItDesc>
+    <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
+    <ItDesc style={{ top: "24%" }}>
+      {props.itemLocation} - {props.itemDepto}
+      {"\n"}
+      {props.itemBarrio}
+      {"\n"}
+      {props.itemCity}
+      {"\n"}
+      {props.itemProvince}
+    </ItDesc>
   </View>
 );
 
@@ -133,14 +153,12 @@ const ItTitle = styled.Text`
   font-weight: bold;
   font-size: 22px;
   top: 3%;
-  position: relative;
   width: 280px;
 `;
 
 const ItPriceCont = styled.View`
   width: 200px;
   top: 3%;
-  position: relative;
   align-items: center;
 `;
 
@@ -152,8 +170,7 @@ const ItPrice = styled.Text`
 
 const ItPubCont = styled.View`
   width: 200px;
-  top: 4%;
-  position: relative;
+  top: 5%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -172,16 +189,16 @@ const ItPubName = styled.Text`
 `;
 
 const ItLocCont = styled.View`
-  width: 200px;
-  top: 13%;
-  position: relative;
+  width: 280px;
+  height: 50px;
+  top: 15%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
 
 const ItLocMap = styled.View`
-  width: 100px;
+  width: 140px;
   height: 50px;
   background-color: #ff4d4d;
   align-items: center;
@@ -196,7 +213,7 @@ const ItButtonText = styled.Text`
 `;
 
 const ItLocTextCont = styled.View`
-  width: 100px;
+  width: 140px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -209,7 +226,7 @@ const ItLocText = styled.Text`
 `;
 
 const ItBuy = styled.View`
-  top: 3%;
+  top: 14%;
   width: 280px;
   height: 50px;
   border-radius: 8;
@@ -220,8 +237,7 @@ const ItBuy = styled.View`
 
 const ContNumIn = styled.View`
   width: 200px;
-  top: 5%;
-  position: relative;
+  top: 16%;
   align-items: center;
   justify-content: center;
   height: 50px;
@@ -232,7 +248,6 @@ const ItTimeLeft = styled.Text`
   color: #353536;
   text-align: center;
   width: 200px;
-  top: 6%;
 `;
 
 const ItDesc = styled.Text`
@@ -240,5 +255,12 @@ const ItDesc = styled.Text`
   color: #353536;
   text-align: left;
   width: 280px;
-  top: 7%;
+  top: 20%;
+`;
+
+const ItHead = styled.Text`
+  font-weight: bold;
+  font-size: 18px;
+  width: 280px;
+  color: #353536;
 `;

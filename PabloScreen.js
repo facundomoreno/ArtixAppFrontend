@@ -20,7 +20,7 @@ import CountDown from "react-native-countdown-component";
 import { getDistance, convertDistance } from "geolib";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
-import { RadioButton } from 'react-native-paper';
+import { RadioButton } from "react-native-paper";
 
 export default class PabloScreen extends React.Component {
   constructor(props) {
@@ -40,8 +40,9 @@ export default class PabloScreen extends React.Component {
       //barrio: "",
       imagen: "",
       stock: "",
-      count: 86400
-      // value: ""
+      count: 86400,
+      // value: "",
+      checked: ""
     };
   }
 
@@ -73,39 +74,36 @@ export default class PabloScreen extends React.Component {
         count: this.state.count
       })
     })
-    .then(response => response.json())
-    .then(res => {
-      if (res.success === true) {
-        //AsyncStorage.setItem('user', res.nombreProducto);
-        alert(res.message);
-        this.props.navigation.navigate("Venta");
-      } else {
-        alert(res.message);
-      }
-    })
-    .done();
-};
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          //AsyncStorage.setItem('user', res.nombreProducto);
+          alert(res.message);
+          this.props.navigation.navigate("Venta");
+        } else {
+          alert(res.message);
+        }
+      })
+      .done();
+  };
 
-pickImage = async () => {
-  let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    allowsEditing: true,
-    aspect: [4, 3]
-  });
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
 
-  //console.log(result);
+    //console.log(result);
 
-  if (!result.cancelled) {
-    this.setState({ imagen: result.uri });
-    console.log(imagen);
-  }
-};
+    if (!result.cancelled) {
+      this.setState({ imagen: result.uri });
+      console.log(imagen);
+    }
+  };
 
-
-
-render() {
-   
-  let { imagen } = this.state;
+  render() {
+    let { imagen } = this.state;
     return (
       <Container>
         <AllCont>
@@ -128,11 +126,11 @@ render() {
             contentContainerStyle={{
               alignItems: "center",
               flexGrow: 1,
-              paddingBottom: 200
+              paddingBottom: 280
             }}
           >
-              <InfoIn style={{top: "5%"}}>Título de tu producto</InfoIn>
-              <TextIn
+            <InfoIn style={{ top: "0%" }}>Título de tu producto</InfoIn>
+            <TextIn
               ref={input => {
                 this.secTxtInp = input;
               }}
@@ -146,10 +144,10 @@ render() {
                 this.thiTxtInp.focus();
               }}
               blurOnSubmit={false}
-              onChangeText={nombreProducto => this.setState({ nombreProducto })}>
-              </TextIn>
-              <InfoIn>Categoría de tu producto</InfoIn>
-              <ContPicker>
+              onChangeText={nombreProducto => this.setState({ nombreProducto })}
+            ></TextIn>
+            <InfoIn>Categoría de tu producto</InfoIn>
+            <ContPicker>
               <PickIn
                 onValueChange={categoria => {
                   this.setState({ categoria });
@@ -213,7 +211,36 @@ render() {
               </PickIn>
             </ContPicker>
             <InfoIn>Condición de tu producto</InfoIn>
-            
+            <RadioButtonCont>
+              <RadioButtonCont2>
+                <RadioButton
+                  value="Nuevo"
+                  uncheckedColor={"#9d9d9d"}
+                  color={"#ff4d4d"}
+                  status={
+                    this.state.checked === "Nuevo" ? "checked" : "unchecked"
+                  }
+                  onPress={() => {
+                    this.setState({ checked: "Nuevo" });
+                  }}
+                />
+                <Text>Nuevo</Text>
+              </RadioButtonCont2>
+              <RadioButtonCont2>
+                <RadioButton
+                  value="Usado"
+                  uncheckedColor={"#9d9d9d"}
+                  color={"#ff4d4d"}
+                  status={
+                    this.state.checked === "Usado" ? "checked" : "unchecked"
+                  }
+                  onPress={() => {
+                    this.setState({ checked: "Usado" });
+                  }}
+                />
+                <Text>Usado</Text>
+              </RadioButtonCont2>
+            </RadioButtonCont>
             {/*<RadioForm
               radio_props={[{ label: "Nuevo  ", value: 0 }, { label: "Usado", value: 1 }]
             }
@@ -246,7 +273,7 @@ render() {
             {imagen ? (
               <Image
                 source={{ uri: imagen }}
-                style={{ width: 100, height: 100, top: "2%"}}
+                style={{ width: 100, height: 100, top: "2%" }}
               />
             ) : null}
             <VoidContSep></VoidContSep>
@@ -260,12 +287,12 @@ render() {
               maxLength={200}
               onChangeText={descProducto => this.setState({ descProducto })}
               multiline={true}
-              style={{ textAlignVertical: "top"}}
+              style={{ textAlignVertical: "top" }}
             ></TextInDesc>
             <InfoIn>Precio de tu producto</InfoIn>
-              <TextInTMCont>
-                  <DolTM>$</DolTM>
-                  <TextInTM
+            <TextInTMCont>
+              <DolTM>$</DolTM>
+              <TextInTM
                 selectionColor="#ff4d4d"
                 placeholderTextColor="grey"
                 keyboardType="decimal-pad"
@@ -278,11 +305,10 @@ render() {
                 blurOnSubmit={false}
                 returnKeyType="next"
                 onChangeText={precio => this.setState({ precio })}
-              >
-              </TextInTM>
-              </TextInTMCont>
-              <InfoIn style={{top: "5%"}}>Stock de tu producto</InfoIn>
-            <TextInTMCont style={{top: "9%"}}>
+              ></TextInTM>
+            </TextInTMCont>
+            <InfoIn style={{ top: "3%" }}>Stock de tu producto</InfoIn>
+            <TextInTMCont style={{ top: "8%" }}>
               <TextInTM
                 keyboardType="decimal-pad"
                 ref={input => {
@@ -291,90 +317,79 @@ render() {
                 blurOnSubmit={false}
                 returnKeyType="next"
                 onChangeText={stock => this.setState({ stock })}
-              >
-              </TextInTM>
-              </TextInTMCont>
+              ></TextInTM>
+            </TextInTMCont>
+            <View
+              style={{
+                top: "5%",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               <InfoInUb>Calle</InfoInUb>
-            <TextInUb></TextInUb>
+              <TextInUb></TextInUb>
               <NumDeptTextUb>
-              <InfoInNumDeptUb style={{ width: "25%" }}>Número</InfoInNumDeptUb>
-              <InfoInNumDeptUb style={{ width: "50%" }}>
-                Piso/Depto
-              </InfoInNumDeptUb>
-            </NumDeptTextUb>
-            <NumDeptUb>
-              <TextInNumUb></TextInNumUb>
-              <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
-            </NumDeptUb>
-            <InfoInUb>Provincia</InfoInUb>
-            <ContPicker>
-              <PickIn
-                onValueChange={provincia => {
-                  this.setState({ provincia });
-                }}
-                selectedValue={this.state.provincia}
-              >
-                <Picker.Item value="" label="Elegir Provincia" />
-                <PickIn.Item
-                  label="Buenos Aires"
-                  value="bsas"
-                />
-                <PickIn.Item
-                  label="Catamarca"
-                  value="catamarca"
-                />
-                <PickIn.Item
-                  label="Ciudad Autónoma de Buenos Aires"
-                  value="caba"
-                />
-                <PickIn.Item label="Chaco" value="chaco" />
-                <PickIn.Item label="Chubut" value="chubut" />
-                <PickIn.Item label="Córdoba" value="cordoba" />
-                <PickIn.Item label="Corrientes" value="corrientes" />
-                <PickIn.Item label="Entre Ríos" value="entrerios" />
-                <PickIn.Item label="Formosa" value="formosa" />
-                <PickIn.Item
-                  label="Jujuy"
-                  value="jujuy"
-                />
-                <PickIn.Item label="La Pampa" value="lapampa" />
-                <PickIn.Item label="La Rioja" value="larioja" />
-                <PickIn.Item
-                  label="Mendoza"
-                  value="mendoza"
-                />
-                <PickIn.Item
-                  label="Misiones"
-                  value="misiones"
-                />
-                <PickIn.Item label="Neuquén" value="neuquen" />
-                <PickIn.Item label="Río Negro" value="rionegro" />
-                <PickIn.Item label="Salta" value="salta" />
-                <PickIn.Item
-                  label="San Juan"
-                  value="sanjuan"
-                />
-                <PickIn.Item
-                  label="San Luis"
-                  value="sanluis"
-                />
-                <PickIn.Item label="Santa Cruz" value="santacruz" />
-                <PickIn.Item
-                  label="Santa Fe"
-                  value="santafe"
-                />
-                <PickIn.Item
-                  label="Santiago del Estero"
-                  value="santiagodelestero"
-                />
-                <PickIn.Item label="Tierra del Fuego, Antártida e Isla del Atlántico Sur" value="tierradelfuego" />
-                <PickIn.Item label="Tucumán" value="tucuman" />
-              </PickIn>
+                <InfoInNumDeptUb style={{ width: "25%" }}>
+                  Número
+                </InfoInNumDeptUb>
+                <InfoInNumDeptUb style={{ width: "50%" }}>
+                  Piso/Depto
+                </InfoInNumDeptUb>
+              </NumDeptTextUb>
+              <NumDeptUb>
+                <TextInNumUb></TextInNumUb>
+                <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
+              </NumDeptUb>
+              <InfoInUb>Provincia</InfoInUb>
+              <ContPicker style={{ marginBottom: "9%" }}>
+                <PickIn
+                  onValueChange={provincia => {
+                    this.setState({ provincia });
+                  }}
+                  selectedValue={this.state.provincia}
+                >
+                  <Picker.Item value="" label="Elegir Provincia" />
+                  <PickIn.Item label="Buenos Aires" value="Buenos Aires" />
+                  <PickIn.Item label="Catamarca" value="Catamarca" />
+                  <PickIn.Item
+                    label="Ciudad Autónoma de Buenos Aires"
+                    value="Ciudad Autónoma de Buenos Aires"
+                  />
+                  <PickIn.Item label="Chaco" value="Chaco" />
+                  <PickIn.Item label="Chubut" value="Chubut" />
+                  <PickIn.Item label="Córdoba" value="Córdoba" />
+                  <PickIn.Item label="Corrientes" value="Corrientes" />
+                  <PickIn.Item label="Entre Ríos" value="Entre Ríos" />
+                  <PickIn.Item label="Formosa" value="Formosa" />
+                  <PickIn.Item label="Jujuy" value="Jujuy" />
+                  <PickIn.Item label="La Pampa" value="La Pampa" />
+                  <PickIn.Item label="La Rioja" value="La Rioja" />
+                  <PickIn.Item label="Mendoza" value="Mendoza" />
+                  <PickIn.Item label="Misiones" value="Misiones" />
+                  <PickIn.Item label="Neuquén" value="Neuquén" />
+                  <PickIn.Item label="Río Negro" value="Río Negro" />
+                  <PickIn.Item label="Salta" value="Salta" />
+                  <PickIn.Item label="San Juan" value="San Juan" />
+                  <PickIn.Item label="San Luis" value="San Luis" />
+                  <PickIn.Item label="Santa Cruz" value="Santa Cruz" />
+                  <PickIn.Item label="Santa Fe" value="Santa Fe" />
+                  <PickIn.Item
+                    label="Santiago del Estero"
+                    value="santiagodelestero"
+                  />
+                  <PickIn.Item
+                    label="Tierra del Fuego, Antártida e Isla del Atlántico Sur"
+                    value="tierradelfuego"
+                  />
+                  <PickIn.Item label="Tucumán" value="tucuman" />
+                </PickIn>
+              </ContPicker>
               <InfoInUb>Ciudad</InfoInUb>
-            <TextInUb></TextInUb>
-            <InfoInUb>Barrio</InfoInUb>
-            <TextInUb></TextInUb>
-            </ContPicker>
+              <TextInUb></TextInUb>
+              <InfoInUb>Barrio</InfoInUb>
+              <TextInUb></TextInUb>
+            </View>
             <TouchableOpacity
               style={{
                 height: 40,
@@ -384,7 +399,7 @@ render() {
                 position: "absolute"
               }}
             ></TouchableOpacity>
-              <ButtonUp style={{ top: "10%" }}>
+            <ButtonUp style={{ top: "7%" }}>
               <TouchableOpacity
                 onPress={() => this.Publicar()}
                 style={{
@@ -396,15 +411,15 @@ render() {
               >
                 <ButtonText>Publicar</ButtonText>
               </TouchableOpacity>
-              </ButtonUp>
+            </ButtonUp>
           </ScrollView>
-          </AllCont>
-          </Container>
+        </AllCont>
+      </Container>
     );
-        }
-    }
+  }
+}
 
-    const Container = styled.View`
+const Container = styled.View`
   flex: 1;
   background-color: #fafafa;
   width: 100%;
@@ -446,7 +461,7 @@ const InfoIn = styled.Text`
 `;
 
 const TextIn = styled.TextInput`
-    top: 1%;
+  top: 1%;
   height: 50px;
   flex-direction: column;
   background: white;
@@ -474,7 +489,7 @@ const PickIn = styled.Picker`
 `;
 
 const ContPicker = styled.View`
-    top: 1%;
+  top: 1%;
   width: 80%;
   background: white;
   height: 50px;
@@ -518,18 +533,18 @@ const TextInDesc = styled.TextInput`
 `;
 
 const TextInTMCont = styled.View`
-    width: 80%;
-    height: 50px;
-    align-items: center;
-    flex-direction: row;
+  width: 80%;
+  height: 50px;
+  align-items: center;
+  flex-direction: row;
 `;
 
 const DolTM = styled.Text`
-    font-size: 24px;
-    text-align: center;
-    justify-content: center;
-    top: 2%;
-    color: #353536;
+  font-size: 24px;
+  text-align: center;
+  justify-content: center;
+  top: 2%;
+  color: #353536;
 `;
 
 const TextInTM = styled.TextInput`
@@ -547,7 +562,7 @@ const TextInTM = styled.TextInput`
   left: 1%;
 `;
 
-const VoidContSep =styled.View`
+const VoidContSep = styled.View`
   width: 80%;
   height: 7%;
 `;
@@ -569,6 +584,7 @@ const TextInUb = styled.TextInput`
   color: #353536;
   font-size: 16px;
   padding-left: 10;
+  margin-bottom: 8%;
 `;
 
 const TextInNumUb = styled.TextInput`
@@ -587,6 +603,7 @@ const NumDeptUb = styled.View`
   width: 80%;
   height: 50px;
   flex-direction: row;
+  margin-bottom: 8%;
 `;
 
 const NumDeptTextUb = styled.View`
@@ -601,4 +618,17 @@ const InfoInNumDeptUb = styled.Text`
   font-size: 14px;
   color: #353536;
   font-weight: bold;
+`;
+
+const RadioButtonCont = styled.View`
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const RadioButtonCont2 = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 `;

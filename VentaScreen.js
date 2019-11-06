@@ -35,7 +35,7 @@ export default class VentaScreen extends React.Component {
       longitude: 0,
       error: null,
       data: [
-        {
+        /*{
           id_producto: 0,
           stock: "2",
           cond: "Usado",
@@ -47,28 +47,29 @@ export default class VentaScreen extends React.Component {
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: 850,
+          precio: "850",
           count: 86400,
           desc:
             "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
         },
         {
           id_producto: 1,
-          stock: "30",
+          stock: "45",
           cond: "Nuevo",
           image: require("./assets/shops/web.jpg"),
-          nombreprod: "Webcam",
-          pubavatar: require("./assets/avatar/jajas.jpg"),
-          pubname: "Máximo Sánchez",
-          calle: "Av. Cabildo",
-          numero: "2040",
-          latit: -34.5627294,
-          longit: -58.4563794,
-          precio: 2460,
+          nombreprod: "Webcam Entrepeneur",
+          pubavatar: require("./assets/avatar/roca.jpg"),
+          pubname: "Zongalo Maiswan",
+          calle: "Echeverría",
+          numero: "1964",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "360",
           count: 86400,
-          desc: "Webcam"
-        }
-      ]
+          desc: "Una webcam para emprendedores tecnológicos ambiciosos."
+        }*/
+      ],
+      selectedItem: null
     };
     boca = {
       latitude: -34.6331619,
@@ -108,14 +109,19 @@ export default class VentaScreen extends React.Component {
     this.fetchData();
   }
 
+  functionCombined() {}
+
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
+    const isSelected = this.state.selectedItem === item.id_producto;
     return (
       <View>
         <NavigationEvents onDidFocus={() => this.fetchData()} />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
+        >
           <CardTienda
             key={item.id_producto}
             itemImage={(source = { uri: item.imagen })}
@@ -150,6 +156,10 @@ export default class VentaScreen extends React.Component {
       </View>
     );
   };
+
+  _choosen(selectedItem) {
+    this.setState({ selectedItem });
+  }
 
   render() {
     return (

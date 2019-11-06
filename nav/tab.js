@@ -53,7 +53,6 @@ HomeStack.navigationOptions = {
 };
 
 const Mens = createStackNavigator({
-  Ub: UbScreen,
   Mens: MensScreen
 });
 

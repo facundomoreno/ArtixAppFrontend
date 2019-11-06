@@ -42,29 +42,30 @@ export default class ArtScreen extends React.Component {
           numero: "175",
           latit: -34.6331619,
           longit: -58.3563399,
-          precio: 850,
+          precio: "850",
           count: 86400,
           desc:
             "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
         },
         {
           id_producto: 1,
-          stock: "30",
+          stock: "45",
           cond: "Nuevo",
           image: require("./assets/shops/web.jpg"),
-          nombreprod: "Webcam",
-          pubavatar: require("./assets/avatar/jajas.jpg"),
-          pubname: "Máximo Sánchez",
-          calle: "Av. Cabildo",
-          numero: "2040",
-          latit: -34.5627294,
-          longit: -58.4563794,
-          precio: 2460,
+          nombreprod: "Webcam Entrepeneur",
+          pubavatar: require("./assets/avatar/roca.jpg"),
+          pubname: "Zongalo Maiswan",
+          calle: "Echeverría",
+          numero: "1964",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "360",
           count: 86400,
-          desc: "Webcam"
+          desc:
+            "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
-      ArticData: 1
+      artdata: [this.props.navigation.getParam("itemx")]
     };
   }
 
@@ -85,23 +86,30 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
+    this.state.artdata;
   }
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
+
     return (
       <View style={{ width: "100%" }}>
         <CardItem
           key={1}
-          itemCond={item.cond}
-          itemImage={item.image}
+          //itemCond={item.cond}
+          itemImage={(source = { uri: item.imagen })}
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
           itemPubAv={item.pubavatar}
           itemPubName={item.pubname}
-          itemLocation={item.calle + " " + item.numero}
+          //itemLocation={item.calle + " " + item.numero}
+          itemLocation="Av. Las Heras 2905"
+          itemDepto="2 36"
+          itemBarrio="Palermo"
+          itemCity="CABA"
+          itemProvince="Ciudad Autónoma de Buenos Aires"
           itemDistance={
             Math.round(
               convertDistance(
@@ -122,7 +130,7 @@ export default class ArtScreen extends React.Component {
             " km"
           }
           itemCount={item.count}
-          itemDesc={item.desc}
+          itemDesc={item.ds_producto}
           itemStock={item.stock}
         ></CardItem>
       </View>
@@ -130,6 +138,7 @@ export default class ArtScreen extends React.Component {
   };
 
   render() {
+    console.log(this.state.artdata);
     return (
       <Container>
         <AllCont>
@@ -151,9 +160,9 @@ export default class ArtScreen extends React.Component {
               alignItems: "center",
               justifyContent: "center",
               flexGrow: 1,
-              paddingBottom: 95
+              paddingBottom: 300
             }}
-            data={this.state.dataart.slice(0, 1)}
+            data={Object.values(this.state.artdata)}
             renderItem={this.renderItem}
           ></FlatList>
         </AllCont>

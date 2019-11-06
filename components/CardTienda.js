@@ -20,7 +20,6 @@ const CardTienda = props => (
     <ItemName numberOfLines={2}>{props.itemName}</ItemName>
     <ItemLocation>{props.itemLocation}</ItemLocation>
     <ItemDistance>{props.itemDistance}</ItemDistance>
-    <Text>{props.itemStock}</Text>
     <LowerCont>
       <ItemPrice>${props.itemPrice}</ItemPrice>
       <CountDown
