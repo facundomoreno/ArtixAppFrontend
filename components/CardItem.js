@@ -120,13 +120,15 @@ const CardItem = props => (
     <ItDesc>{props.itemDesc}</ItDesc>
     <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
     <ItDesc style={{ top: "24%" }}>
-      {props.itemLocation} - {props.itemDepto}
+      {props.itemLocation} - {props.itemCP}
       {"\n"}
       {props.itemBarrio}
       {"\n"}
       {props.itemCity}
       {"\n"}
       {props.itemProvince}
+      {"\n"}
+      Argentina
     </ItDesc>
   </View>
 );

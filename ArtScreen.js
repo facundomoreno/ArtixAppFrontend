@@ -120,8 +120,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: -34.6331619,
-                    longitude: -58.3563399
+                    latitude: item.lati,
+                    longitude: item.long
                   }
                 ),
                 "km"
@@ -130,9 +130,13 @@ export default class ArtScreen extends React.Component {
               10 +
             " km"
           }
-          itemCount={item.count}
-          itemDesc={item.ds_producto}
+          itemPrice={item.precio}
           itemStock={item.stock}
+          itemCount={item.count}
+          itemCP={item.cp}
+          itemBarrio={item.barrio}
+          itemCity={item.ciudad}
+          itemProvince={item.provincia}
         ></CardItem>
       </View>
     );
