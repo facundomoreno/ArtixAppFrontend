@@ -58,9 +58,6 @@ export default class PabloScreen extends React.Component {
   };
 
   Publicar = () => {
-<<<<<<< HEAD
-    fetch("http://192.168.0.238:3000/Publicar", {
-=======
     Geocoder.from(
       this.state.calle +
         " " +
@@ -81,7 +78,6 @@ export default class PabloScreen extends React.Component {
     });
     console.log(this.state.lati + this.state.long);
     fetch("http://35.237.172.249:3000/Publicar", {
->>>>>>> a7848c518c493480157e5025e3782f547f16e2c6
       method: "POST",
       headers: {
         Accept: "application/json",
