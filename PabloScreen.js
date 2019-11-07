@@ -31,7 +31,7 @@ export default class PabloScreen extends React.Component {
       categoria: "",
       nombreProducto: "",
       precio: "",
-      estado: 0,
+      estado: "",
       descProducto: "",
       categoria: "",
       //numero: "",
@@ -220,10 +220,10 @@ pickImage = async () => {
                   uncheckedColor={"#9d9d9d"}
                   color={"#ff4d4d"}
                   status={
-                    this.state.checked === "Nuevo" ? "checked" : "unchecked"
+                    this.state.estado === "Nuevo" ? "checked" : "unchecked"
                   }
                   onPress={() => {
-                    this.setState({ checked: "Nuevo" });
+                    this.setState({ estado: "Nuevo" });
                   }}
                 />
                 <Text>Nuevo</Text>
@@ -234,10 +234,10 @@ pickImage = async () => {
                   uncheckedColor={"#9d9d9d"}
                   color={"#ff4d4d"}
                   status={
-                    this.state.checked === "Usado" ? "checked" : "unchecked"
+                    this.state.estado === "Usado" ? "checked" : "unchecked"
                   }
                   onPress={() => {
-                    this.setState({ checked: "Usado" });
+                    this.setState({ estado: "Usado" });
                   }}
                 />
                 <Text>Usado</Text>
