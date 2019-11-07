@@ -46,7 +46,7 @@ const CardItem = props => (
     </ItPriceCont>
     <ItPubCont>
       <ItPubAv source={props.itemImage}></ItPubAv>
-      <ItPubName>Zongalo Maiswan</ItPubName>
+      <ItPubName> {props.itemPubName}</ItPubName>
     </ItPubCont>
     <ItLocCont>
       <ItLocMap>

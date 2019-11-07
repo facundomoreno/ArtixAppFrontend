@@ -38,7 +38,7 @@ export default class RegScreen extends React.Component {
   */
 
   Registrarse = () => {
-    fetch("http://192.168.0.238:3000/Register", {
+    fetch("http://35.237.172.249:3000/Register", {
       method: "POST",
       headers: {
         Accept: "application/json",

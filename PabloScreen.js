@@ -30,6 +30,7 @@ export default class PabloScreen extends React.Component {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
+      currentUser:"",
       categoria: "",
       nombreProducto: "",
       precio: "",
@@ -44,6 +45,7 @@ export default class PabloScreen extends React.Component {
       imagen: "",
       stock: "",
       count: 86400,
+      publicador:"",
       // value: "",
       checked: "",
       calle: "",
@@ -57,8 +59,28 @@ export default class PabloScreen extends React.Component {
     showIcon: true
   };
 
+  componentDidMount(){
+    this.getSessionValues();
+    console.log("valor: " + this.state.publicador)
+    
+    
+  }
+
+  getSessionValues = async () =>{
+    try{
+      AsyncStorage.getItem('user').then((user)=>{
+        console.log(user)
+        this.setState({publicador: user});
+        
+      }).done();
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
   Publicar = () => {
-    Geocoder.from(
+   Geocoder.from(
       this.state.calle +
         " " +
         this.state.numero +
@@ -77,6 +99,7 @@ export default class PabloScreen extends React.Component {
       this.state.long = location.lat;
     });
     console.log(this.state.lati + this.state.long);
+    
     fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
       headers: {
@@ -89,16 +112,18 @@ export default class PabloScreen extends React.Component {
         estado: this.state.estado,
         descProducto: this.state.descProducto,
         categoria: this.state.categoria,
-        numero: this.state.numero,
+        /*numero: this.state.numero,
         cp: this.state.cp,
         provincia: this.state.provincia,
         ciudad: this.state.ciudad,
         barrio: this.state.barrio,
+        */
         imagen: this.state.imagen,
         stock: this.state.stock,
         count: this.state.count,
-        lati: this.state.lati,
-        long: this.state.long
+        publicador: this.state.publicador,
+        //lati: this.state.lati,
+       // long: this.state.long
       })
     })
       .then(response => response.json())

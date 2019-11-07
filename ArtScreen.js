@@ -95,6 +95,8 @@ export default class ArtScreen extends React.Component {
       return <View />;
     }
 
+    
+
     return (
       <View style={{ width: "100%" }}>
         <CardItem
@@ -106,7 +108,7 @@ export default class ArtScreen extends React.Component {
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
           itemPubAv={require("./assets/avatar/roca.jpg")}
-          itemPubName="Zongalo Maiswan"
+          itemPubName={item.publicador}
           itemLocation={item.calle + " " + item.numero}
           itemCount={item.count}
           itemCP={item.cp}
