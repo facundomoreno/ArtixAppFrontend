@@ -117,16 +117,18 @@ const CardItem = props => (
       />
     </ContNumIn>
     <ItHead style={{ top: "19%" }}>Descripción</ItHead>
-    <ItDesc>{props.ds_producto}</ItDesc>
+    <ItDesc>{props.itemDesc}</ItDesc>
     <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
     <ItDesc style={{ top: "24%" }}>
-      {props.itemLocation} - {props.itemDepto}
+      {props.itemLocation} - {props.itemCP}
       {"\n"}
       {props.itemBarrio}
       {"\n"}
       {props.itemCity}
       {"\n"}
       {props.itemProvince}
+      {"\n"}
+      Argentina
     </ItDesc>
   </View>
 );

@@ -21,6 +21,7 @@ import ZoomImage from "react-native-zoom-image";
 import NumericInput from "react-native-numeric-input";
 import CountDown from "react-native-countdown-component";
 import CardItem from "./components/CardItem";
+import { Buffer } from "buffer";
 
 export default class ArtScreen extends React.Component {
   constructor(props) {
@@ -99,7 +100,9 @@ export default class ArtScreen extends React.Component {
         <CardItem
           key={1}
           //itemCond={item.cond}
-          itemImage={(source = { uri: item.imagen })}
+          itemImage={
+            (source = { uri: Buffer.from(item.imagen, "binary").toString() })
+          }
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
           itemPubAv={item.pubavatar}

@@ -19,7 +19,16 @@ import CardTienda from "./components/CardTienda";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
+import Geocoder from "react-native-geocoding";
+
+Geocoder.init("AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc");
+/*var location;
+Geocoder.from("Av Cabildo 3500, CABA").then(json => {
+  location = json.results[0].geometry.location;
+  this.state.long = location.lng;
+  this.state.lati = location.lat;
+});*/
 
 const numColumns = 2;
 
@@ -125,9 +134,11 @@ export default class VentaScreen extends React.Component {
         >
           <CardTienda
             key={item.id_producto}
-            itemImage={(source = { uri: Buffer.from(item.imagen , 'binary').toString() })}
+            itemImage={
+              (source = { uri: Buffer.from(item.imagen, "binary").toString() })
+            }
             itemName={item.nombreprod}
-            //itemLocation={item.calle + " " + item.numero}
+            itemLocation={item.calle + " " + item.numero}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -137,8 +148,8 @@ export default class VentaScreen extends React.Component {
                       longitude: this.state.longitude
                     },
                     {
-                      latitude: -34.6331619,
-                      longitude: -58.3563399
+                      latitude: item.lati,
+                      longitude: item.long
                     }
                   ),
                   "km"
@@ -152,6 +163,10 @@ export default class VentaScreen extends React.Component {
             itemPrice={item.precio}
             itemStock={item.stock}
             itemCount={item.count}
+            itemCP={item.cp}
+            itemBarrio={item.barrio}
+            itemCity={item.ciudad}
+            itemProvince={item.provincia}
           />
         </TouchableOpacity>
       </View>
