@@ -47,7 +47,8 @@ export default class PabloScreen extends React.Component {
       // value: "",
       checked: "",
       calle: "",
-      locat: ""
+      lati: "",
+      long: ""
     };
   }
 
@@ -57,7 +58,26 @@ export default class PabloScreen extends React.Component {
   };
 
   Publicar = () => {
-    /*fetch("http://35.237.172.249:3000/Publicar", {
+    Geocoder.from(
+      this.state.calle +
+        " " +
+        this.state.numero +
+        " " +
+        this.state.cp +
+        ", " +
+        this.state.barrio +
+        ", " +
+        this.state.ciudad +
+        ", " +
+        this.state.provincia +
+        "Argentina"
+    ).then(json => {
+      var location = json.results[0].geometry.location;
+      this.state.lati = location.lat;
+      this.state.long = location.lat;
+    });
+    console.log(this.state.locat);
+    fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -76,7 +96,9 @@ export default class PabloScreen extends React.Component {
         barrio: this.state.barrio,
         imagen: this.state.imagen,
         stock: this.state.stock,
-        count: this.state.count
+        count: this.state.count,
+        lati: this.state.lati,
+        long: this.state.long
       })
     })
       .then(response => response.json())
@@ -89,25 +111,7 @@ export default class PabloScreen extends React.Component {
           alert(res.message);
         }
       })
-      .done();*/
-    Geocoder.from(
-      this.state.calle +
-        " " +
-        this.state.numero +
-        " " +
-        this.state.cp +
-        ", " +
-        this.state.barrio +
-        ", " +
-        this.state.ciudad +
-        ", " +
-        this.state.provincia +
-        "Argentina"
-    ).then(json => {
-      var location = json.results[0].geometry.location;
-      this.state.locat = location;
-    });
-    console.log(this.state.locat);
+      .done();
   };
 
   pickImage = async () => {

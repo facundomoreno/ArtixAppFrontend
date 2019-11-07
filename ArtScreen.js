@@ -99,20 +99,13 @@ export default class ArtScreen extends React.Component {
       <View style={{ width: "100%" }}>
         <CardItem
           key={1}
-          //itemCond={item.cond}
+          itemCond={item.estado}
           itemImage={
             (source = { uri: Buffer.from(item.imagen, "binary").toString() })
           }
-          itemTitle={item.nombreprod}
-          itemPrice={item.precio}
-          itemPubAv={item.pubavatar}
-          itemPubName={item.pubname}
-          //itemLocation={item.calle + " " + item.numero}
-          itemLocation="Av. Las Heras 2905"
-          itemDepto="2 36"
-          itemBarrio="Palermo"
-          itemCity="CABA"
-          itemProvince="Ciudad Autónoma de Buenos Aires"
+          itemAvImage={require("./assets/avatar/roca.jpg")}
+          itemName={item.nombreprod}
+          itemLocation={item.calle + " " + item.numero}
           itemDistance={
             Math.round(
               convertDistance(
@@ -122,8 +115,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: -34.6331619,
-                    longitude: -58.3563399
+                    latitude: item.lati,
+                    longitude: item.long
                   }
                 ),
                 "km"
@@ -132,9 +125,13 @@ export default class ArtScreen extends React.Component {
               10 +
             " km"
           }
-          itemCount={item.count}
-          itemDesc={item.ds_producto}
+          itemPrice={item.precio}
           itemStock={item.stock}
+          itemCount={item.count}
+          itemCP={item.cp}
+          itemBarrio={item.barrio}
+          itemCity={item.ciudad}
+          itemProvince={item.provincia}
         ></CardItem>
       </View>
     );

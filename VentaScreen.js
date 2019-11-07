@@ -134,6 +134,7 @@ export default class VentaScreen extends React.Component {
         >
           <CardTienda
             key={item.id_producto}
+            itemCond={item.estado}
             itemImage={
               (source = { uri: Buffer.from(item.imagen, "binary").toString() })
             }
@@ -159,8 +160,6 @@ export default class VentaScreen extends React.Component {
                 10 +
               " km"
             }
-            locLon={this.state.latitude}
-            locLat={this.state.longitude}
             itemPrice={item.precio}
             itemStock={item.stock}
             itemCount={item.count}
