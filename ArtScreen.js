@@ -21,6 +21,7 @@ import ZoomImage from "react-native-zoom-image";
 import NumericInput from "react-native-numeric-input";
 import CountDown from "react-native-countdown-component";
 import CardItem from "./components/CardItem";
+import { Buffer } from 'buffer';
 
 export default class ArtScreen extends React.Component {
   constructor(props) {
@@ -98,8 +99,8 @@ export default class ArtScreen extends React.Component {
       <View style={{ width: "100%" }}>
         <CardItem
           key={1}
-          //itemCond={item.cond}
-          itemImage={(source = { uri: item.imagen })}
+          itemCond={item.estado}
+          itemImage={(source = { uri: Buffer.from(item.imagen , 'binary').toString() })}
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
           itemPubAv={item.pubavatar}
@@ -119,8 +120,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: -34.6331619,
-                    longitude: -58.3563399
+                    latitude: item.lati,
+                    longitude: item.long
                   }
                 ),
                 "km"
@@ -129,9 +130,13 @@ export default class ArtScreen extends React.Component {
               10 +
             " km"
           }
-          itemCount={item.count}
-          itemDesc={item.ds_producto}
+          itemPrice={item.precio}
           itemStock={item.stock}
+          itemCount={item.count}
+          itemCP={item.cp}
+          itemBarrio={item.barrio}
+          itemCity={item.ciudad}
+          itemProvince={item.provincia}
         ></CardItem>
       </View>
     );

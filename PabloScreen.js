@@ -21,7 +21,9 @@ import { getDistance, convertDistance } from "geolib";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { RadioButton } from "react-native-paper";
+import Geocoder from "react-native-geocoding";
 
+Geocoder.init("AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc");
 
 export default class PabloScreen extends React.Component {
   constructor(props) {
@@ -31,19 +33,22 @@ export default class PabloScreen extends React.Component {
       categoria: "",
       nombreProducto: "",
       precio: "",
-      estado: 0,
+      estado: "",
       descProducto: "",
       categoria: "",
-      //numero: "",
-      // piso: "",
+      numero: "",
+      cp: "",
       provincia: "",
-      //ciudad: "",
-      //barrio: "",
+      ciudad: "",
+      barrio: "",
       imagen: "",
       stock: "",
       count: 86400,
       // value: "",
-      checked: ""
+      checked: "",
+      calle: "",
+      lati: "",
+      long: ""
     };
   }
 
@@ -53,7 +58,30 @@ export default class PabloScreen extends React.Component {
   };
 
   Publicar = () => {
+<<<<<<< HEAD
     fetch("http://192.168.0.238:3000/Publicar", {
+=======
+    Geocoder.from(
+      this.state.calle +
+        " " +
+        this.state.numero +
+        " " +
+        this.state.cp +
+        ", " +
+        this.state.barrio +
+        ", " +
+        this.state.ciudad +
+        ", " +
+        this.state.provincia +
+        "Argentina"
+    ).then(json => {
+      var location = json.results[0].geometry.location;
+      this.state.lati = location.lat;
+      this.state.long = location.lat;
+    });
+    console.log(this.state.locat);
+    fetch("http://35.237.172.249:3000/Publicar", {
+>>>>>>> a7848c518c493480157e5025e3782f547f16e2c6
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -65,47 +93,67 @@ export default class PabloScreen extends React.Component {
         estado: this.state.estado,
         descProducto: this.state.descProducto,
         categoria: this.state.categoria,
-        //numero: this.state.numero,
-        // piso: this.state.piso,
-        // provincia: this.state.provincia,
-        //ciudad: this.state.ciudad,
-        //barrio: this.state.barrio,
+        numero: this.state.numero,
+        cp: this.state.cp,
+        provincia: this.state.provincia,
+        ciudad: this.state.ciudad,
+        barrio: this.state.barrio,
         imagen: this.state.imagen,
         stock: this.state.stock,
-        count: this.state.count
+        count: this.state.count,
+        lati: this.state.lati,
+        long: this.state.long
       })
     })
-    .then(response => response.json())
-    .then(res => {
-      if (res.success === true) {
-        //AsyncStorage.setItem('user', res.nombreProducto);
-        alert(res.message);
-        this.props.navigation.navigate("Venta");
-      } else {
-        alert(res.message);
-      }
-    })
-    .done();
-};
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          //AsyncStorage.setItem('user', res.nombreProducto);
+          alert(res.message);
+          this.props.navigation.navigate("Venta");
+        } else {
+          alert(res.message);
+        }
+      })
+      .done();
+  };
 
-pickImage = async () => {
-  let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.All,
-    allowsEditing: true,
-    aspect: [4, 3],
-    base64: true
-  });
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      base64: true
+    });
 
-  //console.log(result);
+    //console.log(result);
 
-  if (!result.cancelled) {
-    this.setState({ imagen: "data:image/jpeg;base64," + result.base64 });
-    console.log("Esto es lo que quiero ver" + JSON.stringify(result));
-  }
-};
+    if (!result.cancelled) {
+      this.setState({ imagen: "data:image/jpeg;base64," + result.base64 });
+      console.log("Esto es lo que quiero ver" + JSON.stringify(result));
+    }
+  };
 
   render() {
     let { imagen } = this.state;
+    /*Geocoder.from(
+      this.state.calle +
+        " " +
+        this.state.numero +
+        " " +
+        this.state.cp +
+        ", " +
+        this.state.barrio +
+        ", " +
+        this.state.ciudad +
+        ", " +
+        this.state.provincia +
+        "Argentina"
+    )
+      .then(json => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+      })*/
     return (
       <Container>
         <AllCont>
@@ -220,10 +268,10 @@ pickImage = async () => {
                   uncheckedColor={"#9d9d9d"}
                   color={"#ff4d4d"}
                   status={
-                    this.state.checked === "Nuevo" ? "checked" : "unchecked"
+                    this.state.estado === "Nuevo" ? "checked" : "unchecked"
                   }
                   onPress={() => {
-                    this.setState({ checked: "Nuevo" });
+                    this.setState({ estado: "Nuevo" });
                   }}
                 />
                 <Text>Nuevo</Text>
@@ -234,10 +282,10 @@ pickImage = async () => {
                   uncheckedColor={"#9d9d9d"}
                   color={"#ff4d4d"}
                   status={
-                    this.state.checked === "Usado" ? "checked" : "unchecked"
+                    this.state.estado === "Usado" ? "checked" : "unchecked"
                   }
                   onPress={() => {
-                    this.setState({ checked: "Usado" });
+                    this.setState({ estado: "Usado" });
                   }}
                 />
                 <Text>Usado</Text>
@@ -330,18 +378,47 @@ pickImage = async () => {
               }}
             >
               <InfoInUb>Calle</InfoInUb>
-              <TextInUb></TextInUb>
+              <TextInUb
+                ref={input => {
+                  this.calTxtInp = input;
+                }}
+                onSubmitEditing={() => {
+                  this.numTxtInp.focus();
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
+                onChangeText={calle => this.setState({ calle })}
+              ></TextInUb>
               <NumDeptTextUb>
                 <InfoInNumDeptUb style={{ width: "25%" }}>
                   Número
                 </InfoInNumDeptUb>
                 <InfoInNumDeptUb style={{ width: "50%" }}>
-                  Piso/Depto
+                  Código Postal
                 </InfoInNumDeptUb>
               </NumDeptTextUb>
               <NumDeptUb>
-                <TextInNumUb></TextInNumUb>
-                <TextInNumUb style={{ width: "50%" }}></TextInNumUb>
+                <TextInNumUb
+                  keyboardType="decimal-pad"
+                  ref={input => {
+                    this.numTxtInp = input;
+                  }}
+                  onSubmitEditing={() => {
+                    this.codTxtInp.focus();
+                  }}
+                  blurOnSubmit={false}
+                  returnKeyType="next"
+                  onChangeText={numero => this.setState({ numero })}
+                ></TextInNumUb>
+                <TextInNumUb
+                  style={{ width: "50%" }}
+                  ref={input => {
+                    this.codTxtInp = input;
+                  }}
+                  blurOnSubmit={false}
+                  returnKeyType="next"
+                  onChangeText={cp => this.setState({ cp })}
+                ></TextInNumUb>
               </NumDeptUb>
               <InfoInUb>Provincia</InfoInUb>
               <ContPicker style={{ marginBottom: "9%" }}>
@@ -388,9 +465,26 @@ pickImage = async () => {
                 </PickIn>
               </ContPicker>
               <InfoInUb>Ciudad</InfoInUb>
-              <TextInUb></TextInUb>
+              <TextInUb
+                ref={input => {
+                  this.citTxtInp = input;
+                }}
+                onSubmitEditing={() => {
+                  this.barTxtInp.focus();
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
+                onChangeText={ciudad => this.setState({ ciudad })}
+              ></TextInUb>
               <InfoInUb>Barrio</InfoInUb>
-              <TextInUb></TextInUb>
+              <TextInUb
+                ref={input => {
+                  this.barTxtInp = input;
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
+                onChangeText={barrio => this.setState({ barrio })}
+              ></TextInUb>
             </View>
             <TouchableOpacity
               style={{
