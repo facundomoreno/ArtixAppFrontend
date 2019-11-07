@@ -47,8 +47,8 @@ export default class PabloScreen extends React.Component {
       // value: "",
       checked: "",
       calle: "",
-      lati: "",
-      long: ""
+      lati: 0,
+      long: 0
     };
   }
 
@@ -76,7 +76,7 @@ export default class PabloScreen extends React.Component {
       this.state.lati = location.lat;
       this.state.long = location.lat;
     });
-    console.log(this.state.locat);
+    console.log(this.state.lati + this.state.long);
     fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
       headers: {

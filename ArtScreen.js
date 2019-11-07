@@ -21,7 +21,7 @@ import ZoomImage from "react-native-zoom-image";
 import NumericInput from "react-native-numeric-input";
 import CountDown from "react-native-countdown-component";
 import CardItem from "./components/CardItem";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export default class ArtScreen extends React.Component {
   constructor(props) {
@@ -100,18 +100,20 @@ export default class ArtScreen extends React.Component {
         <CardItem
           key={1}
           itemCond={item.estado}
-          itemImage={(source = { uri: Buffer.from(item.imagen , 'binary').toString() })}
+          itemImage={
+            (source = { uri: Buffer.from(item.imagen, "binary").toString() })
+          }
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
-          itemPubAv={item.pubavatar}
-          itemPubName={item.pubname}
-          //itemLocation={item.calle + " " + item.numero}
-          itemLocation="Av. Las Heras 2905"
-          itemDepto="2 36"
-          itemBarrio="Palermo"
-          itemCity="CABA"
-          itemProvince="Ciudad Autónoma de Buenos Aires"
-          itemDistance={
+          itemPubAv={require("./assets/avatar/roca.jpg")}
+          itemPubName="Zongalo Maiswan"
+          itemLocation={item.calle + " " + item.numero}
+          itemCount={item.count}
+          itemCP={item.cp}
+          itemBarrio={item.barrio}
+          itemCity={item.ciudad}
+          itemProvince={item.provincia}
+          /*itemDistance={
             Math.round(
               convertDistance(
                 getDistance(
@@ -129,14 +131,11 @@ export default class ArtScreen extends React.Component {
             ) /
               10 +
             " km"
-          }
+          }*/
           itemPrice={item.precio}
           itemStock={item.stock}
           itemCount={item.count}
-          itemCP={item.cp}
-          itemBarrio={item.barrio}
-          itemCity={item.ciudad}
-          itemProvince={item.provincia}
+          itemDesc={item.ds_producto}
         ></CardItem>
       </View>
     );
