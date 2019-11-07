@@ -88,7 +88,7 @@ export default class VentaScreen extends React.Component {
 
   fetchData = async () => {
     //console.log("Está funcionando data");
-    const response = await fetch("http://35.237.172.249:3000/Productos");
+    const response = await fetch("http://192.168.0.238:3000/Productos");
     const productos = await response.json();
     this.setState({ data: productos });
     //console.log(JSON.stringify(this.state.data));

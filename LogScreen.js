@@ -25,18 +25,19 @@ export default class LogScreen extends React.Component {
   }
 
   componentDidMount() {
-    this._loadInitialState().done();
+    //this._loadInitialState().done();
   }
 
-  _loadInitialState = async () => {
+  /*_loadInitialState = async () => {
     var value = await AsyncStorage.getItem("user");
     if (value !== null) {
       this.props.navigation.navigate("Home");
     }
   };
+  */
 
   login = () => {
-    fetch("http://35.237.172.249:3000/Login", {
+    fetch("http://192.168.0.238:3000/Login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -50,7 +51,18 @@ export default class LogScreen extends React.Component {
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
-          AsyncStorage.setItem("user", res.mail);
+
+          console.log(res);
+          
+          try{
+            AsyncStorage.setItem("user", res.usuario);
+            
+          }
+          
+          catch(error){
+            console.log("no funcionó");
+          }
+          
           this.props.navigation.navigate("AppTab");
         } else {
           alert(res.message);

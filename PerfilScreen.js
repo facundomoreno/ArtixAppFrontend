@@ -1,23 +1,56 @@
 import React, { Component } from "react";
-import { ScrollView, SafeAreaView, Text, TouchableOpacity } from "react-native";
+import { ScrollView, SafeAreaView, Text, TouchableOpacity, AsyncStorage } from "react-native";
 import { Header } from "react-native-elements";
 import styled from "styled-components";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class PerfilScreen extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      currentUser: ""
+    }
+  }
   static navigationOptions = {
     header: null,
     showIcon: true
   };
+
+  componentDidMount(){
+    this.getSessionValues();
+    
+  }
+
+  getSessionValues = async () =>{
+    try{
+      AsyncStorage.getItem('user').then((user)=>{
+        //console.log(user)
+        this.setState({currentUser: user});
+        
+      }).done();
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
+   
   render() {
+
+   
+    
+    console.log("Current user: " + this.state.currentUser);
+    
     return (
+      
+      
       <Container>
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <Container></Container>
           <ContainerPerfil>
             <Menu />
             <Avatar />
-            <Nombre>Gonzalo Waisman</Nombre>
+            <Nombre>{this.state.currentUser}</Nombre>
             <Jerarquia>Alumno</Jerarquia>
             <BotonClase>
               <BotonText>Pedir Clase</BotonText>
