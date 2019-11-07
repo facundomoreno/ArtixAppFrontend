@@ -137,6 +137,7 @@ export default class VentaScreen extends React.Component {
             itemImage={
               (source = { uri: Buffer.from(item.imagen, "binary").toString() })
             }
+            itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
             itemLocation={item.calle + " " + item.numero}
             itemDistance={
