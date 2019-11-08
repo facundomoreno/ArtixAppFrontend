@@ -37,7 +37,7 @@ export default class LogScreen extends React.Component {
   */
 
   login = async () => {
-    fetch("http://35.237.172.249:3000/Login", {
+    fetch("http://192.168.0.238:3000/Login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -56,6 +56,30 @@ export default class LogScreen extends React.Component {
           
           try{
             AsyncStorage.setItem("user", res.usuario);
+            
+
+            AsyncStorage.getItem('user').then((user)=>{
+              console.log("current user id " + user);
+              
+              
+            }).done();
+            
+            
+          }
+          
+          catch(error){
+            console.log("no funcionó");
+          }
+          try{
+            AsyncStorage.setItem("userId", res.idusuario);
+            
+
+            AsyncStorage.getItem('userId').then((userId)=>{
+              console.log("current user id " + userId);
+              
+              
+            }).done();
+            
             
           }
           
