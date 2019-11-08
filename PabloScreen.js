@@ -37,6 +37,7 @@ export default class PabloScreen extends React.Component {
       estado: "",
       descProducto: "",
       categoria: "",
+      calle: "",
       numero: "",
       cp: "",
       provincia: "",
@@ -48,9 +49,8 @@ export default class PabloScreen extends React.Component {
       publicador:"",
       // value: "",
       checked: "",
-      calle: "",
-      lati: 0,
-      long: 0
+      lat: "",
+      lng: ""
     };
   }
 
@@ -95,10 +95,10 @@ export default class PabloScreen extends React.Component {
         "Argentina"
     ).then(json => {
       var location = json.results[0].geometry.location;
-      this.state.lati = location.lat;
-      this.state.long = location.lat;
+      this.state.lat = location.lat;
+      this.state.lng = location.lng;
+      console.log(this.state.lat);
     });
-    console.log(this.state.lati + this.state.long);
     
     fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
@@ -112,18 +112,18 @@ export default class PabloScreen extends React.Component {
         estado: this.state.estado,
         descProducto: this.state.descProducto,
         categoria: this.state.categoria,
-        /*numero: this.state.numero,
+        numero: this.state.numero,
         cp: this.state.cp,
         provincia: this.state.provincia,
         ciudad: this.state.ciudad,
         barrio: this.state.barrio,
-        */
         imagen: this.state.imagen,
         stock: this.state.stock,
         count: this.state.count,
         publicador: this.state.publicador,
-        //lati: this.state.lati,
-       // long: this.state.long
+        calle: this.state.calle,
+        lat: this.state.lat,
+        lng: this.state.lng
       })
     })
       .then(response => response.json())
@@ -358,7 +358,7 @@ export default class PabloScreen extends React.Component {
               maxLength={200}
               onChangeText={descProducto => this.setState({ descProducto })}
               multiline={true}
-              style={{ textAlignVertical: "top" }}
+              style={{ textAlignVertical: "top" }} 
             ></TextInDesc>
             <InfoIn>Precio de tu producto</InfoIn>
             <TextInTMCont>
@@ -476,13 +476,13 @@ export default class PabloScreen extends React.Component {
                   <PickIn.Item label="Santa Fe" value="Santa Fe" />
                   <PickIn.Item
                     label="Santiago del Estero"
-                    value="santiagodelestero"
+                    value="Santiago del Estero"
                   />
                   <PickIn.Item
                     label="Tierra del Fuego, Antártida e Isla del Atlántico Sur"
-                    value="tierradelfuego"
+                    value="Tierra del Fuego"
                   />
-                  <PickIn.Item label="Tucumán" value="tucuman" />
+                  <PickIn.Item label="Tucumán" value="Tucumán" />
                 </PickIn>
               </ContPicker>
               <InfoInUb>Ciudad</InfoInUb>

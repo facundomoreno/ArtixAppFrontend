@@ -25,16 +25,16 @@ export default class LogScreen extends React.Component {
   }
 
   componentDidMount() {
-    //this._loadInitialState().done();
+    this._loadInitialState().done();
   }
 
-  /*_loadInitialState = async () => {
+  _loadInitialState = async () => {
     var value = await AsyncStorage.getItem("user");
     if (value !== null) {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.navigate("AppTab");
     }
   };
-  */
+  
 
   login = async () => {
     fetch("http://35.237.172.249:3000/Login", {

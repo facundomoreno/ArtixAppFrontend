@@ -74,6 +74,7 @@ const ItemLocation = styled.Text`
   font-weight: normal;
   color: #9d9d9d;
   top: 2%;
+  text-align: center;
 `;
 
 const ItemDistance = styled.Text`

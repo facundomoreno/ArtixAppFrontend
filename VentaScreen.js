@@ -140,7 +140,7 @@ export default class VentaScreen extends React.Component {
             }
             itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
-            itemLocation={item.calle + " " + item.numero}
+            itemLocation={item.ciudad + "\n" + item.provincia}
             /*itemDistance={
               Math.round(
                 convertDistance(
