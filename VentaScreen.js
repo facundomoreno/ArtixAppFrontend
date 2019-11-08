@@ -141,7 +141,7 @@ export default class VentaScreen extends React.Component {
             itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
             itemLocation={item.ciudad + "\n" + item.provincia}
-            /*itemDistance={
+            itemDistance={
               Math.round(
                 convertDistance(
                   getDistance(
@@ -150,8 +150,8 @@ export default class VentaScreen extends React.Component {
                       longitude: this.state.longitude
                     },
                     {
-                      latitude: item.lati,
-                      longitude: item.long
+                      latitude: item.lat,
+                      longitude: item.lng
                     }
                   ),
                   "km"
@@ -159,7 +159,7 @@ export default class VentaScreen extends React.Component {
               ) /
                 10 +
               " km"
-            }*/
+            }
             itemPrice={item.precio}
             itemStock={item.stock}
             itemCount={item.count}

@@ -48,30 +48,12 @@ const CardItem = props => (
       <ItPubAv source={props.itemImage}></ItPubAv>
       <ItPubName> {props.itemPubName}</ItPubName>
     </ItPubCont>
-    <ItLocCont>
-      <ItLocMap>
-        <TouchableOpacity
-          style={{
-            height: 50,
-            width: 140,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <ItButtonText>Ver en Mapa</ItButtonText>
-        </TouchableOpacity>
-      </ItLocMap>
-      <ItLocTextCont>
-        <ItLocText>{props.itemLocation}</ItLocText>
-        <ItLocText>{props.itemDistance}</ItLocText>
-      </ItLocTextCont>
-    </ItLocCont>
     <View
       style={{
         height: 30,
         alignItems: "center",
         justifyContent: "center",
-        top: "10%"
+        top: "9%"
       }}
     >
       <ItTimeLeft>Tiempo restante:</ItTimeLeft>
@@ -87,21 +69,9 @@ const CardItem = props => (
         showSeparator={true}
       />
     </View>
-    <ItBuy>
-      <TouchableOpacity
-        style={{
-          height: 50,
-          width: 200,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <ItButtonText>Comprar</ItButtonText>
-      </TouchableOpacity>
-    </ItBuy>
     <ContNumIn>
       <NumericInput
-        totalWidth={100}
+        totalWidth={280}
         totalHeight={50}
         iconSize={25}
         step={1}
@@ -116,10 +86,39 @@ const CardItem = props => (
         maxValue={props.itemStock}
       />
     </ContNumIn>
+    <ItBuy>
+      <TouchableOpacity
+        style={{
+          height: 50,
+          width: 200,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <ItButtonText>Comprar</ItButtonText>
+      </TouchableOpacity>
+    </ItBuy>
     <ItHead style={{ top: "19%" }}>Descripción</ItHead>
     <ItDesc>{props.itemDesc}</ItDesc>
     <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
-    <ItDesc style={{ top: "24%" }}>
+    <ItLocCont>
+      <ItLocMap>
+        <TouchableOpacity
+          style={{
+            height: 50,
+            width: 140,
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <ItButtonText>Ver en Mapa</ItButtonText>
+        </TouchableOpacity>
+      </ItLocMap>
+      <ItLocTextCont>
+        <ItLocText>{props.itemDistance}</ItLocText>
+      </ItLocTextCont>
+    </ItLocCont>
+    <ItDesc style={{ top: "25%" }}>
       {props.itemLocation} - {props.itemCP}
       {"\n"}
       {props.itemBarrio}
@@ -193,7 +192,7 @@ const ItPubName = styled.Text`
 const ItLocCont = styled.View`
   width: 280px;
   height: 50px;
-  top: 15%;
+  top: 50%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -228,7 +227,7 @@ const ItLocText = styled.Text`
 `;
 
 const ItBuy = styled.View`
-  top: 14%;
+  top: 17%;
   width: 280px;
   height: 50px;
   border-radius: 8;
@@ -239,7 +238,7 @@ const ItBuy = styled.View`
 
 const ContNumIn = styled.View`
   width: 200px;
-  top: 16%;
+  top: 14%;
   align-items: center;
   justify-content: center;
   height: 50px;

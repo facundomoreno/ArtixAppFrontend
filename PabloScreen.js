@@ -97,7 +97,7 @@ export default class PabloScreen extends React.Component {
       var location = json.results[0].geometry.location;
       this.state.lat = location.lat;
       this.state.lng = location.lng;
-      console.log(this.state.lat);
+      console.log(this.state.lat + " " + this.state.lng);
     });
     
     fetch("http://35.237.172.249:3000/Publicar", {

@@ -81,7 +81,7 @@ export default class ArtScreen extends React.Component {
 
   componentDidMount() {
     this.getSessionValues();
-    /*navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -91,10 +91,7 @@ export default class ArtScreen extends React.Component {
       },
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
-    );
-    */
-    //this.setState({id_producto: this.state.artdata.id_producto})
-    
+    );   
 
   }
   getSessionValues = () =>{
@@ -167,7 +164,7 @@ export default class ArtScreen extends React.Component {
           itemBarrio={item.barrio}
           itemCity={item.ciudad}
           itemProvince={item.provincia}
-          /*itemDistance={
+          itemDistance={
             Math.round(
               convertDistance(
                 getDistance(
@@ -176,8 +173,8 @@ export default class ArtScreen extends React.Component {
                     longitude: this.state.longitude
                   },
                   {
-                    latitude: item.lati,
-                    longitude: item.long
+                    latitude: item.lat,
+                    longitude: item.lng
                   }
                 ),
                 "km"
@@ -185,7 +182,7 @@ export default class ArtScreen extends React.Component {
             ) /
               10 +
             " km"
-          }*/
+          }
           itemPrice={item.precio}
           itemStock={item.stock}
           itemCount={item.count}
