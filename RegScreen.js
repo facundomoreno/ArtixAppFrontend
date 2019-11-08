@@ -38,7 +38,7 @@ export default class RegScreen extends React.Component {
   */
 
   Registrarse = () => {
-    fetch("http://35.237.172.249:3000/Register", {
+    fetch("http://192.168.0.238:3000/Register", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -54,6 +54,7 @@ export default class RegScreen extends React.Component {
       .then(res => {
         if (res.success === true) {
           AsyncStorage.setItem("user", this.state.username);
+          AsyncStorage.setItem("idusuario", res.idusuario);
           this.props.navigation.navigate("AppTab");
         } else {
           alert(res.message);

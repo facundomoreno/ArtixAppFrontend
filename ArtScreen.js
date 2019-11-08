@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
-  Easing
+  Easing,
+  AsyncStorage
 } from "react-native";
 import styled from "styled-components";
 import SearchBox from "./components/Search";
@@ -30,6 +31,8 @@ export default class ArtScreen extends React.Component {
       latitude: 0,
       longitude: 0,
       error: null,
+      id_producto: "",
+      id_usuario: "",
       dataart: [
         /*{
           id_producto: 0,
@@ -67,6 +70,7 @@ export default class ArtScreen extends React.Component {
         }*/
       ],
       artdata: [this.props.navigation.getParam("itemx")]
+      
     };
   }
 
@@ -76,7 +80,8 @@ export default class ArtScreen extends React.Component {
   };
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
+    this.getSessionValues();
+    /*navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -87,13 +92,60 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-    this.state.artdata;
+    */
+    //this.setState({id_producto: this.state.artdata.id_producto})
+    
+
   }
+  getSessionValues = () =>{
+    try{
+      AsyncStorage.getItem('idusuario').then((idusuario)=>{
+        console.log("current user id " + idusuario);
+        this.setState({id_usuario: idusuario});
+        
+      }).done();
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
+  Comprar = () => {
+     
+       
+    fetch("http://192.168.0.238:3000/Comprar", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id_usuario: this.state.id_usuario,
+        id_producto: this.state.id_producto
+        
+      })
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          
+          alert(res.message);
+          
+        } else {
+          alert(res.message);
+        }
+      })
+      .done();
+  };
+
+ 
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
+
+    
 
     
 
@@ -144,7 +196,9 @@ export default class ArtScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state.artdata);
+
+    console.log(this.state.id_usuario);
+    
     return (
       <Container>
         <AllCont>

@@ -100,7 +100,7 @@ export default class PabloScreen extends React.Component {
       console.log(this.state.lat);
     });
     
-    fetch("http://35.237.172.249:3000/Publicar", {
+    fetch("http://192.168.0.238:3000/Publicar", {
       method: "POST",
       headers: {
         Accept: "application/json",
