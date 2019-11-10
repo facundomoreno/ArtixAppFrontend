@@ -25,8 +25,8 @@ export default class BuyConfirm extends React.Component {
     super(props);
     this.state = {
       isVisible: false,
-      nombreP: [this.props.navigation.getParam("nombreProducto")],
-      stockP: [this.props.navigation.getParam("stock")]
+      nombreP: [this.props.navigation.getParam("nombreProd")],
+      stockP: [this.props.navigation.getParam("stockProd")]
     };
   }
 
@@ -45,10 +45,14 @@ export default class BuyConfirm extends React.Component {
   };
 
   render() {
+    console.log(this.state.stockP[0] + this.state.nombreP[0]);
     return (
       <Container>
         <TitleCont>¡Felicitaciones!</TitleCont>
-    <Item>Has comprado {this.state.stockP[0]} unidad(es) de{"\n"} "{this.state.nombreP[0]}"</Item>
+        <Item>
+          Has comprado {this.state.stockP[0]} unidad(es) de{"\n"}
+          {this.state.nombreP[0]}
+        </Item>
         <LottieView
           ref={animation => {
             this.animation = animation;

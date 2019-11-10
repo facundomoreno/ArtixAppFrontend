@@ -207,6 +207,7 @@ const ItButtonText = styled.Text`
   color: white;
   font-weight: 600;
   font-size: 16px;
+  text-align: center;
 `;
 
 const ItLocTextCont = styled.View`

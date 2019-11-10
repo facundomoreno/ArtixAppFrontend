@@ -14,6 +14,7 @@ import ArtScreen from "../ArtScreen";
 import UbScreen from "../UbScreen";
 import PerfilScreen from "../PerfilScreen";
 import BuyConfirm from "../BuyConfirm";
+import Payment from "../Payment";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
@@ -22,6 +23,7 @@ const Tienda = createStackNavigator({
   Venta: VentaScreen,
   Publi: PabloScreen,
   Art: ArtScreen,
+  Pay: Payment,
   Buy: BuyConfirm
 });
 

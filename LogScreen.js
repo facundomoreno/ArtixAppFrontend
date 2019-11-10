@@ -34,10 +34,9 @@ export default class LogScreen extends React.Component {
       this.props.navigation.navigate("AppTab");
     }
   };
-  
 
   login = async () => {
-    fetch("http://192.168.0.238:3000/Login", {
+    fetch("http://35.237.172.249:3000/Login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -51,23 +50,14 @@ export default class LogScreen extends React.Component {
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
-
           console.log(res);
-          
-          try{
-            AsyncStorage.setItem("user", res.usuario);
-            
 
-           
-            
-            
-          }
-          
-          catch(error){
+          try {
+            AsyncStorage.setItem("user", res.usuario);
+          } catch (error) {
             console.log("no funcionó");
           }
-       
-          
+
           this.props.navigation.navigate("AppTab");
         } else {
           alert(res.message);

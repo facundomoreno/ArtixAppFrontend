@@ -30,7 +30,7 @@ export default class PabloScreen extends React.Component {
     super(props);
     this.Publicar = this.Publicar.bind(this);
     this.state = {
-      currentUser:"",
+      currentUser: "",
       categoria: "",
       nombreProducto: "",
       precio: "",
@@ -46,7 +46,7 @@ export default class PabloScreen extends React.Component {
       imagen: "",
       stock: "",
       count: 86400,
-      publicador:"",
+      publicador: "",
       // value: "",
       checked: "",
       lat: "",
@@ -59,28 +59,26 @@ export default class PabloScreen extends React.Component {
     showIcon: true
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSessionValues();
-    console.log("valor: " + this.state.publicador)
-    
-    
+    console.log("valor: " + this.state.publicador);
   }
 
-  getSessionValues = async () =>{
-    try{
-      AsyncStorage.getItem('user').then((user)=>{
-        console.log(user)
-        this.setState({publicador: user});
-        
-      }).done();
-    }
-    catch(error){
+  getSessionValues = async () => {
+    try {
+      AsyncStorage.getItem("user")
+        .then(user => {
+          console.log(user);
+          this.setState({ publicador: user });
+        })
+        .done();
+    } catch (error) {
       console.log(error);
     }
   };
 
   Publicar = () => {
-   Geocoder.from(
+    Geocoder.from(
       this.state.calle +
         " " +
         this.state.numero +
@@ -99,8 +97,8 @@ export default class PabloScreen extends React.Component {
       this.state.lng = location.lng;
       console.log(this.state.lat + " " + this.state.lng);
     });
-    
-    fetch("http://192.168.0.238:3000/Publicar", {
+
+    fetch("http://35.237.172.249:3000/Publicar", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -358,7 +356,7 @@ export default class PabloScreen extends React.Component {
               maxLength={200}
               onChangeText={descProducto => this.setState({ descProducto })}
               multiline={true}
-              style={{ textAlignVertical: "top" }} 
+              style={{ textAlignVertical: "top" }}
             ></TextInDesc>
             <InfoIn>Precio de tu producto</InfoIn>
             <TextInTMCont>

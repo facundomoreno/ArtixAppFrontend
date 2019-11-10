@@ -84,7 +84,7 @@ export default class ArtScreen extends React.Component {
       ],
       artdata: [this.props.navigation.getParam("itemx")],
       paseInfo: {},
-      valorStock: "",
+      valorStock: "1",
       modalVisible: false
     };
   }
@@ -114,20 +114,33 @@ export default class ArtScreen extends React.Component {
     this.setState({
       nombreP: JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod
     });
-    
   }
   _showAlert = () => {
     Alert.alert(
-      '¿Deseas confirmar la compra de ' + this.state.valorStock + ' unidad(es) de "' + this.state.nombreP + '"',
+      "¿Deseas confirmar la compra de " +
+        this.state.valorStock +
+        ' unidad(es) de "' +
+        this.state.nombreP +
+        '"',
       'Al apretar "OK" se quitara el valor del producto de tu tarjeta',
       [
-       
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => this.props.navigation.navigate("Buy", {nombreProducto: this.state.nombreP, stock: this.state.valorStock})}
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () =>
+            this.props.navigation.navigate("Pay", {
+              nombreProducto: this.state.nombreP,
+              stock: this.state.valorStock
+            })
+        }
       ],
       { cancelable: false }
-    )
-  }
+    );
+  };
 
   /*cuando agregemos la funcionalidad de la compra en la db lo vuelvo a descomentar
   
@@ -146,7 +159,7 @@ export default class ArtScreen extends React.Component {
   
 
   Comprar = () => {
-    fetch("http://192.168.0.238:3000/Comprar", {
+    fetch("http://35.237.172.249:3000/Comprar", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -219,7 +232,7 @@ export default class ArtScreen extends React.Component {
           itemCount={item.count}
           itemDesc={item.ds_producto}
           stockCount={this.state.valorStock}
-          onChangeStockCount={valorStock => this.setState({valorStock})}
+          onChangeStockCount={valorStock => this.setState({ valorStock })}
           mapItView={() => {
             this.setModalVisible(true);
           }}
