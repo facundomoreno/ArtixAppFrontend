@@ -82,6 +82,8 @@ export default class ArtScreen extends React.Component {
         }*/
       ],
       artdata: [this.props.navigation.getParam("itemx")],
+      paseInfo: {},
+      valorStock: "",
       modalVisible: false
     };
   }
@@ -201,10 +203,12 @@ export default class ArtScreen extends React.Component {
           itemStock={item.stock}
           itemCount={item.count}
           itemDesc={item.ds_producto}
+          stockCount={this.state.valorStock}
+          onChangeStockCount={valorStock => this.setState({valorStock})}
           mapItView={() => {
             this.setModalVisible(true);
           }}
-          buyButton={() => this.props.navigation.navigate("Buy")}
+          buyButton={() => this.props.navigation.navigate("Buy", {nombreProducto: this.state.nombreP, stock: this.state.valorStock})}
         ></CardItem>
         <Modal
           animationType="slide"

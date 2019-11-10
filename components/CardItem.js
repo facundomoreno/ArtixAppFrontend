@@ -72,6 +72,8 @@ const CardItem = props => (
     <ContNumIn>
       <NumericInput
         totalWidth={280}
+        value={props.stockCount}
+        onChange={props.onChangeStockCount}
         totalHeight={50}
         iconSize={25}
         step={1}

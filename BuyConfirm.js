@@ -17,13 +17,16 @@ import {
 import styled from "styled-components";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
 import LottieView from "lottie-react-native";
 
 export default class BuyConfirm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
+      nombreP: [this.props.navigation.getParam("nombreProducto")],
+      stockP: [this.props.navigation.getParam("stock")]
     };
   }
 
@@ -45,7 +48,7 @@ export default class BuyConfirm extends React.Component {
     return (
       <Container>
         <TitleCont>¡Felicitaciones!</TitleCont>
-        <Item>Has comprado una unidad de{"\n"}Camiseta de Boca Año 2000</Item>
+    <Item>Has comprado {this.state.stockP[0]} unidad(es) de{"\n"} "{this.state.nombreP[0]}"</Item>
         <LottieView
           ref={animation => {
             this.animation = animation;
