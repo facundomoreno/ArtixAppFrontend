@@ -35,6 +35,9 @@ import MapView, {
 import MapViewDirections from "react-native-maps-directions";
 import { object } from "prop-types";
 
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
+
 const GOOGLE_MAPS_APIKEY = "AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc";
 
 export default class ArtScreen extends React.Component {
@@ -119,10 +122,9 @@ export default class ArtScreen extends React.Component {
     Alert.alert(
       "¿Deseas confirmar la compra de " +
         this.state.valorStock +
-        ' unidad(es) de "' +
-        this.state.nombreP +
-        '"',
-      'Al apretar "OK" se quitara el valor del producto de tu tarjeta',
+        " unidad(es) de " +
+        this.state.nombreP,
+      'Al presionar "OK" continuarás a seleccionar el método de pago.',
       [
         {
           text: "Cancel",
@@ -266,14 +268,14 @@ export default class ArtScreen extends React.Component {
               description={item.calle + " " + item.numero}
             />
             <MapViewDirections
-              origin={{
-                latitude: this.state.latitude,
-                longitude: this.state.longitude
-              }}
-              destination={{ latitude: item.lat, longitude: item.lng }}
+              origin="this.state.latitude, this.state.longitude"
+              destination="item.lat, item.lng"
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
               strokeColor="#ff4d4d"
+              language="es"
+              mode="WALKING"
+              optimizeWaypoints={true}
             />
           </MapView>
           <Back>

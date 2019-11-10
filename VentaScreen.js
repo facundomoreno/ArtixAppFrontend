@@ -79,7 +79,8 @@ export default class VentaScreen extends React.Component {
           desc: "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
-      selectedItem: null
+      selectedItem: null,
+      isFetching: false
     };
     boca = {
       latitude: -34.6331619,
@@ -95,6 +96,12 @@ export default class VentaScreen extends React.Component {
     };
   }
 
+  onRefresh() {
+    this.setState({ isFetching: true }, function() {
+      this.fetchData();
+    });
+  }
+
   fetchData = async () => {
     //console.log("Está funcionando data");
     const response = await fetch("http://35.237.172.249:3000/Productos");
@@ -102,6 +109,7 @@ export default class VentaScreen extends React.Component {
     this.setState({ data: productos });
     //console.log(JSON.stringify(this.state.data));
     //console.log(productos);
+    this.setState({ isFetching: false });
   };
 
   componentDidMount() {
@@ -140,7 +148,7 @@ export default class VentaScreen extends React.Component {
             }
             itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
-            itemLocation={item.ciudad + "\n" + item.provincia}
+            itemLocation={item.provincia}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -204,6 +212,8 @@ export default class VentaScreen extends React.Component {
                 flexGrow: 1,
                 paddingBottom: 45
               }}
+              onRefresh={() => this.onRefresh()}
+              refreshing={this.state.isFetching}
               /*onPress={() => {
                 this.props.navigation.navigate("Art", {
                   ArticleData: item.id_producto

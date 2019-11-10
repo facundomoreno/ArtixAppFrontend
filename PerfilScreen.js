@@ -1,97 +1,230 @@
 import React, { Component } from "react";
-import {  StyleSheet,
-  Text,
-  View,
+import {
   ScrollView,
   SafeAreaView,
-  TextInput,
-  KeyboardAvoidingView,
+  Text,
   TouchableOpacity,
-  FlatList,
-  Dimensions,
-  Easing,
   AsyncStorage,
-  Modal,
-  Alert } from "react-native";
+  View,
+  FlatList,
+  Dimensions
+} from "react-native";
+import CardTienda from "./components/CardTienda";
 import { Header } from "react-native-elements";
 import styled from "styled-components";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Geocoder from "react-native-geocoding";
+
+Geocoder.init("AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc");
+/*var location;
+Geocoder.from("Av Cabildo 3500, CABA").then(json => {
+  location = json.results[0].geometry.location;
+  this.state.long = location.lng;
+  this.state.lati = location.lat;
+});*/
+
+const numColumns = 2;
 
 export default class PerfilScreen extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      currentUser: ""
-    }
-  }
   static navigationOptions = {
     header: null,
     showIcon: true
   };
 
-  componentDidMount(){
-    this.getSessionValues();
-    
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: "",
+      latitude: 0,
+      longitude: 0,
+      error: null,
+      data: [
+        /*{
+          id_producto: 0,
+          stock: "2",
+          cond: "Usado",
+          image: require("./assets/shops/boca.jpeg"),
+          nombreprod: "Camiseta de Boca Año 2000",
+          pubavatar: require("./assets/avatar/jotto.jpg"),
+          pubname: "José Dolina",
+          calle: "Brandsen",
+          numero: "175",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "850",
+          count: 86400,
+          desc:
+            "Vendo camiseta del Club Atlético Boca Juniors del año 2000, usada y firmada por el jugador Juan Román Riquelme tras la victoria por dos goles a uno de la Copa Intercontiental ante el Real Madrid."
+        },
+        {
+          id_producto: 1,
+          stock: "45",
+          cond: "Nuevo",
+          image: require("./assets/shops/web.jpg"),
+          nombreprod: "Webcam Entrepeneur",
+          pubavatar: require("./assets/avatar/roca.jpg"),
+          pubname: "Zongalo Maiswan",
+          calle: "Echeverría",
+          numero: "1964",
+          latit: -34.6331619,
+          longit: -58.3563399,
+          precio: "360",
+          count: 86400,
+          desc: "Una webcam para emprendedores tecnológicos ambiciosos."
+        }*/
+      ],
+      selectedItem: null
+    };
+    boca = {
+      latitude: -34.6331619,
+      longitude: -58.3563399
+    };
+    am = {
+      latitude: -34.5627294,
+      longitude: -58.4563794
+    };
+    web = {
+      latitude: -34.5959411,
+      longitude: -58.4322264
+    };
   }
 
-  getSessionValues = async () =>{
-    try{
-      AsyncStorage.getItem('user').then((user)=>{
-        //console.log(user)
-        this.setState({currentUser: user});
-        
-      }).done();
+  fetchData = async () => {
+    //console.log("Está funcionando data");
+    const response = await fetch("http://192.168.0.238:3000/Productos");
+    const productos = await response.json();
+    this.setState({ data: productos });
+    //console.log(JSON.stringify(this.state.data));
+    //console.log(productos);
+  };
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+      },
+      error => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
+    );
+    this.fetchData();
+  }
+
+  functionCombined() {}
+
+  renderItem = ({ item, index }) => {
+    if (item.empty === true) {
+      return <View />;
     }
-    catch(error){
+    const isSelected = this.state.selectedItem === item.id_producto;
+    return (
+      <View>
+        <NavigationEvents onDidFocus={() => this.fetchData()} />
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
+        >
+          <CardTienda
+            key={item.id_producto}
+            itemCond={item.estado}
+            itemImage={
+              (source = { uri: Buffer.from(item.imagen, "binary").toString() })
+            }
+            itemAvImage={require("./assets/avatar/roca.jpg")}
+            itemName={item.nombreprod}
+            itemLocation={item.ciudad + "\n" + item.provincia}
+            itemDistance={
+              Math.round(
+                convertDistance(
+                  getDistance(
+                    {
+                      latitude: this.state.latitude,
+                      longitude: this.state.longitude
+                    },
+                    {
+                      latitude: item.lat,
+                      longitude: item.lng
+                    }
+                  ),
+                  "km"
+                ) * 10
+              ) /
+                10 +
+              " km"
+            }
+            itemPrice={item.precio}
+            itemStock={item.stock}
+            itemCount={item.count}
+            itemCP={item.cp}
+            itemBarrio={item.barrio}
+            itemCity={item.ciudad}
+            itemProvince={item.provincia}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  componentDidMount() {
+    this.getSessionValues();
+  }
+
+  getSessionValues = async () => {
+    try {
+      AsyncStorage.getItem("user")
+        .then(user => {
+          //console.log(user)
+          this.setState({ currentUser: user });
+        })
+        .done();
+    } catch (error) {
       console.log(error);
     }
   };
 
-   
-  render() {
+  _choosen(selectedItem) {
+    this.setState({ selectedItem });
+  }
 
-   
-    
+  render() {
     console.log("Current user: " + this.state.currentUser);
-    
+
     return (
-      
-      
       <Container>
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <Container></Container>
           <ContainerPerfil>
             <Menu />
-            <Avatar source = {require("./assets/avatar/usu.jpg")}/>
+            <Avatar />
             <Nombre>{this.state.currentUser}</Nombre>
-            <Jerarquia>Alumno</Jerarquia>
+            <Jerarquia>Usuario Particular</Jerarquia>
             <BotonClase>
-              <BotonText>Pedir Clase</BotonText>
+              <BotonText>Compras/Ventas</BotonText>
             </BotonClase>
-            <BotonMensaje>
-              <BotonTextMensaje>Mensaje</BotonTextMensaje>
-            </BotonMensaje>
           </ContainerPerfil>
 
           <ContainerPerfil2>
-            <Actividad>Sobre mí</Actividad>
-            <Descripcion>
-              Tengo 16, voy al colegio ORT, me gustan mucho los deportes en
-              donde compito en Futbol, Tenis, Natacion y Badminton. Ademas en mi
-              tiempo libre me gusta ir a la casa de mis amigos y divertirme con
-              ellos.
-            </Descripcion>
+            <Actividad>Publicaciones</Actividad>
+            <ComprasView>
+              <FlatList
+                data={this.state.data}
+                renderItem={this.renderItem}
+                numColumns={2}
+                contentContainerStyle={{
+                  alignItems: "center",
+                  flexGrow: 1,
+                  paddingBottom: 45
+                }}
+                /*onPress={() => {
+                this.props.navigation.navigate("Art", {
+                  ArticleData: item.id_producto
+                });
+              }}*/
+              />
+            </ComprasView>
           </ContainerPerfil2>
-
-          <ContainerPerfil3>
-            <Actividad>Rendimiento</Actividad>
-            <BotonRojo1>
-              <BotonText>Lengua</BotonText>
-            </BotonRojo1>
-            <BotonVerde1>
-              <BotonText>Matemática</BotonText>
-            </BotonVerde1>
-          </ContainerPerfil3>
         </ScrollView>
       </Container>
     );
@@ -111,7 +244,7 @@ const Nombre = styled.Text`
 `;
 
 const Jerarquia = styled.Text`
-  left: 44%;
+  left: 36%;
   width: 250px;
   height: 51px;
   top: 35%;
@@ -180,57 +313,32 @@ const ContainerPerfil = styled.View`
   width: 340px;
   height: 220px;
   position: relative;
-
+  top: 10%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   elevation: 2;
-  margin-top: 20px;
   background: #ffffff;
   border-radius: 5px;
 `;
 
 const ContainerPerfil2 = styled.View`
   width: 340px;
-  height: 180px;
+  height: 350px;
   position: relative;
   elevation: 2;
-
+  top: 15%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  margin-top: 20px;
-  background: #ffffff;
-  border-radius: 5px;
-`;
-
-const ContainerPerfil3 = styled.View`
-  width: 340px;
-  height: 80px;
-  position: relative;
-  elevation: 2;
-
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  margin-top: 20px;
-  margin-bottom: 2px;
   background: #ffffff;
   border-radius: 5px;
 `;
 
 const BotonClase = styled.TouchableOpacity`
   position: absolute;
-  width: 112px;
+  width: 150px;
   height: 31px;
-  left: 15%;
+  left: 28%;
   top: 80%;
   border-radius: 5px;
   background-color: #7444e8;
-`;
-
-const BotonMensaje = styled.TouchableOpacity`
-  position: absolute;
-  width: 112px;
-  height: 31px;
-  left: 53%;
-  top: 80%;
-  border-radius: 5px;
-  background-color: whitesmoke;
 `;
 
 const BotonText = styled.Text`
@@ -238,33 +346,6 @@ const BotonText = styled.Text`
   color: #ffffff;
   text-align: center;
   margin-top: 5px;
-`;
-
-const BotonTextMensaje = styled.Text`
-  font-size: 15px;
-  color: #353536; /* chocho's */
-  text-align: center;
-  margin-top: 5px;
-`;
-
-const BotonRojo1 = styled.View`
-  position: absolute;
-  left: 5%;
-  top: 50%;
-  width: 92px;
-  height: 29px;
-  background-color: #ff5252;
-  border-radius: 5px;
-`;
-const BotonVerde1 = styled.View`
-  position: absolute;
-  left: 34%;
-  top: 50%;
-  width: 92px;
-  height: 29px;
-  background-color: #4ed613;
-  border-radius: 5px;
-  margin-left: 10px;
 `;
 
 const Actividad = styled.Text`
@@ -280,18 +361,14 @@ const Actividad = styled.Text`
   color: black;
 `;
 
-const Descripcion = styled.Text`
-  position: absolute;
-  left: 5%;
-  top: 20%;
-  bottom: 32.39%;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  width: 300px;
+const ComprasView = styled.View`
+  flex: 1;
+  width: 90%;
   height: 100%;
-  flex-direction: column;
-  flex-wrap: wrap;
-  line-height: 22px;
-  color: #353536;
+  background-color: white;
+  align-items: center;
+  border-top-left-radius: 5;
+  border-top-right-radius: 5;
+  border: 1px solid #e5eced;
+  top: 13%;
 `;

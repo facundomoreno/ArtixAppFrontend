@@ -23,7 +23,7 @@ import CountDown from "react-native-countdown-component";
 const CardItem = props => (
   <View style={{ alignItems: "center", justifyContent: "center" }}>
     <Cond>{props.itemCond}</Cond>
-    <Cond>{props.itemStock} disponible(s)</Cond>
+    <Cond style={{ marginBottom: "1%" }}>{props.itemStock} disponible(s)</Cond>
     <ZoomImage
       source={props.itemImage}
       Button
@@ -53,7 +53,7 @@ const CardItem = props => (
         height: 30,
         alignItems: "center",
         justifyContent: "center",
-        top: "9%"
+        marginBottom: "10%"
       }}
     >
       <ItTimeLeft>Tiempo restante:</ItTimeLeft>
@@ -91,19 +91,19 @@ const CardItem = props => (
     <ItBuy>
       <TouchableOpacity
         style={{
+          width: 280,
           height: 50,
-          width: 200,
           justifyContent: "center",
           alignItems: "center"
         }}
         onPress={props.buyButton}
       >
-        <ItButtonText>Comprar</ItButtonText>
+        <ItButtonText style={{ top: 15 }}>Comprar</ItButtonText>
       </TouchableOpacity>
     </ItBuy>
-    <ItHead style={{ top: "19%" }}>Descripción</ItHead>
+    <ItHead>Descripción</ItHead>
     <ItDesc>{props.itemDesc}</ItDesc>
-    <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
+    <ItHead>Ubicación</ItHead>
 
     <ItLocMap>
       <TouchableOpacity onPress={props.mapItView}>
@@ -114,7 +114,7 @@ const CardItem = props => (
       </TouchableOpacity>
     </ItLocMap>
 
-    <ItDesc style={{ top: "25%" }}>
+    <ItDesc>
       {props.itemLocation} - {props.itemCP}
       {"\n"}
       {props.itemBarrio}
@@ -135,7 +135,7 @@ const styles = {
     width: 200,
     height: 200,
     borderRadius: 8,
-    top: 2
+    marginBottom: "3%"
   }
 };
 
@@ -149,14 +149,14 @@ const ItTitle = styled.Text`
   color: #353536;
   font-weight: bold;
   font-size: 22px;
-  top: 3%;
+  margin-bottom: 2%;
   width: 280px;
 `;
 
 const ItPriceCont = styled.View`
   width: 200px;
-  top: 3%;
   align-items: center;
+  margin-bottom: 10%;
 `;
 
 const ItPrice = styled.Text`
@@ -167,28 +167,27 @@ const ItPrice = styled.Text`
 
 const ItPubCont = styled.View`
   width: 200px;
-  top: 5%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 5%;
 `;
 
 const ItPubAv = styled.Image`
   width: 25px;
   height: 25px;
   border-radius: 13;
+  margin-bottom: 1%;
 `;
 
 const ItPubName = styled.Text`
   font-size: 12px;
   color: #9d9d9d;
-  top: 1%;
 `;
 
 const ItLocCont = styled.View`
   width: 280px;
   height: 50px;
-  top: 50%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -201,6 +200,7 @@ const ItLocMap = styled.View`
   align-items: center;
   justify-content: center;
   border-radius: 8;
+  margin-bottom: 2%;
 `;
 
 const ItButtonText = styled.Text`
@@ -224,7 +224,7 @@ const ItLocText = styled.Text`
 `;
 
 const ItBuy = styled.View`
-  top: 17%;
+  margin-bottom: 5%;
   width: 280px;
   height: 50px;
   border-radius: 8;
@@ -235,7 +235,7 @@ const ItBuy = styled.View`
 
 const ContNumIn = styled.View`
   width: 200px;
-  top: 14%;
+  margin-bottom: 3%;
   align-items: center;
   justify-content: center;
   height: 50px;
@@ -246,6 +246,7 @@ const ItTimeLeft = styled.Text`
   color: #353536;
   text-align: center;
   width: 200px;
+  margin-bottom: 3%;
 `;
 
 const ItDesc = styled.Text`
@@ -253,7 +254,7 @@ const ItDesc = styled.Text`
   color: #353536;
   text-align: left;
   width: 280px;
-  top: 20%;
+  margin-bottom: 5%;
 `;
 
 const ItHead = styled.Text`
@@ -261,4 +262,5 @@ const ItHead = styled.Text`
   font-size: 18px;
   width: 280px;
   color: #353536;
+  margin-bottom: 2%;
 `;
