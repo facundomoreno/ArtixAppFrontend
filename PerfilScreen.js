@@ -1,5 +1,18 @@
 import React, { Component } from "react";
-import { ScrollView, SafeAreaView, Text, TouchableOpacity, AsyncStorage } from "react-native";
+import {  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  Easing,
+  AsyncStorage,
+  Modal,
+  Alert } from "react-native";
 import { Header } from "react-native-elements";
 import styled from "styled-components";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -49,7 +62,7 @@ export default class PerfilScreen extends React.Component {
           <Container></Container>
           <ContainerPerfil>
             <Menu />
-            <Avatar />
+            <Avatar source = {require("./assets/avatar/usu.jpg")}/>
             <Nombre>{this.state.currentUser}</Nombre>
             <Jerarquia>Alumno</Jerarquia>
             <BotonClase>

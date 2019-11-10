@@ -187,7 +187,7 @@ export default class ArtScreen extends React.Component {
           }
           itemTitle={item.nombreprod}
           itemPrice={item.precio}
-          itemPubAv={require("./assets/avatar/roca.jpg")}
+          itemPubAv={require("./assets/avatar/usu.jpg")}
           itemPubName={item.publicador}
           itemLocation={item.calle + " " + item.numero}
           itemCount={item.count}
