@@ -101,23 +101,16 @@ const CardItem = props => (
     <ItHead style={{ top: "19%" }}>Descripción</ItHead>
     <ItDesc>{props.itemDesc}</ItDesc>
     <ItHead style={{ top: "23%" }}>Ubicación</ItHead>
-    <ItLocCont>
-      <ItLocMap>
-        <TouchableOpacity
-          style={{
-            height: 50,
-            width: 140,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <ItButtonText>Ver en Mapa</ItButtonText>
-        </TouchableOpacity>
-      </ItLocMap>
-      <ItLocTextCont>
-        <ItLocText>{props.itemDistance}</ItLocText>
-      </ItLocTextCont>
-    </ItLocCont>
+
+    <ItLocMap>
+      <TouchableOpacity onPress={props.mapItView}>
+        <ItButtonText>
+          Ver en Mapa{"\n"}
+          {props.itemDistance}
+        </ItButtonText>
+      </TouchableOpacity>
+    </ItLocMap>
+
     <ItDesc style={{ top: "25%" }}>
       {props.itemLocation} - {props.itemCP}
       {"\n"}

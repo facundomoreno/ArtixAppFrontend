@@ -13,6 +13,8 @@ import MensScreen from "../MensajesScreen";
 import ArtScreen from "../ArtScreen";
 import UbScreen from "../UbScreen";
 import PerfilScreen from "../PerfilScreen";
+import MapViewScreen from "../MapViewScreen";
+import BuyConfirm from "../BuyConfirm";
 
 const activeColor = "#ff4d4d";
 const inactiveColor = "#b8bece";
@@ -20,7 +22,8 @@ const inactiveColor = "#b8bece";
 const Tienda = createStackNavigator({
   Venta: VentaScreen,
   Publi: PabloScreen,
-  Art: ArtScreen
+  Art: ArtScreen,
+  MapV: MapViewScreen
 });
 
 Tienda.navigationOptions = {
@@ -69,6 +72,7 @@ Mens.navigationOptions = {
 };
 
 const Perfil = createStackNavigator({
+  Buy: BuyConfirm,
   Perf: PerfilScreen
 });
 

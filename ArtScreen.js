@@ -11,7 +11,8 @@ import {
   FlatList,
   Dimensions,
   Easing,
-  AsyncStorage
+  AsyncStorage,
+  Modal
 } from "react-native";
 import styled from "styled-components";
 import SearchBox from "./components/Search";
@@ -23,6 +24,15 @@ import NumericInput from "react-native-numeric-input";
 import CountDown from "react-native-countdown-component";
 import CardItem from "./components/CardItem";
 import { Buffer } from "buffer";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Permissions,
+  Location
+} from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+
+const GOOGLE_MAPS_APIKEY = "AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc";
 
 export default class ArtScreen extends React.Component {
   constructor(props) {
@@ -69,8 +79,8 @@ export default class ArtScreen extends React.Component {
             "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
-      artdata: [this.props.navigation.getParam("itemx")]
-      
+      artdata: [this.props.navigation.getParam("itemx")],
+      modalVisible: false
     };
   }
 
@@ -91,25 +101,22 @@ export default class ArtScreen extends React.Component {
       },
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
-    );   
-
+    );
   }
-  getSessionValues = () =>{
-    try{
-      AsyncStorage.getItem('idusuario').then((idusuario)=>{
-        console.log("current user id " + idusuario);
-        this.setState({id_usuario: idusuario});
-        
-      }).done();
-    }
-    catch(error){
+  getSessionValues = () => {
+    try {
+      AsyncStorage.getItem("idusuario")
+        .then(idusuario => {
+          console.log("current user id " + idusuario);
+          this.setState({ id_usuario: idusuario });
+        })
+        .done();
+    } catch (error) {
       console.log(error);
     }
   };
 
   Comprar = () => {
-     
-       
     fetch("http://192.168.0.238:3000/Comprar", {
       method: "POST",
       headers: {
@@ -119,15 +126,12 @@ export default class ArtScreen extends React.Component {
       body: JSON.stringify({
         id_usuario: this.state.id_usuario,
         id_producto: this.state.id_producto
-        
       })
     })
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
-          
           alert(res.message);
-          
         } else {
           alert(res.message);
         }
@@ -135,17 +139,14 @@ export default class ArtScreen extends React.Component {
       .done();
   };
 
- 
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View />;
     }
-
-    
-
-    
-
     return (
       <View style={{ width: "100%" }}>
         <CardItem
@@ -187,15 +188,73 @@ export default class ArtScreen extends React.Component {
           itemStock={item.stock}
           itemCount={item.count}
           itemDesc={item.ds_producto}
+          mapItView={() => {
+            this.setModalVisible(true);
+          }}
         ></CardItem>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+        >
+          <MapView
+            style={{ width: "100%", height: "100%", flex: 1 }}
+            region={{
+              latitude: item.lat,
+              longitude: item.lng,
+              latitudeDelta: 0.02,
+              longitudeDelta: 0.02
+            }}
+            showsUserLocation={true}
+            showsCompass={false}
+            rotateEnabled={false}
+            pitchEnabled={false}
+            provider={PROVIDER_GOOGLE}
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: item.lat,
+                longitude: item.lng
+              }}
+              title={item.nombreprod}
+              description={item.calle + " " + item.numero}
+            />
+            <MapViewDirections
+              origin={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude
+              }}
+              destination={{ latitude: item.lat, longitude: item.lng }}
+              apikey={GOOGLE_MAPS_APIKEY}
+              strokeWidth={3}
+              strokeColor="#ff4d4d"
+            />
+          </MapView>
+          <Back>
+            <TouchableOpacity
+              style={{
+                height: 40,
+                width: 40
+              }}
+              onPress={() => {
+                this.setModalVisible(false);
+              }}
+            >
+              <Icon
+                name="ios-arrow-back"
+                size={40}
+                style={{ color: "#ff4d4d" }}
+              ></Icon>
+            </TouchableOpacity>
+          </Back>
+        </Modal>
       </View>
     );
   };
 
   render() {
-
     console.log(this.state.id_usuario);
-    
+
     return (
       <Container>
         <AllCont>
@@ -255,4 +314,14 @@ const Head = styled.View`
   align-items: center;
   border-top-left-radius: 5;
   border-top-right-radius: 5;
+`;
+
+const Back = styled.View`
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  border-bottom-right-radius: 5;
+  position: absolute;
 `;
