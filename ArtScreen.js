@@ -12,7 +12,8 @@ import {
   Dimensions,
   Easing,
   AsyncStorage,
-  Modal
+  Modal,
+  Alert
 } from "react-native";
 import styled from "styled-components";
 import SearchBox from "./components/Search";
@@ -113,7 +114,21 @@ export default class ArtScreen extends React.Component {
     this.setState({
       nombreP: JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod
     });
+    
   }
+  _showAlert = () => {
+    Alert.alert(
+      '¿Deseas confirmar la compra de ' + this.state.valorStock + ' unidad(es) de "' + this.state.nombreP + '"',
+      'Al apretar "OK" se quitara el valor del producto de tu tarjeta',
+      [
+       
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => this.props.navigation.navigate("Buy", {nombreProducto: this.state.nombreP, stock: this.state.valorStock})}
+      ],
+      { cancelable: false }
+    )
+  }
+
   /*cuando agregemos la funcionalidad de la compra en la db lo vuelvo a descomentar
   
   getSessionValues = () => {
@@ -208,7 +223,7 @@ export default class ArtScreen extends React.Component {
           mapItView={() => {
             this.setModalVisible(true);
           }}
-          buyButton={() => this.props.navigation.navigate("Buy", {nombreProducto: this.state.nombreP, stock: this.state.valorStock})}
+          buyButton={() => this._showAlert()}
         ></CardItem>
         <Modal
           animationType="slide"
