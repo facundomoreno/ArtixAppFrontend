@@ -104,14 +104,13 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-   
-   //this.setState({nombreP: JSON.stringify(this.state.artdata)});
-  
-  
-     //console.log(JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod);
-     this.setState({nombreP: JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod});
-     
-  
+
+    //this.setState({nombreP: JSON.stringify(this.state.artdata)});
+
+    //console.log(JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod);
+    this.setState({
+      nombreP: JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod
+    });
   }
   /*cuando agregemos la funcionalidad de la compra en la db lo vuelvo a descomentar
   
@@ -205,6 +204,7 @@ export default class ArtScreen extends React.Component {
           mapItView={() => {
             this.setModalVisible(true);
           }}
+          buyButton={() => this.props.navigation.navigate("Buy")}
         ></CardItem>
         <Modal
           animationType="slide"
@@ -267,9 +267,7 @@ export default class ArtScreen extends React.Component {
   };
 
   render() {
-
     console.log(this.state.nombreP);
-    
 
     return (
       <Container>

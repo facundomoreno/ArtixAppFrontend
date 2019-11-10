@@ -94,6 +94,7 @@ const CardItem = props => (
           justifyContent: "center",
           alignItems: "center"
         }}
+        onPress={props.buyButton}
       >
         <ItButtonText>Comprar</ItButtonText>
       </TouchableOpacity>
