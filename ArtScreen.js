@@ -18,6 +18,7 @@ import styled from "styled-components";
 import SearchBox from "./components/Search";
 import Icon from "react-native-vector-icons/Ionicons";
 import { createAppContainer } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
 import { getDistance, convertDistance } from "geolib";
 import ZoomImage from "react-native-zoom-image";
 import NumericInput from "react-native-numeric-input";
@@ -31,6 +32,7 @@ import MapView, {
   Location
 } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import { object } from "prop-types";
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc";
 
@@ -41,7 +43,7 @@ export default class ArtScreen extends React.Component {
       latitude: 0,
       longitude: 0,
       error: null,
-      id_producto: "",
+      nombreP: "",
       id_usuario: "",
       dataart: [
         /*{
@@ -90,7 +92,7 @@ export default class ArtScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.getSessionValues();
+    //this.getSessionValues();
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -102,19 +104,30 @@ export default class ArtScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
+   
+   //this.setState({nombreP: JSON.stringify(this.state.artdata)});
+  
+  
+     //console.log(JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod);
+     this.setState({nombreP: JSON.parse(JSON.stringify(this.state.artdata))[0].nombreprod});
+     
+  
   }
+  /*cuando agregemos la funcionalidad de la compra en la db lo vuelvo a descomentar
+  
   getSessionValues = () => {
     try {
-      AsyncStorage.getItem("idusuario")
-        .then(idusuario => {
-          console.log("current user id " + idusuario);
-          this.setState({ id_usuario: idusuario });
+      AsyncStorage.getItem("user")
+        .then(user => {
+          console.log("current user id " + user);
+          this.setState({ id_usuario: user});
         })
         .done();
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   Comprar = () => {
     fetch("http://192.168.0.238:3000/Comprar", {
@@ -138,6 +151,7 @@ export default class ArtScreen extends React.Component {
       })
       .done();
   };
+  */
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -253,7 +267,9 @@ export default class ArtScreen extends React.Component {
   };
 
   render() {
-    console.log(this.state.id_usuario);
+
+    console.log(this.state.nombreP);
+    
 
     return (
       <Container>
