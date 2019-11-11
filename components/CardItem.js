@@ -107,7 +107,7 @@ const CardItem = props => (
 
     <ItLocMap>
       <TouchableOpacity onPress={props.mapItView}>
-        <ItButtonText>
+        <ItButtonText style={{ top: 6 }}>
           Ver en Mapa{"\n"}
           {props.itemDistance}
         </ItButtonText>

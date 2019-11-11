@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import MapView, {
   PROVIDER_GOOGLE,
@@ -17,6 +18,7 @@ import MapView, {
 } from "react-native-maps";
 import styled from "styled-components";
 import SearchBox from "./components/Search";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default class MapScreen extends React.Component {
   static navigationOptions = {
@@ -88,11 +90,40 @@ export default class MapScreen extends React.Component {
             description={"Organizacion de Eventos"}
           />
         </MapView>
-        <SearchBox searchPlaceholder="Buscar en el Mapa"></SearchBox>
+        <Back>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              left: "15%",
+              top: "10%"
+            }}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Icon
+              name="ios-arrow-back"
+              size={40}
+              style={{ color: "#ff4d4d" }}
+            ></Icon>
+          </TouchableOpacity>
+        </Back>
+        <ContTop>
+          <Image
+            source={require("./assets/x2.png")}
+            style={{ height: 50, width: 50 }}
+          ></Image>
+        </ContTop>
       </Container>
     );
   }
 }
+
+const ContTop = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  top: 8.2%;
+`;
 
 const styles = StyleSheet.create({
   container: {
@@ -107,4 +138,15 @@ const Container = styled.View`
   background-color: #fafafa;
   width: 100%;
   align-items: center;
+`;
+
+const Back = styled.View`
+  width: 60px;
+  height: 90px;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  border-bottom-right-radius: 15;
+  position: absolute;
+  left: 0%;
 `;

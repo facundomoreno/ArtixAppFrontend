@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import MapView, {
   PROVIDER_GOOGLE,
@@ -71,7 +72,12 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <Container>
-        <SearchBox searchPlaceholder="Buscar en Solo por Hoy" />
+        <ContTop>
+          <Image
+            source={require("./assets/x2.png")}
+            style={{ height: 50, width: 50 }}
+          ></Image>
+        </ContTop>
         <MenuView>
           <MapaView>
             <MapView
@@ -234,6 +240,13 @@ const Container = styled.View`
   background-color: #fafafa;
   width: 100%;
   align-items: center;
+`;
+
+const ContTop = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  top: 8.2%;
 `;
 
 const MapaView = styled.View`

@@ -282,7 +282,8 @@ export default class ArtScreen extends React.Component {
             <TouchableOpacity
               style={{
                 height: 40,
-                width: 40
+                width: 40,
+                left: "15%"
               }}
               onPress={() => {
                 this.setModalVisible(false);
@@ -370,6 +371,6 @@ const Back = styled.View`
   background-color: white;
   align-items: center;
   justify-content: center;
-  border-bottom-right-radius: 5;
+  border-bottom-right-radius: 15;
   position: absolute;
 `;

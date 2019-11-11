@@ -9,7 +9,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   FlatList,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import styled from "styled-components";
 import Search80 from "./components/Search80";
@@ -189,18 +190,26 @@ export default class VentaScreen extends React.Component {
     return (
       <Container>
         <ContTop>
-          <Search80 searchPlaceholder="Buscar en la Tienda"></Search80>
-          <TouchableOpacity
-            style={{ height: 40, width: 40, top: 30, left: -30 }}
-            onPress={() => this.props.navigation.navigate("Publi")}
-          >
-            <Icon name="ios-add" size={40} style={{ color: "#ff4d4d" }} />
-          </TouchableOpacity>
+          <Image
+            source={require("./assets/x2.png")}
+            style={{ height: 50, width: 50 }}
+          ></Image>
         </ContTop>
         <ItemsContainer>
           <ComprasView>
             <ComprasTitle>
-              <ComprasText>Más cerca tuyo</ComprasText>
+              <TouchableOpacity
+                style={{
+                  height: 40,
+                  width: 40,
+                  right: "3%",
+                  position: "absolute"
+                }}
+                onPress={() => this.props.navigation.navigate("Publi")}
+              >
+                <Icon name="ios-add" size={40} style={{ color: "#ff4d4d" }} />
+              </TouchableOpacity>
+              <ComprasText>Tienda</ComprasText>
             </ComprasTitle>
             <FlatList
               data={this.state.data}
@@ -242,6 +251,7 @@ const ContTop = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  top: 8.2%;
 `;
 
 const ItemsContainer = styled.View`
@@ -273,6 +283,7 @@ const ComprasTitle = styled.View`
   align-items: center;
   border-top-left-radius: 5;
   border-top-right-radius: 5;
+  flex-direction: row;
 `;
 
 const ComprasText = styled.Text`

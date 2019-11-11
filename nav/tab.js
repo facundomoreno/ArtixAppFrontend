@@ -56,7 +56,8 @@ HomeStack.navigationOptions = {
   )
 };
 
-const Mens = createStackNavigator({
+{
+  /*const Mens = createStackNavigator({
   Mens: MensScreen
 });
 
@@ -70,7 +71,8 @@ Mens.navigationOptions = {
       color={focused ? activeColor : inactiveColor}
     />
   )
-};
+};*/
+}
 
 const Perfil = createStackNavigator({
   Perf: PerfilScreen
@@ -93,7 +95,6 @@ const TabNavigator = createBottomTabNavigator(
   {
     Tienda,
     HomeStack,
-    Mens,
     Perfil
   },
   {

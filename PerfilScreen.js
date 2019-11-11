@@ -7,13 +7,14 @@ import {
   AsyncStorage,
   View,
   FlatList,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import CardTienda from "./components/CardTienda";
 import { Header } from "react-native-elements";
 import styled from "styled-components";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import Geocoder from "react-native-geocoding";
+import Icon from "react-native-vector-icons/Ionicons";
 
 Geocoder.init("AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc");
 /*var location;
@@ -91,9 +92,10 @@ export default class PerfilScreen extends React.Component {
 
   fetchData = async () => {
     //console.log("Está funcionando data");
-    const response = await fetch("http://192.168.0.238:3000/Productos");
+    const response = await fetch("http://35.237.172.249:3000/Productos");
     const productos = await response.json();
     this.setState({ data: productos });
+    this.setState({ isFetching: false });
     //console.log(JSON.stringify(this.state.data));
     //console.log(productos);
   };
@@ -193,65 +195,86 @@ export default class PerfilScreen extends React.Component {
 
     return (
       <Container>
-        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-          <Container></Container>
-          <ContainerPerfil>
-            <Menu />
-            <Avatar />
-            <Nombre>{this.state.currentUser}</Nombre>
-            <Jerarquia>Usuario Particular</Jerarquia>
-            <BotonClase>
-              <BotonText>Compras/Ventas</BotonText>
-            </BotonClase>
-          </ContainerPerfil>
+        <ContTop>
+          <Image
+            source={require("./assets/x2.png")}
+            style={{ height: 50, width: 50 }}
+          ></Image>
+        </ContTop>
+        <AllCont>
+          <TouchableOpacity
+            style={{
+              height: 35,
+              width: 35,
+              right: "6%",
+              top: "2%",
+              position: "absolute"
+            }}
+          >
+            <Icon name="ios-power" size={35} style={{ color: "#ff4d4d" }} />
+          </TouchableOpacity>
+          <View style={{ marginBottom: "10%" }} />
+          <Avatar source={require("./assets/avatar/usu.jpg")} />
+          <Nombre>{this.state.currentUser}</Nombre>
+          <Jerarquia>Usuario Particular</Jerarquia>
+          <BotonClase>
+            <BotonText>Compras/Ventas</BotonText>
+          </BotonClase>
+          <Actividad>Publicaciones</Actividad>
+          <ComprasView>
+            <FlatList
+              data={this.state.data}
+              renderItem={this.renderItem}
+              numColumns={2}
+              contentContainerStyle={{
+                alignItems: "center",
+                flexGrow: 1
+              }}
 
-          <ContainerPerfil2>
-            <Actividad>Publicaciones</Actividad>
-            <ComprasView>
-              <FlatList
-                data={this.state.data}
-                renderItem={this.renderItem}
-                numColumns={2}
-                contentContainerStyle={{
-                  alignItems: "center",
-                  flexGrow: 1,
-                  paddingBottom: 45
-                }}
-                /*onPress={() => {
+              /*onPress={() => {
                 this.props.navigation.navigate("Art", {
                   ArticleData: item.id_producto
                 });
               }}*/
-              />
-            </ComprasView>
-          </ContainerPerfil2>
-        </ScrollView>
+            />
+          </ComprasView>
+        </AllCont>
       </Container>
     );
   }
 }
 
+const Container = styled.View`
+  flex: 1;
+  background-color: #fafafa;
+  width: 100%;
+  align-items: center;
+`;
+
+const AllCont = styled.View`
+  border-radius: 5;
+  background-color: white;
+  width: 90%;
+  top: 6.5%;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5eced;
+`;
+
 const Nombre = styled.Text`
-  left: 22%;
-  width: 250px;
-  height: 51px;
-  top: 48%;
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 51px;
-  color: black;
+  color: #353536;
+  margin-bottom: 1%;
 `;
 
 const Jerarquia = styled.Text`
-  left: 36%;
-  width: 250px;
-  height: 51px;
-  top: 35%;
   font-style: normal;
   font-size: 12px;
-  line-height: 51px;
-  color: #5f5f5f;
+  color: #9d9d9d;
+  margin-bottom: 3%;
 `;
 
 const Avatar = styled.Image`
@@ -259,106 +282,35 @@ const Avatar = styled.Image`
   height: 80px;
   background-color: black;
   border-radius: 40px;
-  position: absolute;
-  left: 38.93%;
-  right: 34.13%;
-  top: 10.04%;
-  bottom: 73.52%;
-`;
-
-const Subtitle = styled.Text`
-  color: #b8bece;
-  font-weight: 600;
-  font-size: 17px;
-  margin-left: 20px;
-  margin-bottom: 0px;
-  text-transform: uppercase;
-`;
-
-const Container = styled.View`
-  flex: 1;
-  background-color: whitesmoke;
-`;
-
-const Name = styled.Text`
-  font-size: 24px;
-  color: #3c4560;
-  font-weight: bold;
-  margin-left: 30px;
-`;
-const Bar = styled.Text`
-  font-size: 25px;
-  color: #fff;
-  font-weight: 600;
-`;
-
-const TitleBar = styled.View`
-  width: 100%;
-  margin-top: 13px;
-  margin-bottom: 30px;
-  padding-left: 80px;
-`;
-
-const Menu = styled.Image`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  left: 90.27%;
-  right: 7.47%;
-  top: 13.55%;
-  bottom: 84.48%;
-`;
-
-const ContainerPerfil = styled.View`
-  width: 340px;
-  height: 220px;
-  position: relative;
-  top: 10%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  elevation: 2;
-  background: #ffffff;
-  border-radius: 5px;
-`;
-
-const ContainerPerfil2 = styled.View`
-  width: 340px;
-  height: 350px;
-  position: relative;
-  elevation: 2;
-  top: 15%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  background: #ffffff;
-  border-radius: 5px;
+  margin-bottom: 2%;
 `;
 
 const BotonClase = styled.TouchableOpacity`
-  position: absolute;
   width: 150px;
-  height: 31px;
-  left: 28%;
-  top: 80%;
-  border-radius: 5px;
-  background-color: #7444e8;
+  height: 50px;
+  border-radius: 5;
+  background-color: #ff4d4d;
+  margin-bottom: 10%;
+  align-items: center;
+  justify-content: center;
 `;
 
 const BotonText = styled.Text`
-  font-size: 15px;
+  margin-top: 22px;
+  font-size: 16px;
   color: #ffffff;
   text-align: center;
-  margin-top: 5px;
+  font-weight: bold;
 `;
 
 const Actividad = styled.Text`
-  position: absolute;
-  width: 100%;
+  width: 90%;
   height: 23px;
-  left: 5%;
-  top: 5%;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
   line-height: 23px;
-  color: black;
+  color: #353536;
 `;
 
 const ComprasView = styled.View`
@@ -370,5 +322,11 @@ const ComprasView = styled.View`
   border-top-left-radius: 5;
   border-top-right-radius: 5;
   border: 1px solid #e5eced;
-  top: 13%;
+`;
+
+const ContTop = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  top: 8.2%;
 `;
