@@ -15,6 +15,9 @@ import { Header } from "react-native-elements";
 import styled from "styled-components";
 import Geocoder from "react-native-geocoding";
 import Icon from "react-native-vector-icons/Ionicons";
+import { Buffer } from "buffer";
+import { NavigationEvents } from "react-navigation";
+import { getDistance, convertDistance } from "geolib";
 
 Geocoder.init("AIzaSyCm62Zh7VrzfYqUhKhBdZjpEWkF8Ddl2hc");
 /*var location;
@@ -92,18 +95,47 @@ export default class PerfilScreen extends React.Component {
     };
   }
 
-  fetchData = async () => {
-    //console.log("Está funcionando data");
-    const response = await fetch("http://35.237.172.249:3000/Productos");
-    const productos = await response.json();
-    this.setState({ data: productos });
-    this.setState({ isFetching: false });
-    //console.log(JSON.stringify(this.state.data));
-    //console.log(productos);
+  getSessionValues = async () => {
+    try {
+      AsyncStorage.getItem("user")
+        .then(user => {
+          this.setState({ currentUser: user });
+        })
+        .done();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  _choosen(selectedItem) {
+    this.setState({ selectedItem });
+  }
+
+  userProducts = async () => {
+    fetch("http://192.168.0.238:3000/PublicacionesUsuario", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        publicador: "Facundo Moreno"
+      })
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          console.log(JSON.parse(JSON.stringify(res.productos)));
+          this.setState({ data: res.productos });
+        } else {
+          alert(res.message);
+        }
+      })
+      .done();
   };
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
+    /*navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -114,16 +146,18 @@ export default class PerfilScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-    this.fetchData();
+    */
+    this.getSessionValues();
   }
 
   functionCombined() {}
 
-  onRefresh() {
+  /*onRefresh() {
     this.setState({ isFetching: true }, function() {
       this.fetchData();
     });
   }
+  */
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
@@ -175,49 +209,6 @@ export default class PerfilScreen extends React.Component {
         </TouchableOpacity>
       </View>
     );
-  };
-
-  componentDidMount() {
-    this.getSessionValues();
-  }
-
-  getSessionValues = async () => {
-    try {
-      AsyncStorage.getItem("user")
-        .then(user => {
-          this.setState({ currentUser: user });
-        })
-        .done();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  _choosen(selectedItem) {
-    this.setState({ selectedItem });
-  }
-
-  userProducts = async () => {
-    fetch("http://192.168.0.238:3000/PublicacionesUsuario", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        publicador: this.state.currentUser
-      })
-    })
-      .then(response => response.json())
-      .then(res => {
-        if (res.success === true) {
-          console.log(JSON.stringify(res.productos));
-          this.setState({ data: JSON.stringify(res.productos) });
-        } else {
-          alert(res.message);
-        }
-      })
-      .done();
   };
 
   render() {
