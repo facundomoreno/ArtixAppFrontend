@@ -114,7 +114,7 @@ export default class PerfilScreen extends React.Component {
   }
 
   userProducts = async () => {
-    fetch("http://192.168.0.238:3000/PublicacionesUsuario", {
+    fetch("http://35.237.172.249:3000/PublicacionesUsuario", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -139,7 +139,7 @@ export default class PerfilScreen extends React.Component {
   
 
   componentDidMount() {
-    /*navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -150,19 +150,18 @@ export default class PerfilScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-    */
     this.getSessionValues();
    
   }
 
   functionCombined() {}
 
-  /*onRefresh() {
+  onRefresh() {
     this.setState({ isFetching: true }, function() {
-      this.fetchData();
+      this.userProducts();
     });
   }
-  */
+  
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
@@ -171,7 +170,7 @@ export default class PerfilScreen extends React.Component {
     const isSelected = this.state.selectedItem === item.id_producto;
     return (
       <View>
-        <NavigationEvents onDidFocus={() => this.fetchData()} />
+        <NavigationEvents onDidFocus={() => this.userProducts()} />
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
         >
@@ -265,11 +264,11 @@ export default class PerfilScreen extends React.Component {
               }}
               onRefresh={() => this.onRefresh()}
               refreshing={this.state.isFetching}
-              /*onPress={() => {
+              onPress={() => {
                 this.props.navigation.navigate("Art", {
                   ArticleData: item.id_producto
                 });
-              }}*/
+              }}
             />
           </ComprasView>
         </AllCont>

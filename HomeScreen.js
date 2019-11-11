@@ -104,6 +104,14 @@ export default class HomeScreen extends React.Component {
               />
               <MapView.Marker
                 coordinate={{
+                  latitude: -34.5477715,
+                  longitude: -58.4778473
+                }}
+                title={"Garbarino"}
+                description={"Local de tecnología y electrodomésticos"}
+              />
+              <MapView.Marker
+                coordinate={{
                   latitude: eugenia.latitude,
                   longitude: eugenia.longitude
                 }}
@@ -166,8 +174,33 @@ export default class HomeScreen extends React.Component {
                     10 +
                   " km"
                 }
-                shopScore={require("./assets/score4.png")}
+                //shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
+              />
+              <CardShops
+                shopName="Garbarino"
+                shopLocation="Av. Cabildo 2027"
+                shopDistance={
+                  Math.round(
+                    convertDistance(
+                      getDistance(
+                        {
+                          latitude: this.state.latitude,
+                          longitude: this.state.longitude
+                        },
+                        {
+                          latitude: -34.5477715,
+                          longitude: -58.4778473
+                        }
+                      ),
+                      "km"
+                    ) * 10
+                  ) /
+                    10 +
+                  " km"
+                }
+                //shopScore={require("./assets/score4.png")}
+                shopImage={require("./assets/shops/garbarino.jpg")}
               />
               <CardShops
                 shopName="Eugenia Eventos"
@@ -191,32 +224,7 @@ export default class HomeScreen extends React.Component {
                     10 +
                   " km"
                 }
-                shopScore={require("./assets/score4.png")}
-                shopImage={require("./assets/shops/eugeniaeventos.jpg")}
-              />
-              <CardShops
-                shopName="Lulyna Showroom"
-                shopLocation="Ciudad de la Paz 353"
-                shopDistance={
-                  Math.round(
-                    convertDistance(
-                      getDistance(
-                        {
-                          latitude: this.state.latitude,
-                          longitude: this.state.longitude
-                        },
-                        {
-                          latitude: lulyna.latitude,
-                          longitude: lulyna.longitude
-                        }
-                      ),
-                      "km"
-                    ) * 10
-                  ) /
-                    10 +
-                  " km"
-                }
-                shopScore={require("./assets/score4.png")}
+                //shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/lulyna.jpg")}
               />
             </ScrollView>

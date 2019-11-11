@@ -23,18 +23,18 @@ export default class LogScreen extends React.Component {
       mail: ""
     };
   }
-
+/*
   componentDidMount() {
     this._loadInitialState().done();
   }
-
+  
   _loadInitialState = async () => {
     var value = await AsyncStorage.getItem("user");
     if (value !== null) {
       this.props.navigation.navigate("AppTab");
     }
   };
-
+*/
   login = async () => {
     fetch("http://35.237.172.249:3000/Login", {
       method: "POST",
