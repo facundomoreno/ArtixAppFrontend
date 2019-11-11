@@ -74,7 +74,9 @@ export default class PerfilScreen extends React.Component {
           desc: "Una webcam para emprendedores tecnológicos ambiciosos."
         }*/
       ],
-      selectedItem: null
+      selectedItem: null,
+      isFetching: false,
+      entro: 0
     };
     boca = {
       latitude: -34.6331619,
@@ -116,6 +118,12 @@ export default class PerfilScreen extends React.Component {
   }
 
   functionCombined() {}
+
+  onRefresh() {
+    this.setState({ isFetching: true }, function() {
+      this.fetchData();
+    });
+  }
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
@@ -177,7 +185,6 @@ export default class PerfilScreen extends React.Component {
     try {
       AsyncStorage.getItem("user")
         .then(user => {
-          //console.log(user)
           this.setState({ currentUser: user });
         })
         .done();
@@ -190,8 +197,34 @@ export default class PerfilScreen extends React.Component {
     this.setState({ selectedItem });
   }
 
+  userProducts = async () => {
+    fetch("http://192.168.0.238:3000/PublicacionesUsuario", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        publicador: this.state.currentUser
+      })
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.success === true) {
+          console.log(JSON.stringify(res.productos));
+          this.setState({ data: JSON.stringify(res.productos) });
+        } else {
+          alert(res.message);
+        }
+      })
+      .done();
+  };
+
   render() {
     console.log("Current user: " + this.state.currentUser);
+    if (this.state.currentUser != "") {
+      this.userProducts();
+    }
 
     return (
       <Container>
@@ -230,7 +263,8 @@ export default class PerfilScreen extends React.Component {
                 alignItems: "center",
                 flexGrow: 1
               }}
-
+              onRefresh={() => this.onRefresh()}
+              refreshing={this.state.isFetching}
               /*onPress={() => {
                 this.props.navigation.navigate("Art", {
                   ArticleData: item.id_producto
