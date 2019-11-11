@@ -95,6 +95,8 @@ export default class PerfilScreen extends React.Component {
     };
   }
 
+ 
+
   getSessionValues = async () => {
     try {
       AsyncStorage.getItem("user")
@@ -119,20 +121,22 @@ export default class PerfilScreen extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        publicador: "Facundo Moreno"
+        publicador: this.state.currentUser
       })
     })
       .then(response => response.json())
       .then(res => {
         if (res.success === true) {
           console.log(JSON.parse(JSON.stringify(res.productos)));
-          this.setState({ data: res.productos });
+          this.setState({ data: res.productos});
         } else {
           alert(res.message);
         }
       })
       .done();
   };
+
+  
 
   componentDidMount() {
     /*navigator.geolocation.getCurrentPosition(
@@ -148,6 +152,7 @@ export default class PerfilScreen extends React.Component {
     );
     */
     this.getSessionValues();
+   
   }
 
   functionCombined() {}
@@ -211,11 +216,15 @@ export default class PerfilScreen extends React.Component {
     );
   };
 
+  
+
   render() {
     console.log("Current user: " + this.state.currentUser);
-    if (this.state.currentUser != "") {
+    if (this.state.currentUser != "" && this.state.entro == 0) {
       this.userProducts();
+      this.setState({entro: 1});
     }
+   
 
     return (
       <Container>
