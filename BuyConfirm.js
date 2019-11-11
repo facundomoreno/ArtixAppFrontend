@@ -71,7 +71,7 @@ export default class BuyConfirm extends React.Component {
                 justifyContent: "center",
                 alignItems: "center"
               }}
-              onPress={() => this.props.navigation.navigate("Home")}
+              onPress={() => this.props.navigation.goBack(null)}
             >
               <ContinueText>Hecho</ContinueText>
             </TouchableOpacity>

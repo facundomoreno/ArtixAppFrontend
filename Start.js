@@ -15,11 +15,7 @@ export default class Start extends React.Component {
   render() {
     return (
       <Container>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("AppTab")}
-        >
           <Logo source={require("./assets/sxhb.png")}></Logo>
-        </TouchableOpacity>
         <Buttons>
           <Register>
             <TouchableOpacity
@@ -107,5 +103,5 @@ const LoginText = styled.Text`
 const Logo = styled.Image`
   width: 150px;
   height: 150px;
-  top: 20%;
+  top: 10%;
 `;

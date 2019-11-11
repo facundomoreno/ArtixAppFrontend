@@ -77,6 +77,7 @@ export default class HomeScreen extends React.Component {
             source={require("./assets/x2.png")}
             style={{ height: 50, width: 50 }}
           ></Image>
+          
         </ContTop>
         <MenuView>
           <MapaView>

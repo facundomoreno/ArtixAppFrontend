@@ -172,7 +172,7 @@ export default class PerfilScreen extends React.Component {
       <View>
         <NavigationEvents onDidFocus={() => this.userProducts()} />
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
+          onPress={() => this.props.navigation.navigate("ArtPerf", { itemx: item })}
         >
           <CardTienda
             key={item.id_producto}
@@ -182,7 +182,7 @@ export default class PerfilScreen extends React.Component {
             }
             itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
-            itemLocation={item.ciudad + "\n" + item.provincia}
+            itemLocation={item.provincia}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -234,17 +234,6 @@ export default class PerfilScreen extends React.Component {
           ></Image>
         </ContTop>
         <AllCont>
-          <TouchableOpacity
-            style={{
-              height: 35,
-              width: 35,
-              right: "6%",
-              top: "2%",
-              position: "absolute"
-            }}
-          >
-            <Icon name="ios-power" size={35} style={{ color: "#ff4d4d" }} />
-          </TouchableOpacity>
           <View style={{ marginBottom: "10%" }} />
           <Avatar source={require("./assets/avatar/usu.jpg")} />
           <Nombre>{this.state.currentUser}</Nombre>
