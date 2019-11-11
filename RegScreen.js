@@ -25,7 +25,7 @@ export default class RegScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     //this._loadInitialState().done();
   }
 

@@ -24,7 +24,7 @@ export default class LogScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     this._loadInitialState().done();
   }
 
@@ -33,7 +33,7 @@ export default class LogScreen extends React.Component {
     if (value !== null) {
       this.props.navigation.navigate("AppTab");
     }
-  };
+  };*/
 
   login = async () => {
     fetch("http://35.237.172.249:3000/Login", {

@@ -114,7 +114,7 @@ export default class PerfilScreen extends React.Component {
   }
 
   userProducts = async () => {
-    fetch("http://192.168.0.238:3000/PublicacionesUsuario", {
+    fetch("http://35.237.172.249:3000/PublicacionesUsuario", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -139,7 +139,7 @@ export default class PerfilScreen extends React.Component {
   
 
   componentDidMount() {
-    /*navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           latitude: position.coords.latitude,
@@ -150,19 +150,19 @@ export default class PerfilScreen extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 20000 }
     );
-    */
+    
     this.getSessionValues();
    
   }
 
   functionCombined() {}
 
-  /*onRefresh() {
+  onRefresh() {
     this.setState({ isFetching: true }, function() {
-      this.fetchData();
+      this.userProducts();
     });
   }
-  */
+  
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
@@ -171,9 +171,9 @@ export default class PerfilScreen extends React.Component {
     const isSelected = this.state.selectedItem === item.id_producto;
     return (
       <View>
-        <NavigationEvents onDidFocus={() => this.fetchData()} />
+        <NavigationEvents onDidFocus={() => this.userProducts()} />
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("Art", { itemx: item })}
+          onPress={() => this.props.navigation.navigate("ArtPerf", { itemx: item })}
         >
           <CardTienda
             key={item.id_producto}
@@ -183,7 +183,7 @@ export default class PerfilScreen extends React.Component {
             }
             itemAvImage={require("./assets/avatar/roca.jpg")}
             itemName={item.nombreprod}
-            itemLocation={item.ciudad + "\n" + item.provincia}
+            itemLocation={item.provincia}
             itemDistance={
               Math.round(
                 convertDistance(
@@ -235,17 +235,6 @@ export default class PerfilScreen extends React.Component {
           ></Image>
         </ContTop>
         <AllCont>
-          <TouchableOpacity
-            style={{
-              height: 35,
-              width: 35,
-              right: "6%",
-              top: "2%",
-              position: "absolute"
-            }}
-          >
-            <Icon name="ios-power" size={35} style={{ color: "#ff4d4d" }} />
-          </TouchableOpacity>
           <View style={{ marginBottom: "10%" }} />
           <Avatar source={require("./assets/avatar/usu.jpg")} />
           <Nombre>{this.state.currentUser}</Nombre>

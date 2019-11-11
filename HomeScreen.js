@@ -77,6 +77,7 @@ export default class HomeScreen extends React.Component {
             source={require("./assets/x2.png")}
             style={{ height: 50, width: 50 }}
           ></Image>
+          
         </ContTop>
         <MenuView>
           <MapaView>
@@ -193,31 +194,6 @@ export default class HomeScreen extends React.Component {
                 }
                 shopScore={require("./assets/score4.png")}
                 shopImage={require("./assets/shops/eugeniaeventos.jpg")}
-              />
-              <CardShops
-                shopName="Lulyna Showroom"
-                shopLocation="Ciudad de la Paz 353"
-                shopDistance={
-                  Math.round(
-                    convertDistance(
-                      getDistance(
-                        {
-                          latitude: this.state.latitude,
-                          longitude: this.state.longitude
-                        },
-                        {
-                          latitude: lulyna.latitude,
-                          longitude: lulyna.longitude
-                        }
-                      ),
-                      "km"
-                    ) * 10
-                  ) /
-                    10 +
-                  " km"
-                }
-                shopScore={require("./assets/score4.png")}
-                shopImage={require("./assets/shops/lulyna.jpg")}
               />
             </ScrollView>
           </ShopsView>

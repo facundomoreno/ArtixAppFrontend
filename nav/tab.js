@@ -75,7 +75,8 @@ Mens.navigationOptions = {
 }
 
 const Perfil = createStackNavigator({
-  Perf: PerfilScreen
+  Perf: PerfilScreen,
+  ArtPerf: ArtScreen,
 });
 
 Perfil.navigationOptions = {
